@@ -6,7 +6,7 @@ Decisions the autonomous sessions could not make. **Review one item at a time**,
 
 ### Q4. Knowledge MCP missing at install
 - **Question:** Keep `.mcp.json` in `poe1-expert` now, while `exiled-studio-knowledge-mcp` does not exist yet?
-- **Why:** Until a release carries the binary (it is built on DBAggie/Exiled-Studio PR #123, open), every session with the plugin shows one failed MCP server unless `EXILED_STUDIO_KNOWLEDGE_MCP` points at a dev build. The `.mcp.json` arguments match the binary's flags.
+- **Why:** Until a release carries the binary (merged into `dev` with DBAggie/Exiled-Studio PR #123, not yet released), every session with the plugin shows one failed MCP server unless `EXILED_STUDIO_KNOWLEDGE_MCP` points at a dev build. The `.mcp.json` arguments match the binary's flags.
 - **Default taken:** kept (the plan's layout), with `EXILED_STUDIO_KNOWLEDGE_MCP` to point at a dev build; the skills say what to do without it.
 - **Choices:** keep / remove until step 6 lands.
 - **Answer:**
@@ -75,7 +75,7 @@ Decisions the autonomous sessions could not make. **Review one item at a time**,
 - **Why:** It blocks plan step 6 (`tools/knowledge-mcp`). The defaults: (1) serve only `Trusted` bundles, not ones accepted in the app; (2) Steam build to patch table in the tool; (3) ship the binary as a release asset beside the app; (4) `get_price` takes item name plus optional variant and links; (5) a preparatory PR moves the bundle scan from `loom-app` into a small host crate.
 - **Default taken:** nothing built; the ADR waits for your merge.
 - **Choices:** merge as is / merge with changes (say which) / reject.
-- **Answer (maintainer, 2026-11-16):** accepted with its five defaults, and all the work goes on PR #123. Done there: ADR-018 marked accepted, the host crate `loom-bundles`, `tools/knowledge-mcp` (binary `exiled-studio-knowledge-mcp`, eight read-only tools, `patches.json` with 26530219 = 3.30.0), and the release workflow shipping the binary. PR #123 is open; the binary reaches users with the next release after it merges.
+- **Answer (maintainer, 2026-11-16):** accepted with its five defaults, and all the work goes on PR #123. Done there: ADR-018 marked accepted, the host crate `loom-bundles`, `tools/knowledge-mcp` (binary `exiled-studio-knowledge-mcp`, eight read-only tools, `patches.json` with 26530219 = 3.30.0), and the release workflow shipping the binary. PR #123 merged into `dev` 2026-11-16 (squash `2f7ea82`); the binary reaches users with the next release.
 
 ### Q3. Which patch is the current bundle?
 - **Question:** Is Steam build 26530219 (the bundle in OneDrive, extracted 2026-11-15) patch 3.30.0 (Covens of Umbra) or a 3.29 build?
