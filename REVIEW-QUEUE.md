@@ -4,25 +4,11 @@ Decisions the autonomous sessions could not make. **Review one item at a time**,
 
 ## Open
 
-### Q1. Repository visibility
-- **Question:** Make `DBAggie/exiled-studio-knowledge` public?
-- **Why:** The plan sets an MIT license and an install by `/plugin marketplace add`, which suggests a public repo. Making something public is your call, so the session did not.
-- **Default taken:** created **private**. Install still works on machines where `gh`/git is signed in as you.
-- **Choices:** make it public now / keep private until v1 gate / keep private.
-- **Answer:**
-
 ### Q2. ADR-018 and its five defaults
 - **Question:** Accept ADR-018 (knowledge MCP) as proposed in DBAggie/Exiled-Studio PR #123, including its five "Not decided here" defaults?
 - **Why:** It blocks plan step 6 (`tools/knowledge-mcp`). The defaults: (1) serve only `Trusted` bundles, not ones accepted in the app; (2) Steam build to patch table in the tool; (3) ship the binary as a release asset beside the app; (4) `get_price` takes item name plus optional variant and links; (5) a preparatory PR moves the bundle scan from `loom-app` into a small host crate.
 - **Default taken:** nothing built; the ADR waits for your merge.
 - **Choices:** merge as is / merge with changes (say which) / reject.
-- **Answer:**
-
-### Q3. Which patch is the current bundle?
-- **Question:** Is Steam build 26530219 (the bundle in OneDrive, extracted 2026-11-15) patch 3.30.0 (Covens of Umbra) or a 3.29 build?
-- **Why:** The pack targets 3.30. ADR-018's patch table and every MCP answer's `patch` field need this row. A 3.29 bundle would answer 3.30 questions with old data.
-- **Default taken:** none recorded; references say `patch: 3.30.0`.
-- **Choices:** 3.30.0 / 3.29.x (then a new data run for 3.30 is needed) / unknown.
 - **Answer:**
 
 ### Q4. Knowledge MCP missing at install
@@ -80,3 +66,21 @@ Decisions the autonomous sessions could not make. **Review one item at a time**,
 - **Default taken:** left out, said so in the summary.
 - **Choices:** you write it / a session with the builds page open writes it, you review / skip meta for v1.
 - **Answer:**
+
+## Answered
+
+### Q1. Repository visibility
+- **Question:** Make `DBAggie/exiled-studio-knowledge` public?
+- **Why:** The plan sets an MIT license and an install by `/plugin marketplace add`, which suggests a public repo. Making something public is your call, so the session did not.
+- **Default taken:** created **private**. Install still works on machines where `gh`/git is signed in as you.
+- **Choices:** make it public now / keep private until v1 gate / keep private.
+- **Answer (maintainer, 2026-11-16):** keep it a separate private repo. Done: `DBAggie/exiled-studio-knowledge` is private.
+
+
+### Q3. Which patch is the current bundle?
+- **Question:** Is Steam build 26530219 (the bundle in OneDrive, extracted 2026-11-15) patch 3.30.0 (Covens of Umbra) or a 3.29 build?
+- **Why:** The pack targets 3.30. ADR-018's patch table and every MCP answer's `patch` field need this row. A 3.29 bundle would answer 3.30 questions with old data.
+- **Default taken:** none recorded; references say `patch: 3.30.0`.
+- **Choices:** 3.30.0 / 3.29.x (then a new data run for 3.30 is needed) / unknown.
+- **Answer (maintainer, 2026-11-16):** 3.30.0. Steam build 26530219 is patch 3.30.0 (Covens of Umbra); the references' `patch: 3.30.0` stands, and ADR-018's patch table gets this row.
+
