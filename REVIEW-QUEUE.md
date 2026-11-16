@@ -38,3 +38,45 @@ Decisions the autonomous sessions could not make. **Review one item at a time**,
 - **Default taken:** CI only checks case format; the runner is not built.
 - **Choices:** API key secret, fast subset on PRs, full suite manually / run evals only on the workstation / decide later.
 - **Answer:**
+
+### Q6. poe.ninja User-Agent contact
+- **Question:** What contact should the refresh job's User-Agent carry?
+- **Why:** poe.ninja asks for a User-Agent that names the app and a contact. Sessions do not put your name, email, or project in requests to outside services without your OK.
+- **Default taken:** `exiled-studio-knowledge-refresh/0.1` with no contact. The first snapshot (PR #2) was fetched with it: 16 requests, 2 s apart.
+- **Choices:** the repo URL / a contact email / keep it without a contact. Set it with `REFRESH_USER_AGENT` in the scheduled task.
+- **Answer:**
+
+### Q7. Register the scheduled refresh
+- **Question:** Register the economy refresh as a Windows scheduled task on the main workstation, and at what cadence?
+- **Why:** The plan says refreshes run as scheduled tasks on your workstation. Registering a task changes the machine, so the session did not do it.
+- **Default taken:** scripts only (PR #2): `tools/refresh/run-economy.ps1` (one refresh as a PR) and `tools/refresh/register-task.ps1` (you run it once: `-League Covens -EveryDays 2` for league-start week, then 7 to 14).
+- **Choices:** register now, every 2 days / register after league-start week / run by hand.
+- **Answer:**
+
+### Q8. Snapshot size in git
+- **Question:** Is about 1.6 MB of JSON per snapshot acceptable in git history?
+- **Why:** Every 2 days in league-start week and weekly after, a league adds roughly 15 to 25 MB. Skill gems are most of it (gem variants with fewer than 5 listings are already left out).
+- **Default taken:** kept as is, one row per line so diffs stay small.
+- **Choices:** keep / drop skill gems / raise the listing floor / Git LFS.
+- **Answer:**
+
+### Q9. Mechanics drafts: how to verify
+- **Question:** How should the 22 draft references (PRs #4 to #25) reach `maintainer-approved`?
+- **Why:** poewiki blocked every automated fetch, and the official 3.30 patch-note thread was not found. Rules were checked against patch-note copies (poedb, patchbot.io), the pinned PoB 2.67.2, and memory. Each PR lists, under "For the maintainer", the exact points nobody could confirm.
+- **Default taken:** every file is `unverified`. Nothing merged.
+- **Choices:** you review each PR's list and merge / a later session re-checks with the official threads (give the links) and the engine first / merge as drafts, then verify in place.
+- **Answer:**
+
+### Q10. Stacked PRs
+- **Question:** Merge order for the knowledge repo PRs?
+- **Why:** PRs #2 to #25 are stacked on #1 (the skeleton, base `skeleton`). When #1 merges and its branch is deleted, GitHub retargets them to `main`. With a squash merge of #1 the others may show the skeleton's commit as a conflict.
+- **Default taken:** none merged.
+- **Choices:** merge #1 with a merge commit (no squash), then the rest in any order / squash #1 and let a session rebase the rest.
+- **Answer:**
+
+### Q11. Meta and build popularity
+- **Question:** Who writes the meta and popularity summary for each snapshot?
+- **Why:** The plan says it is written by hand from the poe.ninja builds page (no unsupported endpoints). The first snapshot's summary (PR #2) has prices only.
+- **Default taken:** left out, said so in the summary.
+- **Choices:** you write it / a session with the builds page open writes it, you review / skip meta for v1.
+- **Answer:**
