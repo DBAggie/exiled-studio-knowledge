@@ -1,0 +1,11 @@
+{
+  "name": "poe2-expert",
+  "displayName": "Path of Exile 2 (placeholder)",
+  "version": "0.0.0-stub",
+  "description": "Placeholder until after Path of Exile 2 1.0 (2026-12-11). Holds no PoE2 knowledge: it tells Claude to say so, keep PoE1 knowledge out of PoE2 answers, and check current sources.",
+  "author": {
+    "name": "DBAggie"
+  },
+  "license": "MIT",
+  "keywords": ["path-of-exile", "poe2"]
+}

@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "exiled-studio-knowledge": {
+      "type": "stdio",
+      "command": "${EXILED_STUDIO_KNOWLEDGE_MCP:-exiled-studio-knowledge-mcp}",
+      "args": [
+        "--game",
+        "poe1",
+        "--snapshots",
+        "${CLAUDE_PLUGIN_ROOT}/skills/poe1-economy/snapshots"
+      ]
+    }
+  }
+}
