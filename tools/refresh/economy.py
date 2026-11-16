@@ -35,7 +35,7 @@ OUT = ROOT / "plugins" / "poe1-expert" / "skills" / "poe1-economy" / "snapshots"
 UA = os.environ.get("REFRESH_USER_AGENT", "exiled-studio-knowledge-refresh/0.1")
 PAUSE_S = 2.0
 
-EXCHANGE_TYPES = ["Currency", "Fragment", "Scarab", "DivinationCard", "Essence", "Fossil", "Oil", "Omen"]
+EXCHANGE_TYPES = ["Currency", "Fragment", "Thread", "DivinationCard", "Essence", "Fossil", "Oil", "Omen"]
 ITEM_TYPES = [
     "UniqueWeapon", "UniqueArmour", "UniqueAccessory", "UniqueFlask", "UniqueJewel",
     "SkillGem", "ClusterJewel",
