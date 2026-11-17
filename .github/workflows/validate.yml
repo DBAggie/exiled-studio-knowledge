@@ -22,3 +22,7 @@ jobs:
         run: python tools/validate/validate.py
       - name: Eval cases are well formed
         run: python evals/check_cases.py
+      - name: Eval runner tests (fake model, no API call)
+        run: python -m unittest discover -s evals -v
+      - name: Refresh tool tests
+        run: python -m unittest discover -s tools/refresh -v
