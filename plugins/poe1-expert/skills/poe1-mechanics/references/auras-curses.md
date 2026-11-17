@@ -1,14 +1,19 @@
 ---
 game: poe1
 patch: 3.30.0
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://poedb.tw/us/Version_3.30.0
-  - https://poedb.tw/us/Version_3.29.0
-  - https://poedb.tw/us/Version_3.28.0
-  - https://poedb.tw/us/Version_3.27.0
-  - https://poedb.tw/us/Version_3.26.0
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://www.pathofexile.com/forum/view-thread/3985332
+  - https://www.pathofexile.com/forum/view-thread/3913392
+  - https://www.pathofexile.com/forum/view-thread/3869068
+  - https://www.pathofexile.com/forum/view-thread/3787013
+  - https://www.pathofexile.com/forum/view-thread/3531661
+  - https://www.poewiki.net/wiki/Curse
+  - https://www.poewiki.net/wiki/Reservation
+  - https://www.poewiki.net/wiki/Divine_Blessing_Support
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcPerform.lua
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/ConfigOptions.lua
 verification: unverified
 ---
 
@@ -59,10 +64,15 @@ reserved = base reservation
   Multiplier") multiply together. 3.26 to 3.29 changed several of these; read
   the current values through the knowledge tools.
 - **Reservation efficiency** divides. 100% increased efficiency halves the
-  reservation, it does not remove it. Efficiency below -100% is treated as
-  -100%.
-- PoB rounds flat reservation to a whole number and percent reservation to
-  two decimals at the end. The game's exact rounding is not confirmed.
+  reservation, it does not remove it. At -100% or lower the sources differ:
+  PoB treats anything below -100% as -100%; poewiki says 100% or more
+  *reduced* efficiency makes the reservation infinite, so the skill cannot be
+  used.
+- Rounding: since 3.14 the game keeps percent reservation to two decimals,
+  but the total amount reserved is always a whole number (poewiki). PoB rounds
+  flat reservation to a whole number and percent reservation to two decimals
+  at the end. Whether the game rounds the whole-number total up or down is
+  **not confirmed**.
 - **Cost efficiency** is a different stat: it changes skill costs, not
   reservation. 3.29 converted the tree's "reduced cost" lines into cost
   efficiency; they never touched reservation.
@@ -83,10 +93,16 @@ reserved = base reservation
 
 ## Blessings
 
-- Divine Blessing Support changes a supported aura into a timed buff. The aura
-  no longer reserves; it costs mana each use and lasts a short duration.
-- A blessing is still an aura while it runs, so aura effect still scales it.
-  Not confirmed for every aura in 3.30.
+- Since 3.25.0 the Divine Blessing Support gem no longer exists; the support
+  comes only from the unique March of the Legion (official 3.25.0 notes).
+- It changes a supported aura into a timed buff. The aura no longer reserves:
+  each use costs the aura's base reservation as mana plus a flat cost, and the
+  aura lasts a short duration (scaled by skill effect duration).
+  Reservation efficiency does nothing to that cost.
+- A blessing is still an aura while it runs, so aura effect scales it; the
+  support itself grants increased aura effect (poewiki). It cannot support
+  non-permanent auras such as mines, banners or stances, and blessed auras
+  cannot be triggered.
 
 ## Curses
 
@@ -115,23 +131,32 @@ curse value = gem's base value x (1 + sum of increased curse effect / 100)
   its choice of which curses stay may differ from the game's.
 - Some curses ignore the limit (skills that say they ignore the hex limit, and
   some item effects). These sit on top of the limit.
-- One mark at a time: you can have a single marked enemy. In PoB's model the
-  mark still takes one of your curse slots. Not confirmed in game for 3.30.
+- One mark at a time: you can have a single marked enemy, and a target can
+  carry only one mark. A mark **does** take one of the target's curse slots:
+  with +1 curse limit you can have two hexes, or a hex and a mark, on one
+  enemy, but never two marks (poewiki; PoB models it the same way).
 - Hexproof enemies cannot be hexed unless a line says your curses ignore
   hexproof. Marks still apply.
 
 ### Doom
-- Some hexes can gain **Doom** while on an enemy. A hex gains doom only if a
-  source gives it a maximum doom (some skills and items do).
-- Each point of doom gives the hex 1% increased effect, up to its maximum.
-  A rare line doubles that per point.
-- Impending Doom Support triggers Doom Blast when a supported hex ends. How its
-  damage relates to doom in 3.30 is not confirmed; read the gem's current text.
+- Doom as a general hex mechanic was **removed in 3.20.0** (poewiki). Hexes
+  no longer gain doom by default.
+- A few older lines still give hexes a maximum doom ("hexes you inflict have
+  +X to maximum doom"). PoB still parses those and gives the hex 1% increased
+  effect per point of doom, up to that maximum. Treat them as legacy.
+- Impending Doom Support still exists: it triggers Doom Blast when a supported
+  hex ends. Doom Blast is a spell hit with its own base damage; its damage does
+  not depend on doom. 3.25.0 changed its added damage effectiveness from a
+  flat value to a range by gem level (220% to 370% at gem levels 1 to 20).
+  Read the gem's current numbers through the tools.
 
 ### Curses and bosses
-- Many bosses have reduced curse effect on themselves. The size depends on the
-  boss and is part of the monster's data. Exact values in 3.30 are not
-  confirmed; do not quote a fixed percentage.
+- The old general penalty to curse effect on unique monsters and bosses was
+  **removed in the 3.20.0 curse rework**, together with doom (poewiki). PoB
+  2.67.2's boss settings apply no curse-effect reduction. No 3.26 to 3.30 note
+  brings one back. A specific monster can still have its own "reduced effect
+  of curses on you" line; check that monster, but do not apply a general boss
+  penalty.
 - Curse effect on players (monster curses) uses the player's "reduced effect
   of curses on you".
 
@@ -153,7 +178,7 @@ curse value = gem's base value x (1 + sum of increased curse effect / 100)
 - Adding two exposures of the same element.
 - Counting exposure against the curse limit, or scaling it with curse effect.
 - Expecting marks on hexproof enemies to fail, or hexes on hexproof to work.
-- Quoting a fixed boss curse-effect reduction without checking the boss.
+- Applying the pre-3.20 boss curse penalty or doom to current hexes.
 - Assuming an aura with Generosity still buffs the caster.
 
 ## Check with the engine
@@ -166,3 +191,7 @@ curse value = gem's base value x (1 + sum of increased curse effect / 100)
   resistance; the enemy resistance breakdown shows it.
 - Curse effect, the curse limit and doom may not all be modelled. If no field
   exists, say the answer comes from these rules and PoB.
+
+## Verification (2026-11-17)
+
+Checked against the official 3.25.0 to 3.30.x notes (3.30.x read in full), poewiki's curse, reservation and Divine Blessing pages, and the pinned Path of Building 2.67.2 (curse effect and doom in `CalcPerform.lua`; boss settings in `ConfigOptions.lua`). Still `unverified`: the direction in which the game rounds the reserved total to a whole number is not confirmed.
