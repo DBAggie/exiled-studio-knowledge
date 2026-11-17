@@ -22,5 +22,22 @@ Eval suites measure what the pack adds: each case runs with and without the `poe
 - At least 90% mechanics accuracy
 - A clear gain over plain Claude on build diagnosis
 
-## Not built yet
-The runner (each case with and without the plugin, then grading) and CI's fast subset. Both need a decision on how CI calls Claude (`REVIEW-QUEUE.md`).
+## Running the suites
+The runner is a local script, run by hand on the workstation (`REVIEW-QUEUE.md`, Q5). CI never calls a model; it only checks the case format and runs the runner's tests against a fake model.
+
+```sh
+python evals/run.py                      # every approved case, with and without the plugin
+python evals/run.py --suite mechanics    # one suite
+python evals/run.py --id traps-001 --arms plugin
+python evals/run.py --dry-run            # list what would run; no model calls
+python -m unittest discover -s evals     # the runner's own tests
+```
+
+- **How Claude is called:** the `claude` command line (Claude Code) in print mode, in an empty working directory. The `plugin` arm adds `--plugin-dir plugins/poe1-expert`; the `plain` arm adds nothing. `--model` and `--grader-model` choose models.
+- **Grading:** a second, separate call with no tools and no plugin sees the question, the answer, the tools it called and the key, and returns a verdict per key item. A case passes when every `must` is met, no `must_not` is violated, and every tool in `expect_tools` was called (checked from the transcript, not by the grader). A grader reply that is not JSON, or that skips a key item, is an error, never a pass.
+- **Cases that need the app** (`setup.app_mcp`, the whole `tool-discipline` suite) are skipped unless `--app-mcp-config <file>` points at a running Exiled Studio's MCP server.
+- **Diagnosis fixtures** are not written yet. Those cases run from the prompt alone and are marked `no-fixture`.
+- **Output:** `local/eval-runs/<time>/results.jsonl` and `summary.md` (pass rates per suite and arm, and the v1 gates). `local/` is ignored by git.
+- **Cost:** each case is two model calls per arm (answer, grade): about 230 calls for the full set.
+
+The runner was tested with a fake model only. Its first real run on the workstation is the check that the `claude` flags and output format match the installed version.

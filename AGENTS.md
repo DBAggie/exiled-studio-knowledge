@@ -24,7 +24,7 @@ plugins/poe1-expert/                plugin: skills/, .mcp.json (knowledge MCP ov
   skills/poe1-economy/              snapshots/<league-slug>/<date>.{json,md}
 plugins/poe2-expert/                stub until after PoE2 1.0 (2026-12-11)
 schema/knowledge-header.schema.json the header every knowledge file carries
-evals/                              suites/<suite>.jsonl, check_cases.py
+evals/                              suites/<suite>.jsonl, check_cases.py, run.py (local runner)
 tools/validate/                     validate.py and its tests
 tools/refresh/                      economy refresh, patch-note triage
 REVIEW-QUEUE.md                     decisions waiting on the maintainer, one at a time
@@ -36,6 +36,9 @@ VERIFICATION-HANDOFF.md             work list for verifying the draft references
 python -m unittest discover -s tools/validate -v
 python tools/validate/validate.py
 python evals/check_cases.py
+python -m unittest discover -s evals            # eval runner tests (fake model)
+python -m unittest discover -s tools/refresh    # triage and refresh tool tests
+python evals/run.py --dry-run                   # the runner itself is run by hand, never in CI
 ```
 
 ## Versioning
