@@ -1,19 +1,25 @@
 ---
 game: poe1
 patch: 3.30.0
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
-  - https://poedb.tw/us/Version_3.29.0
-  - https://poedb.tw/us/Version_3.28.0
-  - https://poedb.tw/us/Version_3.27.0
-  - https://poedb.tw/us/Spell_Suppression
-verification: unverified
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://www.pathofexile.com/forum/view-thread/3985332
+  - https://www.pathofexile.com/forum/view-thread/3913392
+  - https://www.pathofexile.com/forum/view-thread/3869068
+  - https://www.pathofexile.com/forum/view-thread/3531661
+  - https://www.poewiki.net/wiki/Evasion
+  - https://www.poewiki.net/wiki/Energy_shield
+  - https://www.poewiki.net/wiki/Charge
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcDefence.lua
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/Data.lua
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Data/Misc.lua
+verification: engine-checked
 ---
 
 # Defences (PoE1 3.30)
 
-This file explains how each defence works and the order in which the game applies them to a hit. Constants match Path of Building's data (pinned PoB v2.67.2, tracking 3.29) plus the 3.27 to 3.30 patch notes we read. They are not confirmed in game for 3.30.
+This file explains how each defence works and the order in which the game applies them to a hit. Constants were checked against the pinned Path of Building 2.67.2 and the official 3.25.0 to 3.30.x notes (see Verification at the end). They are not checked in game.
 
 PoE2 differs; do not apply this there.
 
@@ -43,7 +49,7 @@ Avoidance and block are all-or-nothing rolls: the hit either lands or it does no
 
 Damage over time skips steps 1 to 3 (no evasion, block, suppression or armour). It meets resistances, damage-over-time taken modifiers, then energy shield and life.
 
-Since **3.29**, chance to "avoid all damage from hits" and chance to avoid damage of a specific type from hits are **additive** with each other (patch notes). Earlier they rolled separately.
+Since **3.29.0**, chance to "avoid all damage from hits" and chance to avoid damage of a specific type from hits are **additive** with each other (official 3.29.0 notes, Player Changes). Earlier they rolled separately.
 
 ## Armour
 
@@ -73,7 +79,7 @@ evade chance = 100% - chance to be hit                 (so at most 95%)
 
 **Entropy:** for players, evasion is not a fresh random roll each time. The game keeps a running counter that makes evades happen at a steady rate (for example, about every other hit at 50%). Long streaks of hits or evades do not happen.
 
-Evasion against critical strikes: a crit from an enemy must pass the accuracy check a second time, so evasion lowers how often you take crits. This is long-standing PoE1 behaviour; not confirmed for 3.30.
+Evasion against critical strikes: a crit from an enemy attack must pass the accuracy check a second time; if it fails, you take a normal hit instead. So evasion lowers how often you take attack crits. This second check is a plain random roll, outside the entropy counter. Spell crits ignore evasion. (poewiki's evasion page; PoB 2.67.2 multiplies the enemy's crit chance by your chance to evade it the same way. No 3.26 to 3.30 note changes it.)
 
 ## Block
 
@@ -84,7 +90,7 @@ Block stops all damage from a hit. Blocked hits do not apply on-hit effects such
 - Block chance comes mostly from shields, dual wielding (a small inherent amount), staves and passives.
 - Some keystones change block (for example Glancing Blows, where blocked hits deal part of their damage). Read their text through the tools.
 
-3.30 change: Gladiator's shield block notable gives less block than before (patch notes; value through the tools).
+3.30.0 lowered the Ascendant's Gladiator node (block chance taken from the shield) **in Ruthless only**; outside Ruthless nothing changed for block.
 
 ## Spell suppression
 
@@ -96,7 +102,7 @@ P = 40% by default, raised by "prevent +X% of suppressed spell damage"
 suppression chance is capped at 100%
 ```
 
-Changed in **3.27**: the base prevented share is now **40%** (previously 50%). Ailments inflicted by a suppressed hit are reduced by the same share.
+Changed in **3.27.0**: the base prevented share is now **40%** (previously 50%; official 3.27.0 notes, and PoB 2.67.2 uses 40). Ailments inflicted by a suppressed hit are reduced by the same share. 3.30.0 raised the Trickster's Spellbreaker to +20% prevented while on full energy shield (was +15%).
 
 Suppression is rolled after spell block. A blocked spell is not also suppressed.
 
@@ -119,8 +125,8 @@ R = your resistance, after max-res cap, floored at -200%
 
 ## Endurance charges and fortification
 
-- **Endurance charges** (base maximum 3): each gives 4% physical damage reduction and 4% elemental damage reduction (PoB's character constants). Older guides say "+4% to all elemental resistances"; the current data say elemental damage reduction. When that changed, and whether it holds in 3.30, is not confirmed.
-- **Fortification**: each point gives 1% less damage taken from hits. The base maximum is 20. Fortification is gained mostly from melee hits and decays over time. 3.30: Champion's Fortitude gives 20 fortification (was 15).
+- **Endurance charges** (base maximum 3): each gives 4% additional physical damage reduction and 4% additional elemental damage reduction. The elemental part changed in **3.25.0** from +4% to all elemental resistances to elemental damage reduction (official 3.25.0 notes, Player Balance); guides from before 3.25 are out of date. No later note changes it; PoB 2.67.2's game data and poewiki agree. `charges.md` says the same.
+- **Fortification**: each point gives 1% less damage taken from hits. The base maximum is 20 (game-data constants in PoB 2.67.2). Fortification is gained mostly from melee hits and decays over time. 3.30.0 raised Champion's Fortitude to 20 fortification (was 15) **in Ruthless only**.
 
 ## Ward
 
@@ -133,10 +139,10 @@ Ward is a pool that takes the damage of a hit before energy shield and life.
 
 ## Pools: energy shield, Mind over Matter, life
 
-- **Energy shield** takes damage before life. In PoE1, chaos damage does not bypass energy shield by default; some effects make part of a damage type bypass it. PoE2 differs; do not apply this there.
+- **Energy shield** takes damage before life. In PoE1, **chaos damage bypasses energy shield by default** and goes to life (poewiki); some effects stop that in part or in full (for example an energy shield mastery, Grasping Mail, or Esh's breach modifier). `recovery.md` says the same. PoE2 differs; do not apply this there.
 - **Mind over Matter** (keystone): a share of the damage that would go to life is taken from mana instead. Unreserved mana is the pool. Read the share through the tools.
 - **Life** is last. Some effects make life loss happen over time instead of at once (for example Petrified Blood style effects); this changes recovery windows, not the hit's size.
-- 3.28: Intelligence gives 1% increased maximum energy shield per 10 Intelligence (previously per 5).
+- 3.28.0: Intelligence gives 1% increased maximum energy shield per 10 Intelligence (previously per 5; official 3.28.0 notes, Player Changes).
 
 ## Effective HP and max hit
 
@@ -169,3 +175,7 @@ When quoting either number, say which assumptions the tool used: enemy damage ty
 
 - Exiled Studio's calc result computes armour, evasion, energy shield, the four resistances (with the campaign penalty from the config), attack block, spell block and spell suppression chance. Read those fields and their breakdowns for a sheet-value question.
 - Max hit, EHP, and the per-hit damage-taken walk are not computed fields as of v0.9 (not confirmed; check the field list). If missing, say so, compute with the formulas above, and point to PoB's defence breakdown as the reference.
+
+## Verification (2026-11-17)
+
+`engine-checked` here means: the armour and hit chance formulas (`CalcDefence.lua`), the caps (90% physical damage reduction, 95% evade, 75% default and 90% hard block and resistance caps, -200% resistance floor, 40% suppression; `Modules/Data.lua`), the -30%/-60% campaign penalty, fortification and endurance charges (game-data constants in `Data/Misc.lua`) were checked against the pinned Path of Building 2.67.2 and the official 3.25.0 to 3.30.x notes. poewiki was used for the crit second check and for chaos damage and energy shield. Not checked in game.
