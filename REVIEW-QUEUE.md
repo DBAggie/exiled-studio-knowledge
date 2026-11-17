@@ -4,12 +4,7 @@ Decisions the autonomous sessions could not make. **Review one item at a time**,
 
 ## Open
 
-### Q11. Meta and build popularity
-- **Question:** Who writes the meta and popularity summary for each snapshot?
-- **Why:** The plan says it is written by hand from the poe.ninja builds page (no unsupported endpoints). The first snapshot's summary (PR #2) has prices only.
-- **Default taken:** left out, said so in the summary.
-- **Choices:** you write it / a session with the builds page open writes it, you review / skip meta for v1.
-- **Answer:**
+None.
 
 ## Answered
 
@@ -83,3 +78,10 @@ Decisions the autonomous sessions could not make. **Review one item at a time**,
 - **Default taken:** every file is `unverified`. Nothing merged.
 - **Choices:** you review each PR's list and merge / a later session re-checks with the official threads (give the links) and the engine first / merge as drafts, then verify in place.
 - **Answer (maintainer, 2026-11-17):** verify in a real browser with Claude in Chrome, from a handoff note. (1) A session gathers every draft PR's "For the maintainer" points into one handoff note: claim, file and line, where to check. (2) One session per group (mechanics, build-advisor, community) opens the official 3.30 patch notes first, then poewiki, checks each point (mechanics also against the engine or PoB), fixes what is wrong, sets `verification` to `engine-checked` or `in-game-checked`, and lists its sources on the PR. (3) The maintainer skims each PR's evidence, merges, and promotes files to `maintainer-approved`.
+
+### Q11. Meta and build popularity
+- **Question:** Who writes the meta and popularity summary for each snapshot?
+- **Why:** The plan says it is written by hand from the poe.ninja builds page (no unsupported endpoints). The first snapshot's summary (PR #2) has prices only.
+- **Default taken:** left out, said so in the summary.
+- **Choices:** you write it / a session with the builds page open writes it, you review / skip meta for v1.
+- **Answer (maintainer, 2026-11-17):** a session with the poe.ninja builds page open in Claude in Chrome writes it on the snapshot's PR (top ascendancies and skills, trend, main archetypes; reading the page only), and the maintainer approves it. Recorded in `VERIFICATION-HANDOFF.md`, "Meta summaries".
