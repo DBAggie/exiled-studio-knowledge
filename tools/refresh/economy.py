@@ -32,7 +32,7 @@ ROOT = Path(__file__).resolve().parents[2]
 BASE = "https://poe.ninja/poe1/api/economy"
 CACHE = ROOT / "local" / "refresh-cache"
 OUT = ROOT / "plugins" / "poe1-expert" / "skills" / "poe1-economy" / "snapshots"
-UA = os.environ.get("REFRESH_USER_AGENT", "exiled-studio-knowledge-refresh/0.1")
+UA = os.environ.get("REFRESH_USER_AGENT", "exiled-studio-knowledge-refresh/0.1 (+https://github.com/DBAggie)")
 PAUSE_S = 2.0
 
 EXCHANGE_TYPES = ["Currency", "Fragment", "Thread", "DivinationCard", "Essence", "Fossil", "Oil", "Omen"]
