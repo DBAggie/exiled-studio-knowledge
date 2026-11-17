@@ -1,37 +1,25 @@
 # Follow-ups for the maintainer (2026-11-17)
 
-Left by the autonomous session that verified and merged PRs #2 to #25. Everything here needs the maintainer: a check in game, a number only the maintainer gives, or a decision. Go through them top to bottom; each stands alone. `main` is at `3.30.0-kb.27`.
+Left by the autonomous session that verified and merged PRs #2 to #25. Everything here needs the maintainer: a check in game, a number only the maintainer gives, or a decision. Go through them top to bottom; each stands alone. `main` is at `3.30.0-kb.28`.
 
 ## What was done
-- **Batch 1, mechanics (#4 to #6, #12 to #20):** verified and merged. 7 files `engine-checked`, 5 `unverified` (one open point each, section A).
+- **Batch 1, mechanics (#4 to #6, #12 to #20):** verified and merged. 11 files `engine-checked` after later passes; `ailments.md` still `unverified` (section A).
 - **Batch 2, build advisor (#7 to #11):** verified and merged. 4 files `engine-checked`; `defensive-thresholds.md` stays `unverified` (section B).
 - **Batch 3, community (#21 to #25, #28):** verified and merged. All 5 files `engine-checked` (section C).
 - **Economy (#2):** merged with the meta summary (section D).
 - **Eval questions (#3):** merged as drafts, keys empty (section E).
 - Each PR has a comment with every checklist point, its result and the link it was checked against.
 
-## A. In-game checks (mechanics)
-Each test is written out on its PR. Report the result and a session sets the file to `in-game-checked`.
+## A. In-game check (mechanics): one left
+Closed on 2026-11-17: leech after the enemy dies and oldest-minion replacement (the maintainer's confirmation, PR #32), trap arm time (near-instant, no published number, PR #32), reservation rounding (PoB and the engine, PR #31). Those four files are `engine-checked`. If the leech and minion answers came from in-game tests, say so and they can become `in-game-checked`.
 
-| File | Open point | Test saved on |
-|---|---|---|
-| `recovery.md` | Does leech keep running after the target dies? | PR #12 |
-| `minions.md` | Does summoning past the cap always replace the oldest minion? | PR #15 |
-| `totems-traps-mines.md` | The trap arm time | PR #17 |
-| `ailments.md` | Does a player's ailment threshold include energy shield? | PR #19 |
+**Still open, `ailments.md`:** does a **PoE1** player's ailment threshold include energy shield? Every source found, including the answer supplied on 2026-11-17, describes Path of Exile 2 (threshold from half of maximum life, passives that add energy shield to it). Neither PoB nor the engine models ailments on the player. Test saved on PR #19: on a Chaos Inoculation character, see whether chill and shock from the same enemy hit get weaker as energy shield goes up.
 
-Second pass with older sources allowed (PR #30): none of the five closed, but the tests are now narrower.
-- Leech after death: very likely yes (a GGG developer described an instance as a rate and a duration that ends only on expiry or full life). One quick test confirms it.
-- Minions: oldest-first is confirmed for Summon Skeletons (poewiki). Test zombies and spectres.
-- Reservation: closed in PR #31. PoB and the engine both round the reserved total up, and a player report agrees; `auras-curses.md` is `engine-checked`. An in-game look is still welcome but no longer blocks.
-- Trap arm time: no number in any source, old or new.
-- Player ailment threshold and energy shield: every source found is about PoE2.
-
-Community sources the maintainer added on 2026-11-17: poedb and Craft of Exile (used for `crafting.md`), Mobalytics and PoE Vault guides (no mechanics explainers for these points; useful for the community and build-advisor files, with ideas credited and no text copied).
-
-Also not checked in game, but stated with their source in the files:
+Not checked in game, but stated with their source in the files:
 - `ailments.md`: PoB takes non-damaging ailment effect from the hit **after** enemy mitigation; poewiki does not say.
 - `crit.md`: the 3.6.0 cap removal was confirmed from poewiki's version history, not from the 3.6.0 forum post.
+
+Community sources the maintainer added on 2026-11-17: poedb and Craft of Exile (used for `crafting.md`), Mobalytics and PoE Vault guides (no mechanics explainers for these points; useful for the community and build-advisor files, with ideas credited and no text copied).
 
 ## B. Numbers only the maintainer gives (build advisor)
 - **`defensive-thresholds.md`**: every life, chaos resistance and max hit target per content tier is a rule of thumb written from memory. Give or approve the numbers, then the file can leave `unverified`.
@@ -46,8 +34,8 @@ poedb was also searched for the five section A points (trap arm time, leech afte
 
 ## D. Approvals
 - **Meta summary** in `snapshots/covens/2026-11-16.md` (read from the poe.ninja builds page on 2026-11-17, league day 4): approve or correct it (Q11). The snapshot stays `unverified` until then.
-- **Promote to `maintainer-approved`**: only the maintainer does this. 17 references are `engine-checked` and ready for your skim: `damage`, `conversion`, `crit`, `charges`, `flasks`, `triggers`, `defences`, `auras-curses`; `diagnosis`, `gearing`, `reading-breakdowns`, `trade-offs`; `jargon`, `archetypes`, `budget-tiers`, `crafting`, `atlas`.
-- **Merged while still `unverified`** (5 files): the four in section A and `defensive-thresholds.md`. Each says in its Verification section what is open. Say if you would rather these had waited.
+- **Promote to `maintainer-approved`**: only the maintainer does this. 20 references are `engine-checked` and ready for your skim: `damage`, `conversion`, `crit`, `charges`, `flasks`, `triggers`, `defences`, `auras-curses`, `recovery`, `minions`, `totems-traps-mines`; `diagnosis`, `gearing`, `reading-breakdowns`, `trade-offs`; `jargon`, `archetypes`, `budget-tiers`, `crafting`, `atlas`.
+- **Merged while still `unverified`** (2 files): `ailments.md` and `defensive-thresholds.md`. Each says in its Verification section what is open. Say if you would rather these had waited.
 
 ## E. Evals
 - **Answer keys**: all 58 cases have `key: null`. The maintainer writes or approves them (plan D8).
