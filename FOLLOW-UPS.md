@@ -1,11 +1,11 @@
 # Follow-ups for the maintainer (2026-11-17)
 
-Left by the autonomous session that verified and merged PRs #2 to #25. Everything here needs the maintainer: a check in game, a number only the maintainer gives, or a decision. Go through them top to bottom; each stands alone. `main` is at `3.30.0-kb.23`.
+Left by the autonomous session that verified and merged PRs #2 to #25. Everything here needs the maintainer: a check in game, a number only the maintainer gives, or a decision. Go through them top to bottom; each stands alone. `main` is at `3.30.0-kb.24`.
 
 ## What was done
 - **Batch 1, mechanics (#4 to #6, #12 to #20):** verified and merged. 7 files `engine-checked`, 5 `unverified` (one open point each, section A).
 - **Batch 2, build advisor (#7 to #11):** verified and merged. 4 files `engine-checked`; `defensive-thresholds.md` stays `unverified` (section B).
-- **Batch 3, community (#21 to #25):** verified and merged. 4 files `engine-checked`; `crafting.md` stays `unverified` (section C).
+- **Batch 3, community (#21 to #25, #28):** verified and merged. All 5 files `engine-checked` (section C).
 - **Economy (#2):** merged with the meta summary (section D).
 - **Eval questions (#3):** merged as drafts, keys empty (section E).
 - Each PR has a comment with every checklist point, its result and the link it was checked against.
@@ -32,19 +32,15 @@ Also not checked in game, but stated with their source in the files:
 - **`trade-offs.md` line 42**: "below about 40% to 50% crit chance, crit multiplier gives little".
 - **`budget-tiers.md`**: what each tier ("a few divines", "tens", "hundreds") buys.
 
-## C. Crafting points no source confirmed
-`crafting.md` stays `unverified` for these. The official notes (3.26 to 3.30) and the economy snapshot do not settle them:
-- Resonators unchanged in 3.30 (the snapshot has no resonator category).
-- Multimod still on the bench next to the new locks.
-- The full list of Harvest reforge crafts in 3.30.
-- How much fossil supply changed after Delve's atlas clusters left and Sulphite stopped spawning in maps at random.
+## C. Crafting points (closed 2026-11-17, PR #28)
+Resonators, multimod and the type-guaranteed Harvest reforges were confirmed from poedb's current game data (the maintainer pointed to it), and `crafting.md` is now `engine-checked`. Fossil supply is a market question and is left to economy snapshots. Craft of Exile's main site still showed 3.29 as its current patch, so it was not used.
 
-A look at the in-game bench and Horticrafting station settles the first three.
+poedb was also searched for the five section A points (trap arm time, leech after death, minion replacement, reservation rounding, player ailment threshold). It does not state any of them; they still need the in-game tests.
 
 ## D. Approvals
 - **Meta summary** in `snapshots/covens/2026-11-16.md` (read from the poe.ninja builds page on 2026-11-17, league day 4): approve or correct it (Q11). The snapshot stays `unverified` until then.
-- **Promote to `maintainer-approved`**: only the maintainer does this. 15 references are `engine-checked` and ready for your skim: `damage`, `conversion`, `crit`, `charges`, `flasks`, `triggers`, `defences`; `diagnosis`, `gearing`, `reading-breakdowns`, `trade-offs`; `jargon`, `archetypes`, `budget-tiers`, `atlas`.
-- **Merged while still `unverified`** (7 files): the five in section A, `defensive-thresholds.md` and `crafting.md`. Each says in its Verification section what is open. Say if you would rather these had waited.
+- **Promote to `maintainer-approved`**: only the maintainer does this. 16 references are `engine-checked` and ready for your skim: `damage`, `conversion`, `crit`, `charges`, `flasks`, `triggers`, `defences`; `diagnosis`, `gearing`, `reading-breakdowns`, `trade-offs`; `jargon`, `archetypes`, `budget-tiers`, `crafting`, `atlas`.
+- **Merged while still `unverified`** (6 files): the five in section A and `defensive-thresholds.md`. Each says in its Verification section what is open. Say if you would rather these had waited.
 
 ## E. Evals
 - **Answer keys**: all 58 cases have `key: null`. The maintainer writes or approves them (plan D8).
