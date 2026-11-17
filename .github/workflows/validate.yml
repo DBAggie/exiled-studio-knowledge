@@ -1,0 +1,24 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validator tests
+        run: python -m unittest discover -s tools/validate -v
+      - name: Headers, game separation, links, versions
+        run: python tools/validate/validate.py
+      - name: Eval cases are well formed
+        run: python evals/check_cases.py

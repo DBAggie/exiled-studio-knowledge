@@ -1,0 +1,24 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "exiled-studio-knowledge",
+  "description": "Path of Exile knowledge for Claude sessions: game mechanics, community knowledge, build advice, and dated economy snapshots. Fan-made; not made or endorsed by Grinding Gear Games.",
+  "owner": {
+    "name": "DBAggie"
+  },
+  "plugins": [
+    {
+      "name": "poe1-expert",
+      "description": "Path of Exile 1 (3.30, Covens of Umbra): mechanics references, build advisor playbooks, community jargon and archetypes, dated economy snapshots, and the knowledge MCP for game-data lookups.",
+      "version": "3.30.0-kb.0",
+      "source": "./plugins/poe1-expert",
+      "category": "gaming"
+    },
+    {
+      "name": "poe2-expert",
+      "description": "Path of Exile 2 placeholder. Holds no PoE2 knowledge until after PoE2 1.0 (2026-12-11); tells Claude to say so and check sources.",
+      "version": "0.0.0-stub",
+      "source": "./plugins/poe2-expert",
+      "category": "gaming"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DBAggie/exiled-studio-knowledge/schema/knowledge-header.schema.json",
+  "title": "Knowledge file header",
+  "description": "Front matter of every knowledge file (references/*.md, snapshots/**/*.md) and the `header` object of every snapshot JSON. tools/validate/validate.py enforces this schema with the standard library only (required, type, enum, pattern, minItems).",
+  "type": "object",
+  "required": ["game", "patch", "as_of", "sources", "verification"],
+  "properties": {
+    "game": { "type": "string", "enum": ["poe1", "poe2"] },
+    "patch": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+[a-z]?$" },
+    "league": { "type": "string", "minLength": 1 },
+    "as_of": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "pattern": "^(https://|repo:|engine:|in-game:)" }
+    },
+    "verification": {
+      "type": "string",
+      "enum": ["unverified", "engine-checked", "in-game-checked", "maintainer-approved"]
+    },
+    "status": { "type": "string", "enum": ["current", "historical"] }
+  }
+}
