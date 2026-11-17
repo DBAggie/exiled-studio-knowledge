@@ -1,12 +1,16 @@
 ---
 game: poe1
 patch: 3.30.0
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://poedb.tw/us/Version_3.25.0
-  - https://poedb.tw/us/Version_3.29.0
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
-verification: unverified
+  - https://www.pathofexile.com/forum/view-thread/3531661
+  - https://www.pathofexile.com/forum/view-thread/3985332
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://www.poewiki.net/wiki/Critical_strike
+  - https://www.poewiki.net/wiki/Evasion
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcOffence.lua
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcDefence.lua
+verification: engine-checked
 ---
 
 # Damage: how hit damage is built and combined (PoE1)
@@ -44,7 +48,7 @@ A modifier applies when every condition it names is true for that damage. So:
 - "increased Cold Damage" applies to cold damage, including cold that came from conversion (see `conversion.md`).
 - "increased Damage with Hits" does not touch damage over time, and "increased Damage over Time" does not touch hits.
 
-Since 3.29 some skills and passives use the keyword **Arcane Might** for "your spell damage increases also apply to your attack damage". The notes describe it as a wording change, not a rule change.
+Since 3.29 some skills and passives use the keyword **Arcane Might** for "increases and reductions to spell damage also apply to attack damage". The official 3.29.0 notes (Player Changes) call it a purely descriptive change: the rule is the same as the old wording.
 
 ## Flat added damage and its effectiveness
 
@@ -66,7 +70,7 @@ attack base = weapon damage x attack damage multiplier + added damage x effectiv
 - Fast or multi-hit skills usually have low effectiveness; slow, single big hits usually have high effectiveness.
 - For attacks, the gem's "attack damage" percentage scales the weapon's damage. For most attack gems the two values are the same, but read them separately.
 
-**3.25 change**: many spell gems moved from one fixed effectiveness to an effectiveness that grows with gem level. Look the value up per gem and level; never assume one number for a gem.
+**3.25 change**: many gems moved from one fixed effectiveness to an effectiveness that grows with gem level (the official 3.25.0 notes list, for example, Absolution, Prismatic Burst and Impending Doom's Doom Blast going from a single value to a range over gem levels 1 to 20). 3.29 retuned many spells again, including their effectiveness. Look the value up per gem and level; never assume one number for a gem.
 
 ## The hit damage pipeline
 
@@ -128,7 +132,7 @@ hit chance = 1.25 x A / (A + (E / 5) ^ 0.9), clamped to 5%..100%
 ```
 
   A is your accuracy rating, E the enemy's evasion. Spells do not use accuracy; they can still be blocked or suppressed.
-- Crit chance in the factor is per hit that lands, so the full chance of a crit per attempt is crit chance x hit chance.
+- For attacks, a crit must pass the accuracy check a second time; if that second check fails, the hit lands as a normal hit. So the chance that a landed attack is a crit is crit chance x hit chance, and that is the value to use in the crit factor (PoB does the same). Spells skip both checks.
 - Area skills, projectiles that hit more than once, and skills with several hits multiply DPS by how many times they hit the target. That is skill-specific; read the skill.
 - Damage over time (ailments, degen) is a separate DPS number that is added for a combined total.
 
@@ -166,3 +170,7 @@ DPS        = 612.20 x 2 = 1224.4
 ## Check with the engine
 
 The Exiled Studio calc result has per-skill fields for average damage, crit chance, crit multiplier, speed, hit chance and total DPS, each with a provenance graph. Expand the average damage node to see the base, the summed increases, each more multiplier and the enemy's resistance step. Use it to confirm a hand calculation, and to see which modifiers did or did not apply to a hit.
+
+## Verification (2026-11-17)
+
+`engine-checked` here means: checked against the pinned Path of Building 2.67.2 (`CalcOffence.lua` for effectiveness, conversion order, the crit factor and the crit-times-hit-chance step; `CalcDefence.lua` for the hit chance formula, which PoB rounds to a whole percent) and against the official 3.25.0, 3.29.0 and 3.30.x patch notes. Nothing in 3.30.0 or its hotfixes changes these rules. Not checked in game.
