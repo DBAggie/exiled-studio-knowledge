@@ -1,16 +1,16 @@
 ---
 game: poe1
 patch: 3.30.0
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
-  - https://poedb.tw/us/Version_3.29.0
-  - https://poedb.tw/us/Version_3.28.0
-  - https://poedb.tw/us/Version_3.27.0
-  - https://poedb.tw/us/Spell_Suppression
-  - https://poedb.tw/us/Scorch
-  - https://poedb.tw/us/Ignite
-  - https://poedb.tw/us/Bleeding
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://www.pathofexile.com/forum/view-thread/3985332
+  - https://www.pathofexile.com/forum/view-thread/3913392
+  - https://www.pathofexile.com/forum/view-thread/3869068
+  - https://www.poewiki.net/wiki/Ailment
+  - https://www.poewiki.net/wiki/Critical_strike
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/Data.lua
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcOffence.lua
 verification: unverified
 ---
 
@@ -23,7 +23,7 @@ Ailments are debuffs that a hit can apply. There are two families:
 
 Ignite, chill, freeze, shock, scorch, brittle and sap are the **elemental ailments**. Bleeding and poison are not elemental.
 
-The constants below match Path of Building's data (pinned PoB v2.67.2, which tracks 3.29). No patch from 3.26 to 3.30 changed them in the notes we read. They are not confirmed in game for 3.30.
+The constants below were checked on 2026-11-17 against the pinned Path of Building 2.67.2 (`Modules/Data.lua` for the damaging-ailment percentages and durations and for each non-damaging ailment's default, minimum, maximum and duration; `Modules/CalcOffence.lua` for the effect formulas). No official note from 3.26.0 to 3.30.0b Hotfix 4 changes them (3.30.x read in full; 3.26 to 3.29 searched). poewiki gives the same default values for scorch, brittle and sap. They are not checked in game.
 
 PoE2 differs; do not apply this there.
 
@@ -37,7 +37,7 @@ bleeding DPS = 70% of the hit's physical damage per second     base duration 5 s
 poison DPS   = 30% of the hit's physical + chaos damage per s  base duration 2 s
 ```
 
-"The hit's damage" here is the hit's damage of those types after conversion, scaled only by modifiers that apply to the ailment (next section). It is not the damage the hit dealt after the enemy's resistances or armour. The ailment then meets the enemy's resistances itself, as damage over time.
+"The hit's damage" here is the hit's damage of those types after conversion, scaled only by modifiers that apply to the ailment (next section). It is not the damage the hit dealt after the enemy's resistances or armour. The ailment then meets the enemy's resistances itself, as damage over time. (poewiki says the same: the ailment is built from the hit's flat damage, so resistances are not counted twice.)
 
 Conversion matters: fire that came from converted physical counts as fire for ignite, not as physical for bleeding. Some modifiers let other types apply an ailment (for example "your cold damage can ignite"); then that type's damage is added to the ailment's base.
 
@@ -65,7 +65,7 @@ This list is how PoB's modifier flags work (an ailment's flags are damage-over-t
 
 A damaging ailment from a crit does **not** use your critical strike multiplier. It gets a flat +50% to damage-over-time multiplier instead (a character constant). Perfect Agony changes this rule; read its text through the tools.
 
-Crits always apply ignite, chill, freeze and shock when the hit has the needed damage. They do not guarantee bleeding, poison, scorch, brittle or sap.
+Crits always apply ignite, chill, freeze and shock when the hit has the needed damage (and the ailment reaches the threshold). They do not guarantee bleeding, poison, scorch, brittle or sap. This holds in 3.30: no 3.26 to 3.30 note changes it, the 3.28.0 notes refer to the stat that turns it off for hits against you, and poewiki and PoB 2.67.2 both apply it. `crit.md` says the same.
 
 ## Stacking
 
@@ -90,7 +90,7 @@ debuff expires slower   -> lasts longer, same DPS (like duration)
 ## Chance to apply
 
 - **Chill:** any hit that deals cold damage chills, if the effect is high enough (see thresholds).
-- **Ignite, freeze, shock:** need a chance on the skill or gear, or a crit. Some sources make hits always apply one (3.30: Elementalist's Shaper of Flames and Shaper of Storms now give "always ignite" and "always shock").
+- **Ignite, freeze, shock:** need a chance on the skill or gear, or a crit. Some sources make hits always apply one. (3.30.0 gave the Elementalist's Shaper of Flames and Shaper of Storms "hits always ignite" and "hits always shock" **in Ruthless only**; those lines are under the Ruthless-specific changes.)
 - **Bleeding, poison:** need a chance. A crit does not guarantee them.
 - **Scorch, brittle, sap:** need their own chance modifiers.
 
@@ -102,9 +102,9 @@ Non-damaging ailments scale with how big the hit is compared to the target's **a
 
 - For most monsters the threshold equals their maximum life.
 - Many bosses have a threshold lower than their life, so ailments land better on them than their life suggests. Some also have reduced ailment effect on them. Look this up per boss.
-- For players, the threshold is maximum life unless a modifier says otherwise (whether energy shield counts is not confirmed here).
+- For players, the threshold is maximum life unless a modifier says otherwise. Whether energy shield counts is **not confirmed**: the notes, poewiki's ailment page and PoB (which does not model ailments on the player) do not say.
 
-In the formulas, `D` is the hit's damage of the ailment's type and `T` is the target's threshold.
+In the formulas, `D` is the hit's damage of the ailment's type and `T` is the target's threshold. Unlike damaging ailments, PoB 2.67.2 takes `D` **after** the enemy's mitigation (resistance, penetration and damage taken), from the same effective hit it shows as damage. poewiki only says "the hit's damage". Not checked in game.
 
 ## Non-damaging ailment formulas
 
@@ -131,7 +131,7 @@ Notes:
 - Only the strongest instance of each non-damaging ailment applies (shock does not stack by default).
 - The 30% chill and 50% shock caps can be raised by specific modifiers; check the text.
 - Some sources apply a fixed value instead of the formula (for example "chill for 10%", some ground effects, fixed scorch on certain items). Those ignore the threshold.
-- The coefficients for scorch, brittle and sap above come from PoB's calc code; the in-game numbers for 3.30 are not confirmed.
+- The coefficients for scorch, brittle and sap above come from PoB's calc code (`CalcOffence.lua`), and the caps and durations from PoB's ailment table; poewiki agrees on their default values. Not checked in game.
 
 ## Avoidance and immunity
 
@@ -144,7 +144,7 @@ Your own defences against ailments, from strongest to weakest:
 5. **Resistances** reduce ignite and poison damage taken (as damage over time). Armour does nothing against any ailment damage.
 6. **Spell suppression**: a suppressed spell hit also has the damaging ailments it applies reduced by the same prevented share. Since **3.27** the base share is 40% (it was 50%).
 
-Removing an ailment: flasks with a matching suffix, and some passives, remove ailments on use. 3.30: Pathfinder's Master Alchemist now removes all ailments, not only elemental ones.
+Removing an ailment: flasks with a matching suffix, and some passives, remove ailments on use. 3.30.0: Pathfinder's Master Alchemist now removes all ailments when you use a flask, not only elemental ones.
 
 ## Common mistakes
 
@@ -163,3 +163,7 @@ Removing an ailment: flasks with a matching suffix, and some passives, remove ai
 - Exiled Studio's calc result (v0.9) computes hit damage, the enemy's damage taken with shock, and chill's effect on the enemy's damage. Read the enemy damage-taken part of the breakdown for a shock or chill question.
 - Damaging ailment DPS (ignite, bleed, poison) is not a computed field in the engine as of v0.9 (not confirmed; check which fields the calc result lists). If it is missing, say so, use the formulas above, and point to PoB's ailment breakdown as the reference.
 - Ailment threshold values come from game data (monster level tables); use the tools, not memory.
+
+## Verification (2026-11-17)
+
+Checked against the official 3.27.0 to 3.30.x notes (3.30.x read in full), poewiki's ailment and critical strike pages, and the pinned Path of Building 2.67.2 (see the constants note above). Bleed multipliers for moving and aggravated bleeding are left to the tools on purpose. Still `unverified`: whether a player's ailment threshold includes energy shield is not confirmed by any source.
