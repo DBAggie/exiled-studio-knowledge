@@ -4,20 +4,6 @@ Decisions the autonomous sessions could not make. **Review one item at a time**,
 
 ## Open
 
-### Q6. poe.ninja User-Agent contact
-- **Question:** What contact should the refresh job's User-Agent carry?
-- **Why:** poe.ninja asks for a User-Agent that names the app and a contact. Sessions do not put your name, email, or project in requests to outside services without your OK.
-- **Default taken:** `exiled-studio-knowledge-refresh/0.1` with no contact. The first snapshot (PR #2) was fetched with it: 16 requests, 2 s apart.
-- **Choices:** the repo URL / a contact email / keep it without a contact. Set it with `REFRESH_USER_AGENT` in the scheduled task.
-- **Answer:**
-
-### Q9. Mechanics drafts: how to verify
-- **Question:** How should the 22 draft references (PRs #4 to #25) reach `maintainer-approved`?
-- **Why:** poewiki blocked every automated fetch, and the official 3.30 patch-note thread was not found. Rules were checked against patch-note copies (poedb, patchbot.io), the pinned PoB 2.67.2, and memory. Each PR lists, under "For the maintainer", the exact points nobody could confirm.
-- **Default taken:** every file is `unverified`. Nothing merged.
-- **Choices:** you review each PR's list and merge / a later session re-checks with the official threads (give the links) and the engine first / merge as drafts, then verify in place.
-- **Answer:**
-
 ### Q11. Meta and build popularity
 - **Question:** Who writes the meta and popularity summary for each snapshot?
 - **Why:** The plan says it is written by hand from the poe.ninja builds page (no unsupported endpoints). The first snapshot's summary (PR #2) has prices only.
@@ -83,3 +69,17 @@ Decisions the autonomous sessions could not make. **Review one item at a time**,
 - **Default taken:** none merged.
 - **Choices:** merge #1 with a merge commit (no squash), then the rest in any order / squash #1 and let a session rebase the rest.
 - **Answer (maintainer, 2026-11-17):** merge #1 with a merge commit (no squash), then the rest in any order as each is ready.
+
+### Q6. poe.ninja User-Agent contact
+- **Question:** What contact should the refresh job's User-Agent carry?
+- **Why:** poe.ninja asks for a User-Agent that names the app and a contact. Sessions do not put your name, email, or project in requests to outside services without your OK.
+- **Default taken:** `exiled-studio-knowledge-refresh/0.1` with no contact. The first snapshot (PR #2) was fetched with it: 16 requests, 2 s apart.
+- **Choices:** the repo URL / a contact email / keep it without a contact. Set it with `REFRESH_USER_AGENT` in the scheduled task.
+- **Answer (maintainer, 2026-11-17):** `exiled-studio-knowledge-refresh/0.1 (+https://github.com/DBAggie)`: the public GitHub profile, since the repo is private. It becomes the default in `tools/refresh/economy.py` (PR #2); `REFRESH_USER_AGENT` still overrides it.
+
+### Q9. Mechanics drafts: how to verify
+- **Question:** How should the 22 draft references (PRs #4 to #25) reach `maintainer-approved`?
+- **Why:** poewiki blocked every automated fetch, and the official 3.30 patch-note thread was not found. Rules were checked against patch-note copies (poedb, patchbot.io), the pinned PoB 2.67.2, and memory. Each PR lists, under "For the maintainer", the exact points nobody could confirm.
+- **Default taken:** every file is `unverified`. Nothing merged.
+- **Choices:** you review each PR's list and merge / a later session re-checks with the official threads (give the links) and the engine first / merge as drafts, then verify in place.
+- **Answer (maintainer, 2026-11-17):** verify in a real browser with Claude in Chrome, from a handoff note. (1) A session gathers every draft PR's "For the maintainer" points into one handoff note: claim, file and line, where to check. (2) One session per group (mechanics, build-advisor, community) opens the official 3.30 patch notes first, then poewiki, checks each point (mechanics also against the engine or PoB), fixes what is wrong, sets `verification` to `engine-checked` or `in-game-checked`, and lists its sources on the PR. (3) The maintainer skims each PR's evidence, merges, and promotes files to `maintainer-approved`.
