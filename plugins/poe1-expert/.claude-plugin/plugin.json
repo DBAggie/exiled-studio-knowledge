@@ -1,7 +1,7 @@
 {
   "name": "poe1-expert",
   "displayName": "Path of Exile 1 Expert",
-  "version": "3.30.0-kb.29",
+  "version": "3.30.0-kb.30",
   "description": "Path of Exile 1 (patch 3.30, Covens of Umbra) knowledge for Claude: mechanics references, build advisor playbooks, community jargon and archetypes, dated economy snapshots, and the Exiled Studio knowledge MCP for game-data lookups. Fan-made; not made or endorsed by Grinding Gear Games.",
   "author": {
     "name": "DBAggie"
