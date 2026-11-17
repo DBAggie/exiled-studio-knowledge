@@ -9,7 +9,7 @@
     {
       "name": "poe1-expert",
       "description": "Path of Exile 1 (3.30, Covens of Umbra): mechanics references, build advisor playbooks, community jargon and archetypes, dated economy snapshots, and the knowledge MCP for game-data lookups.",
-      "version": "3.30.0-kb.0",
+      "version": "3.30.0-kb.21",
       "source": "./plugins/poe1-expert",
       "category": "gaming"
     },
