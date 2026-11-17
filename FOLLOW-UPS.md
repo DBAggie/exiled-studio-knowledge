@@ -1,19 +1,17 @@
 # Follow-ups for the maintainer (2026-11-17)
 
-Left by the autonomous session that verified and merged PRs #2 to #25. Everything here needs the maintainer: a check in game, a number only the maintainer gives, or a decision. Go through them top to bottom; each stands alone. `main` is at `3.30.0-kb.28`.
+Left by the autonomous session that verified and merged PRs #2 to #25. Everything here needs the maintainer: a check in game, a number only the maintainer gives, or a decision. Go through them top to bottom; each stands alone. `main` is at `3.30.0-kb.29`.
 
 ## What was done
-- **Batch 1, mechanics (#4 to #6, #12 to #20):** verified and merged. 11 files `engine-checked` after later passes; `ailments.md` still `unverified` (section A).
+- **Batch 1, mechanics (#4 to #6, #12 to #20):** verified and merged. all 12 files `engine-checked` after later passes (section A).
 - **Batch 2, build advisor (#7 to #11):** verified and merged. 4 files `engine-checked`; `defensive-thresholds.md` stays `unverified` (section B).
 - **Batch 3, community (#21 to #25, #28):** verified and merged. All 5 files `engine-checked` (section C).
 - **Economy (#2):** merged with the meta summary (section D).
 - **Eval questions (#3):** merged as drafts, keys empty (section E).
 - Each PR has a comment with every checklist point, its result and the link it was checked against.
 
-## A. In-game check (mechanics): one left
-Closed on 2026-11-17: leech after the enemy dies and oldest-minion replacement (the maintainer's confirmation, PR #32), trap arm time (near-instant, no published number, PR #32), reservation rounding (PoB and the engine, PR #31). Those four files are `engine-checked`. If the leech and minion answers came from in-game tests, say so and they can become `in-game-checked`.
-
-**Still open, `ailments.md`:** does a **PoE1** player's ailment threshold include energy shield? Every source found, including the answer supplied on 2026-11-17, describes Path of Exile 2 (threshold from half of maximum life, passives that add energy shield to it). Neither PoB nor the engine models ailments on the player. Test saved on PR #19: on a Chaos Inoculation character, see whether chill and shock from the same enemy hit get weaker as energy shield goes up.
+## A. Mechanics: all five open points closed
+Closed on 2026-11-17: leech after the enemy dies and oldest-minion replacement (the maintainer's confirmation, PR #32), trap arm time (near-instant, no published number, PR #32), reservation rounding (PoB and the engine, PR #31), and the player's ailment threshold (life only, energy shield does not count; for Chaos Inoculation the life before the keystone applies; the maintainer and poewiki, PR #33). All 12 mechanics files are `engine-checked`. None of the five was tested in game by a session; if any answer came from an in-game test, say so and that file can become `in-game-checked`.
 
 Not checked in game, but stated with their source in the files:
 - `ailments.md`: PoB takes non-damaging ailment effect from the hit **after** enemy mitigation; poewiki does not say.
@@ -34,8 +32,8 @@ poedb was also searched for the five section A points (trap arm time, leech afte
 
 ## D. Approvals
 - **Meta summary** in `snapshots/covens/2026-11-16.md` (read from the poe.ninja builds page on 2026-11-17, league day 4): approve or correct it (Q11). The snapshot stays `unverified` until then.
-- **Promote to `maintainer-approved`**: only the maintainer does this. 20 references are `engine-checked` and ready for your skim: `damage`, `conversion`, `crit`, `charges`, `flasks`, `triggers`, `defences`, `auras-curses`, `recovery`, `minions`, `totems-traps-mines`; `diagnosis`, `gearing`, `reading-breakdowns`, `trade-offs`; `jargon`, `archetypes`, `budget-tiers`, `crafting`, `atlas`.
-- **Merged while still `unverified`** (2 files): `ailments.md` and `defensive-thresholds.md`. Each says in its Verification section what is open. Say if you would rather these had waited.
+- **Promote to `maintainer-approved`**: only the maintainer does this. 21 references are `engine-checked` and ready for your skim: `damage`, `conversion`, `crit`, `charges`, `flasks`, `triggers`, `defences`, `auras-curses`, `recovery`, `minions`, `totems-traps-mines`, `ailments`; `diagnosis`, `gearing`, `reading-breakdowns`, `trade-offs`; `jargon`, `archetypes`, `budget-tiers`, `crafting`, `atlas`.
+- **Merged while still `unverified`** (1 file): `defensive-thresholds.md`. Each says in its Verification section what is open. Say if you would rather these had waited.
 
 ## E. Evals
 - **Answer keys**: all 58 cases have `key: null`. The maintainer writes or approves them (plan D8).
