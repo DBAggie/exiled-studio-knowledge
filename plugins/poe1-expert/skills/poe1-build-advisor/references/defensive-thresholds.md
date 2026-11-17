@@ -2,11 +2,14 @@
 game: poe1
 patch: 3.30.0
 league: Covens of Umbra
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
+  - https://www.pathofexile.com/forum/view-thread/4013680
   - https://www.pathofexile.com/forum/view-thread/3913392
-  - https://poedb.tw/us/Resistance
+  - https://www.pathofexile.com/forum/view-thread/3869068
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/Data.lua
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcDefence.lua
+  - repo:DBAggie/exiled-studio/schemas/mcp-tools.v1.json
 verification: unverified
 ---
 
@@ -46,7 +49,7 @@ PoE2 differs; do not apply this there.
 - **Block**: builds that use it often aim for the default cap on attack block, and some on spell block.
 - **Max hit**: players commonly aim for a max hit of several thousand per element above their life pool (for example 7,000 to 10,000). This depends on build type; treat as rough.
 - **Recovery**: a reliable leech, regeneration, or recoup source.
-- 3.30: corrupted maps can carry up to 9 mods (3.30.0 notes). Map mods that lower maximum resistances or reduce recovery make these lines worse; read the mods.
+- 3.30: a corruption can add 2 explicit mods to a map, up to 9 in total (3.30.0 notes). Map mods that lower maximum resistances or reduce recovery make these lines worse; read the mods.
 - 3.28: Voidstones raise the minimum map tier in their Atlas quadrant (3.28.0 notes). Players reach red maps sooner, often before their defences are ready.
 
 ## Pinnacle bosses (Shaper, Elder, Sirus, Maven, Eater of Worlds, Searing Exarch, and similar)
@@ -55,7 +58,7 @@ PoE2 differs; do not apply this there.
 - **Max hit**: often cited around 10,000 or more per damage type.
 - **Ailments**: freeze and stun handled; curse effect reduced or cleansed helps.
 - **Recovery**: flasks, leech, or regeneration enough to recover between big hits.
-- 3.30: the 3.30.0 notes add map bosses in Deified areas dealing increased damage, and more bosses counted as pinnacle. Check the boss in question through the knowledge MCP.
+- 3.30: in Deified areas (a map with a Divine Vessel applied) map bosses get 25% increased damage, 25% increased attack and cast speed and 100% increased toughness; the Cortex bosses now show as pinnacle Atlas bosses (3.30.0 notes). Check the boss in question through the knowledge MCP.
 
 ## Uber pinnacle bosses
 - **Resistances**: capped, often with raised maximums. Chaos often 75% for some fights.
@@ -63,7 +66,7 @@ PoE2 differs; do not apply this there.
 - **Max hit**: values above 15,000 for the main damage types are commonly cited. Treat as rough; it depends on which boss.
 - **Ailments**: full freeze, stun, and shock answers.
 - **Damage**: uber fights need enough damage to end phases before the arena fills. A too-defensive build can fail on timers.
-- 3.28: uber fights need 4 fragments instead of 5 (3.28.0 notes). 3.30: Uber Atziri uses empowered skills below 66% life (3.30.0 notes). Specific boss numbers change by patch; not confirmed for 3.30 beyond these notes.
+- 3.28: uber fights need 4 fragments instead of 5 (3.28.0 notes). 3.30: Atziri moved to the Temple of Atzoatl; she and Uber Atziri use empowered abilities below 66% life, and the fight can no longer be paused (3.30.0 notes). Specific boss numbers change by patch; nothing beyond these notes was checked.
 
 ## What each defence does, briefly
 - **Resistances**: reduce elemental and chaos hits and damage over time by the shown percent.
@@ -74,9 +77,10 @@ damage reduction = armour / (armour + 5 x raw hit damage)
 ```
 
   The reduction caps at 90%. A hit 10 times the armour value gets about 2% reduction.
+- **Chaos damage** bypasses energy shield by default, so chaos resistance matters more for ES builds without Chaos Inoculation.
 - **Evasion**: chance to avoid attacks entirely. Does not stop spells.
 - **Block**: chance to block hits (attack block, spell block). Blocked hits deal no damage unless a modifier says otherwise.
-- **Spell suppression**: suppressed spell hits deal less damage (50% prevented by default). It does not stop the hit.
+- **Spell suppression**: suppressed spell hits deal less damage (40% prevented by default since 3.27.0; it was 50%). It does not stop the hit.
 - **Max hit**: the biggest single hit of one type the character survives with all layers. It is the best single number for one-shot risk.
 - 3.28: Ultimatum gained a modifier that prevents player block (3.28.0 notes). Block builds must read that mod.
 - 3.28: Intelligence now grants 1% increased maximum ES per 10 Intelligence, half the old rate (3.28.0 notes). ES pools from Intelligence alone are smaller than older guides show.
@@ -94,7 +98,7 @@ When the Exiled Studio app MCP is reachable:
 Rules:
 - When the app is reachable, every number is checked with `get_breakdown` or `preview_item_edit` first.
 - When it is not, label each number an estimate and say how to check it.
-- A field in state `unsupported`, `indeterminate`, or not computed is never read as zero. If the app has no max hit field, say the app does not compute max hit yet; do not estimate it as zero.
+- A field in state `unsupported`, `indeterminate`, or `not-computed` is never read as zero. If the app has no max hit field, say the app does not compute max hit yet; do not estimate it as zero.
 
 ## Common mistakes
 - Presenting these ranges as game requirements.
@@ -104,3 +108,7 @@ Rules:
 - Treating spell suppression as evasion for spells (it reduces, it does not avoid).
 - Expecting armour to stop big boss slams.
 - Using old Intelligence-to-ES numbers after the 3.28 change.
+
+## Verification (2026-11-17)
+
+Game facts checked against the official 3.27.0, 3.28.0 and 3.30.0 notes and Path of Building 2.67.2: the caps, the campaign penalty, the armour formula, spell suppression (corrected to 40%), the 3.28.0 lines (uber fights need 4 fragments, the Ultimatum no-block modifier, Voidstones, Intelligence ES) and the 3.30.0 lines. Tool and field names checked against Exiled Studio's `schemas/mcp-tools.v1.json`. Still `unverified`: every life, chaos resistance and max hit target is a community rule of thumb written from memory; the maintainer gives those numbers.
