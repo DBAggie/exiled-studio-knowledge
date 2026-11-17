@@ -1,6 +1,6 @@
 # Follow-ups for the maintainer (2026-11-17)
 
-Left by the autonomous session that verified and merged PRs #2 to #25. Everything here needs the maintainer: a check in game, a number only the maintainer gives, or a decision. Go through them top to bottom; each stands alone. `main` is at `3.30.0-kb.26`.
+Left by the autonomous session that verified and merged PRs #2 to #25. Everything here needs the maintainer: a check in game, a number only the maintainer gives, or a decision. Go through them top to bottom; each stands alone. `main` is at `3.30.0-kb.27`.
 
 ## What was done
 - **Batch 1, mechanics (#4 to #6, #12 to #20):** verified and merged. 7 files `engine-checked`, 5 `unverified` (one open point each, section A).
@@ -17,14 +17,13 @@ Each test is written out on its PR. Report the result and a session sets the fil
 |---|---|---|
 | `recovery.md` | Does leech keep running after the target dies? | PR #12 |
 | `minions.md` | Does summoning past the cap always replace the oldest minion? | PR #15 |
-| `auras-curses.md` | Which way does the game round the reserved total? | PR #16 |
 | `totems-traps-mines.md` | The trap arm time | PR #17 |
 | `ailments.md` | Does a player's ailment threshold include energy shield? | PR #19 |
 
 Second pass with older sources allowed (PR #30): none of the five closed, but the tests are now narrower.
 - Leech after death: very likely yes (a GGG developer described an instance as a rate and a duration that ends only on expiry or full life). One quick test confirms it.
 - Minions: oldest-first is confirmed for Summon Skeletons (poewiki). Test zombies and spectres.
-- Reservation: the two-decimal percent rounds up (player report). Only the whole-number total's direction is open.
+- Reservation: closed in PR #31. PoB and the engine both round the reserved total up, and a player report agrees; `auras-curses.md` is `engine-checked`. An in-game look is still welcome but no longer blocks.
 - Trap arm time: no number in any source, old or new.
 - Player ailment threshold and energy shield: every source found is about PoE2.
 
@@ -47,8 +46,8 @@ poedb was also searched for the five section A points (trap arm time, leech afte
 
 ## D. Approvals
 - **Meta summary** in `snapshots/covens/2026-11-16.md` (read from the poe.ninja builds page on 2026-11-17, league day 4): approve or correct it (Q11). The snapshot stays `unverified` until then.
-- **Promote to `maintainer-approved`**: only the maintainer does this. 16 references are `engine-checked` and ready for your skim: `damage`, `conversion`, `crit`, `charges`, `flasks`, `triggers`, `defences`; `diagnosis`, `gearing`, `reading-breakdowns`, `trade-offs`; `jargon`, `archetypes`, `budget-tiers`, `crafting`, `atlas`.
-- **Merged while still `unverified`** (6 files): the five in section A and `defensive-thresholds.md`. Each says in its Verification section what is open. Say if you would rather these had waited.
+- **Promote to `maintainer-approved`**: only the maintainer does this. 17 references are `engine-checked` and ready for your skim: `damage`, `conversion`, `crit`, `charges`, `flasks`, `triggers`, `defences`, `auras-curses`; `diagnosis`, `gearing`, `reading-breakdowns`, `trade-offs`; `jargon`, `archetypes`, `budget-tiers`, `crafting`, `atlas`.
+- **Merged while still `unverified`** (5 files): the four in section A and `defensive-thresholds.md`. Each says in its Verification section what is open. Say if you would rather these had waited.
 
 ## E. Evals
 - **Answer keys**: all 58 cases have `key: null`. The maintainer writes or approves them (plan D8).
@@ -62,7 +61,7 @@ poedb was also searched for the five section A points (trap arm time, leech afte
 - **Economy refresh cadence**: runs by hand (Q7). The only snapshot is 2026-11-16; league-start prices go stale in a day or two.
 - **Hardcore, SSF and Standard** snapshots: not fetched.
 - **Dev skill `exiled-studio-mcp`** (plan step 7) lives in the `exiled-studio` repo; this session could read that repo but not write to it.
-- **The engine check used PoB only.** No session so far had Exiled Studio's MCP tools or `calc-run`. A session on the workstation with the app running could re-check the `engine-checked` numbers against the engine itself.
+- **Engine source reviewed (PR #31):** the "Check with the engine" sections of the 12 mechanics files now come from `crates/loom-calc` (dev `b42e49f`). The engine could not be built or run in the session, so nothing was checked by running `calc-run`; a session on the workstation could do that.
 
 ## G. Housekeeping
 - `VERIFICATION-HANDOFF.md` is finished work now; this PR marks it done at the top. Delete it or keep it as a record.
