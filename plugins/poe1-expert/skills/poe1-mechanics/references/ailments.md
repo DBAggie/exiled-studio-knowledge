@@ -11,6 +11,8 @@ sources:
   - https://www.poewiki.net/wiki/Critical_strike
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/Data.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcOffence.lua
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/damage_taken.rs
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/exposure.rs
 verification: unverified
 ---
 
@@ -160,8 +162,11 @@ Removing an ailment: flasks with a matching suffix, and some passives, remove ai
 
 ## Check with the engine
 
-- Exiled Studio's calc result (v0.9) computes hit damage, the enemy's damage taken with shock, and chill's effect on the enemy's damage. Read the enemy damage-taken part of the breakdown for a shock or chill question.
-- Damaging ailment DPS (ignite, bleed, poison) is not a computed field in the engine as of v0.9 (not confirmed; check which fields the calc result lists). If it is missing, say so, use the formulas above, and point to PoB's ailment breakdown as the reference.
+The engine facts below were read from Exiled Studio's source (`crates/loom-calc`, dev branch at `b42e49f`, 2026-11-17; the 0.9 line). The engine follows Path of Building 2.67.2's order of operations and rounding, so a number the engine marks `complete` is PoB's number, apart from registered divergences. It computes 24 fields: `strength`, `dexterity`, `intelligence`, `life`, `mana`, `life-unreserved`, `mana-unreserved`, `energy-shield`, `armour`, `evasion`, `resistance.fire`, `resistance.cold`, `resistance.lightning`, `resistance.chaos`, `block-chance`, `spell-block-chance`, `spell-suppression-chance`, `average-damage`, `speed`, `hit-speed`, `hit-chance`, `crit-chance`, `crit-multiplier` and `hit-dps`. The hit fields exist only when the main skill is a self-cast spell hit or a main-hand attack: not channelled, triggered, a totem, trap, mine, minion or brand skill, not a skill with a cooldown, and not dual wielding. For any other main skill they are `not-computed`.
+
+- The engine computes no ailment fields: no ignite, bleed or poison DPS, and no shock, chill or freeze values of your own hits.
+- What it does model is the enemy's side, from the config: shock as increased damage taken (with the guaranteed minimum shock some sources give), chill's effect on damage taken for the skills that guarantee a chill, and Intimidate, Unnerve and Blind. Read the enemy damage-taken step in `average-damage` for a shock or chill question.
+- For ailment damage and effect, use the formulas above and PoB's ailment breakdown, and say the engine does not compute them.
 - Ailment threshold values come from game data (monster level tables); use the tools, not memory.
 
 ## Verification (2026-11-17)

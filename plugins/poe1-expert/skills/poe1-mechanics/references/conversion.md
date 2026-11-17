@@ -10,6 +10,7 @@ sources:
   - https://www.pathofexile.com/forum/view-thread/4013680
   - https://www.poewiki.net/wiki/Damage_conversion
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcOffence.lua
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/hit.rs
 verification: engine-checked
 ---
 
@@ -135,7 +136,11 @@ The cold part does not get the lightning increase, because it never was lightnin
 
 ## Check with the engine
 
-The Exiled Studio average damage field breaks hit damage down per damage type, with a provenance graph. For a skill with modelled conversion, expand a type's node to see its converted share, the share the source type keeps, and which type modifiers entered its increased sum. Conversion and gain beyond a vetted skill's own conversion may show as a "not modelled" reason; when it does, the engine cannot confirm the number yet and the answer rests on this file.
+The engine facts below were read from Exiled Studio's source (`crates/loom-calc`, dev branch at `b42e49f`, 2026-11-17; the 0.9 line). The engine follows Path of Building 2.67.2's order of operations and rounding, so a number the engine marks `complete` is PoB's number, apart from registered divergences. It computes 24 fields: `strength`, `dexterity`, `intelligence`, `life`, `mana`, `life-unreserved`, `mana-unreserved`, `energy-shield`, `armour`, `evasion`, `resistance.fire`, `resistance.cold`, `resistance.lightning`, `resistance.chaos`, `block-chance`, `spell-block-chance`, `spell-suppression-chance`, `average-damage`, `speed`, `hit-speed`, `hit-chance`, `crit-chance`, `crit-multiplier` and `hit-dps`. The hit fields exist only when the main skill is a self-cast spell hit or a main-hand attack: not channelled, triggered, a totem, trap, mine, minion or brand skill, not a skill with a cooldown, and not dual wielding. For any other main skill they are `not-computed`.
+
+- `average-damage` breaks hit damage down per damage type. The engine builds PoB's conversion table: the skill's own conversion first (scaled to 100% if above), then other conversion of one type to a later one, scaled into what is left.
+- Not mapped: "elemental damage converted to" and "non-chaos damage converted to" style lines, and "gained as extra". A build with those gets `partial` hit fields with a reason; the engine cannot confirm that number and the answer rests on this file and PoB.
+- Converted damage is computed with both types' modifiers, as described above; expand a type's node to see its converted share and the share the source keeps.
 
 ## Verification (2026-11-17)
 

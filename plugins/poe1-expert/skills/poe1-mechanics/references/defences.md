@@ -14,6 +14,8 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcDefence.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/Data.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Data/Misc.lua
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/phases.rs
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/charges.rs
 verification: engine-checked
 ---
 
@@ -173,8 +175,11 @@ When quoting either number, say which assumptions the tool used: enemy damage ty
 
 ## Check with the engine
 
-- Exiled Studio's calc result computes armour, evasion, energy shield, the four resistances (with the campaign penalty from the config), attack block, spell block and spell suppression chance. Read those fields and their breakdowns for a sheet-value question.
-- Max hit, EHP, and the per-hit damage-taken walk are not computed fields as of v0.9 (not confirmed; check the field list). If missing, say so, compute with the formulas above, and point to PoB's defence breakdown as the reference.
+The engine facts below were read from Exiled Studio's source (`crates/loom-calc`, dev branch at `b42e49f`, 2026-11-17; the 0.9 line). The engine follows Path of Building 2.67.2's order of operations and rounding, so a number the engine marks `complete` is PoB's number, apart from registered divergences. It computes 24 fields: `strength`, `dexterity`, `intelligence`, `life`, `mana`, `life-unreserved`, `mana-unreserved`, `energy-shield`, `armour`, `evasion`, `resistance.fire`, `resistance.cold`, `resistance.lightning`, `resistance.chaos`, `block-chance`, `spell-block-chance`, `spell-suppression-chance`, `average-damage`, `speed`, `hit-speed`, `hit-chance`, `crit-chance`, `crit-multiplier` and `hit-dps`. The hit fields exist only when the main skill is a self-cast spell hit or a main-hand attack: not channelled, triggered, a totem, trap, mine, minion or brand skill, not a skill with a cooldown, and not dual wielding. For any other main skill they are `not-computed`.
+
+- Computed, each with a breakdown: `armour`, `evasion`, `energy-shield`, `resistance.fire`, `resistance.cold`, `resistance.lightning`, `resistance.chaos` (with the campaign penalty from the config, and the capped value), `block-chance`, `spell-block-chance` and `spell-suppression-chance`. Armour, evasion and energy shield show a row per equipment slot.
+- **Not computed, and no field exists**: max hit, effective HP, physical damage reduction against a hit, damage taken, endurance charge and fortification effects, ward, and anything about recovery. Never read their absence as zero.
+- For those, compute with the formulas above or use PoB's defence breakdown, and say which.
 
 ## Verification (2026-11-17)
 

@@ -15,6 +15,8 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Data/Misc.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcOffence.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcDefence.lua
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/mod.rs
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/phases.rs
 verification: unverified
 ---
 
@@ -142,11 +144,11 @@ recharge rate  = base rate x maximum ES x (1 + increased ES recharge rate) x (1 
 
 ## Check with the engine
 
-- Regeneration totals: the calc's life, mana, and ES regeneration breakdown, with each source.
-- Leech: the per-instance rate, the per-instance cap, and the total leech rate cap for each pool, and whether a build reaches the cap.
-- ES recharge: the recharge delay and recharge per second fields.
-- Recoup: the recoup percentages per pool and the recoup duration.
-- Where the engine marks a field `not-computed` or `Partial`, say the answer comes from the rules here, not from the calc.
+The engine facts below were read from Exiled Studio's source (`crates/loom-calc`, dev branch at `b42e49f`, 2026-11-17; the 0.9 line). The engine follows Path of Building 2.67.2's order of operations and rounding, so a number the engine marks `complete` is PoB's number, apart from registered divergences. It computes 24 fields: `strength`, `dexterity`, `intelligence`, `life`, `mana`, `life-unreserved`, `mana-unreserved`, `energy-shield`, `armour`, `evasion`, `resistance.fire`, `resistance.cold`, `resistance.lightning`, `resistance.chaos`, `block-chance`, `spell-block-chance`, `spell-suppression-chance`, `average-damage`, `speed`, `hit-speed`, `hit-chance`, `crit-chance`, `crit-multiplier` and `hit-dps`. The hit fields exist only when the main skill is a self-cast spell hit or a main-hand attack: not channelled, triggered, a totem, trap, mine, minion or brand skill, not a skill with a cooldown, and not dual wielding. For any other main skill they are `not-computed`.
+
+- **The engine has no recovery fields.** Regeneration, leech, recoup, energy shield recharge and flask recovery are not computed and have no field in the calc result. Do not look for them or read their absence as zero.
+- What the engine does give: `life`, `mana`, `energy-shield`, and `life-unreserved` and `mana-unreserved` after reservation. Those are the pools the rates above are percentages of.
+- For recovery numbers, use the rules here and PoB's breakdowns (PoB computes regeneration, leech rates and caps, recharge and recoup), and say the number is PoB's or an estimate.
 
 ## Verification (2026-11-17)
 

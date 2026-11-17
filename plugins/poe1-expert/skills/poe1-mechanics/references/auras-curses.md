@@ -15,7 +15,10 @@ sources:
   - https://www.poewiki.net/wiki/Divine_Blessing_Support
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcPerform.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/ConfigOptions.lua
-verification: unverified
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/gems.rs
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/skill_modifiers.rs
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/exposure.rs
+verification: engine-checked
 ---
 
 # Auras, heralds, blessings, curses, reservation
@@ -70,15 +73,15 @@ reserved = base reservation
   *reduced* efficiency makes the reservation infinite, so the skill cannot be
   used.
 - Rounding: since 3.14 the game keeps percent reservation to two decimals,
-  but the total amount reserved is always a whole number (poewiki). PoB rounds
-  flat reservation to a whole number and percent reservation to two decimals
-  at the end. A 2023 player bug report on the official forum shows the
-  two-decimal percent rounded **up** in the tooltip (37.037...% shown as
-  37.04%), which cost that player a fourth aura; no GGG reply. Older forum
-  threads about rounding describe the pre-3.14 whole-percent system and no
-  longer apply. Whether the game rounds the whole-number total up or down is
-  still **not confirmed**. When a build is within a point of fitting its
-  auras, check it in game.
+  but the total amount reserved is always a whole number (poewiki). PoB
+  2.67.2 rounds each skill's flat reservation to a whole number and its
+  percent to two decimals, then takes `flat + ceil(pool x percent / 100)`: the
+  percent part is rounded **up** to a whole number. Exiled Studio's engine
+  does the same. A 2023 player bug report on the official forum also shows the
+  two-decimal percent rounded up in the tooltip (37.037...% shown as 37.04%),
+  which cost that player a fourth aura. So plan on rounding up at both steps.
+  Older forum threads about rounding describe the pre-3.14 whole-percent
+  system and no longer apply. Not tested in game.
 - **Cost efficiency** is a different stat: it changes skill costs, not
   reservation. 3.29 converted the tree's "reduced cost" lines into cost
   efficiency; they never touched reservation.
@@ -189,15 +192,14 @@ curse value = gem's base value x (1 + sum of increased curse effect / 100)
 
 ## Check with the engine
 
-- Reservation: the engine computes reservation with the supports' cost
-  multipliers and efficiency, and shows the reserved amount per skill.
-- Aura effect: the engine scales non-curse auras from your skills before they
-  merge, and the breakdown names the aura as the source.
-- Exposure: the engine applies the strongest exposure per element to the enemy
-  resistance; the enemy resistance breakdown shows it.
-- Curse effect, the curse limit and doom may not all be modelled. If no field
-  exists, say the answer comes from these rules and PoB.
+The engine facts below were read from Exiled Studio's source (`crates/loom-calc`, dev branch at `b42e49f`, 2026-11-17; the 0.9 line). The engine follows Path of Building 2.67.2's order of operations and rounding, so a number the engine marks `complete` is PoB's number, apart from registered divergences. It computes 24 fields: `strength`, `dexterity`, `intelligence`, `life`, `mana`, `life-unreserved`, `mana-unreserved`, `energy-shield`, `armour`, `evasion`, `resistance.fire`, `resistance.cold`, `resistance.lightning`, `resistance.chaos`, `block-chance`, `spell-block-chance`, `spell-suppression-chance`, `average-damage`, `speed`, `hit-speed`, `hit-chance`, `crit-chance`, `crit-multiplier` and `hit-dps`. The hit fields exist only when the main skill is a self-cast spell hit or a main-hand attack: not channelled, triggered, a totem, trap, mine, minion or brand skill, not a skill with a cooldown, and not dual wielding. For any other main skill they are `not-computed`.
+
+- **Reservation**: computed as PoB does. Per skill, the flat amount is rounded to a whole number and the percent to two decimals; the pool then loses `flat + ceil(pool x percent / 100)`, so the percent part rounds **up** to a whole number. `life-unreserved` and `mana-unreserved` show the result, with a `ceil` step in the graph.
+- **Aura and buff effect**: auras and buffs from the gems the engine knows are scaled by buff effect and non-curse aura effect before they merge, and the breakdown names the aura as the source. A gem the engine does not know shows as an `unmodelled-gem` reason.
+- **Exposure**: the strongest exposure per element is applied to the enemy's resistance, with the extras that deepen it.
+- **Curses**: a curse from a known gem is applied to the enemy, scaled by curse effect. With a curse limit of one, a second hex is a `curse-limit` reason: PoB's choice of which curse stays is not modelled. Marks are not modelled. Doom is not modelled.
+- Divine Blessing and blessings are not modelled.
 
 ## Verification (2026-11-17)
 
-Checked against the official 3.25.0 to 3.30.x notes (3.30.x read in full), poewiki's curse, reservation and Divine Blessing pages, and the pinned Path of Building 2.67.2 (curse effect and doom in `CalcPerform.lua`; boss settings in `ConfigOptions.lua`). Still `unverified`: the direction in which the game rounds the reserved total to a whole number is not confirmed.
+Checked against the official 3.25.0 to 3.30.x notes (3.30.x read in full), poewiki's curse, reservation and Divine Blessing pages, the pinned Path of Building 2.67.2 (curse effect and doom in `CalcPerform.lua`; boss settings in `ConfigOptions.lua`; reservation rounding in `CalcPerform.lua`, `doActorLifeManaReservation`), and Exiled Studio's engine source (`gems.rs`, `skill_modifiers.rs`, `exposure.rs`). `engine-checked` since the third pass the same day: the last open point, which way the reserved total rounds, is settled by PoB and the engine (up), which the maintainer accepts as evidence of the game's rule, and a player report agrees. Not tested in game.
