@@ -1,13 +1,16 @@
 ---
 game: poe1
 patch: 3.30.0
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://poedb.tw/us/Version_3.27.0
-  - https://poedb.tw/us/Version_3.28.0
-  - https://poedb.tw/us/Version_3.29.0
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
-verification: unverified
+  - https://www.pathofexile.com/forum/view-thread/3787013
+  - https://www.pathofexile.com/forum/view-thread/3869068
+  - https://www.pathofexile.com/forum/view-thread/3913392
+  - https://www.pathofexile.com/forum/view-thread/3985332
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://www.poewiki.net/wiki/Damage_conversion
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcOffence.lua
+verification: engine-checked
 ---
 
 # Damage conversion and "gained as extra" (PoE1)
@@ -39,8 +42,8 @@ So added physical damage on gear converts with the rest of your physical damage.
 
 Conversion comes in two groups:
 
-1. **Skill conversion**: conversion granted by the active skill itself (for example, an attack that converts half its physical damage to lightning).
-2. **Other conversion**: everything else, such as supports, gear, the passive tree, auras and ascendancy nodes.
+1. **Skill conversion**: conversion from the active skill gem itself, from support gems linked to it, and from lines that name a specific skill (for example "X% of Manabond and Stormbind Lightning Damage Converted to Cold Damage").
+2. **Other conversion**: everything else, such as gear, the passive tree, auras, buffs and ascendancy nodes.
 
 For each source type:
 
@@ -56,15 +59,15 @@ kept = 100% - skill - other   (the part that stays this type)
 - If the skill already converts 100% of a type, conversion from gear or tree does nothing for that type.
 - When a group is over its limit, each source in it is scaled down by the same factor, so the split keeps its ratios.
 
-Which group a given support or item stat belongs to is decided by the stat, not by where it sits. Look up the stat when it matters; do not guess from the source.
+Which group a line belongs to is decided by its stat. In PoB the skill group is the `Skill...ConvertTo...` stats, which the gem's own conversion and skill-named lines use. The wiki also puts support gem conversion in the skill group. If a case matters, look up the stat; do not guess from the source.
 
 ## "Gained as extra"
 
 "X% of Physical Damage as Extra Fire Damage" adds new damage of the target type. It does **not** remove anything from the source type.
 
 - It is not limited by the 100% cap. Gains can total more than 100%.
-- It is based on the full amount of the source type at that step (its base plus what was converted into it), not on the part left after conversion.
-- The gained damage becomes part of the target type and moves on along the chain with it, so it can be converted or gained again further on, as Path of Building models it.
+- It is based on the full amount of the source type at that step (its base plus what was converted into it), not on the part left after conversion. Within each source type, the gain is worked out before that type's conversion takes anything away.
+- The gained damage becomes part of the target type and moves on along the chain with it, so it can be converted or gained again further on. PoB models it this way, and the wiki describes the same order (so a "non-chaos as extra chaos" line can apply once per type the damage passes through). Not checked in game.
 
 ## Which modifiers apply to converted damage
 
@@ -81,12 +84,12 @@ What does **not** carry over: effects that care about the final type only. Resis
 
 ## Monsters (3.27 change)
 
-The 3.27 notes say monster physical-to-elemental conversion scaling was reworked. On high-level monsters that already convert most or all of their physical damage, "physical as extra elemental" on those monsters now has far less effect. This changes enemy damage, not yours.
+The official 3.27.0 notes (Monster Changes) say the way monsters that convert physical to elemental damage scale with monster and map modifiers that grant "physical as extra element" was reworked. On high-level monsters that already convert most or all of their physical damage, those modifiers now have far less effect. This changes enemy damage, not yours. A 3.27.0c fix also stopped your own effects that convert a monster's physical damage to an element from raising that element's damage.
 
 ## Patch notes checked
 
-- No general change to the conversion order, the 100% cap, or "gained as extra" was found in the 3.26 to 3.30 notes (the parts read; some pages were long and not read in full, so this is not confirmed for 3.30). Individual skills and items changed their own conversion values; look those up.
-- 3.30 fixed a rounding bug in damage-taken conversion that let a small part of the original type through. That concerns defence, not the damage you deal.
+- No general change to the conversion order, the 100% cap, or "gained as extra" is in the official 3.26.0 to 3.30.0 notes. The 3.30.x posts (3.30.0 and every hotfix to 3.30.0b Hotfix 4) were read in full; the 3.26.0 to 3.29.0 posts were searched for every line about conversion or "as extra". Individual skills, items and monsters changed their own values (3.29 Void Sphere and Voltaxic Burst, 3.28 Spectres losing a hidden elemental bonus); look those up.
+- 3.30.0 fixed a rounding bug in damage-taken conversion that let a small part of the original type through. That concerns defence, not the damage you deal.
 
 ## Worked example
 
@@ -133,3 +136,7 @@ The cold part does not get the lightning increase, because it never was lightnin
 ## Check with the engine
 
 The Exiled Studio average damage field breaks hit damage down per damage type, with a provenance graph. For a skill with modelled conversion, expand a type's node to see its converted share, the share the source type keeps, and which type modifiers entered its increased sum. Conversion and gain beyond a vetted skill's own conversion may show as a "not modelled" reason; when it does, the engine cannot confirm the number yet and the answer rests on this file.
+
+## Verification (2026-11-17)
+
+`engine-checked` here means: the order, the 100% scaling with skill conversion first, and "gained as extra" were checked against the pinned Path of Building 2.67.2 (`CalcOffence.lua`, the conversion table and `calcDamage`) and against the official 3.26.0 to 3.30.x notes; poewiki's conversion page agrees with PoB on every point. The worked example was recomputed. Not checked in game.
