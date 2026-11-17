@@ -10,6 +10,7 @@ sources:
   - https://www.poewiki.net/wiki/Evasion
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcOffence.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcDefence.lua
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/hit.rs
 verification: engine-checked
 ---
 
@@ -169,7 +170,13 @@ DPS        = 612.20 x 2 = 1224.4
 
 ## Check with the engine
 
-The Exiled Studio calc result has per-skill fields for average damage, crit chance, crit multiplier, speed, hit chance and total DPS, each with a provenance graph. Expand the average damage node to see the base, the summed increases, each more multiplier and the enemy's resistance step. Use it to confirm a hand calculation, and to see which modifiers did or did not apply to a hit.
+The engine facts below were read from Exiled Studio's source (`crates/loom-calc`, dev branch at `b42e49f`, 2026-11-17; the 0.9 line). The engine follows Path of Building 2.67.2's order of operations and rounding, so a number the engine marks `complete` is PoB's number, apart from registered divergences. It computes 24 fields: `strength`, `dexterity`, `intelligence`, `life`, `mana`, `life-unreserved`, `mana-unreserved`, `energy-shield`, `armour`, `evasion`, `resistance.fire`, `resistance.cold`, `resistance.lightning`, `resistance.chaos`, `block-chance`, `spell-block-chance`, `spell-suppression-chance`, `average-damage`, `speed`, `hit-speed`, `hit-chance`, `crit-chance`, `crit-multiplier` and `hit-dps`. The hit fields exist only when the main skill is a self-cast spell hit or a main-hand attack: not channelled, triggered, a totem, trap, mine, minion or brand skill, not a skill with a cooldown, and not dual wielding. For any other main skill they are `not-computed`.
+
+- `average-damage`, `speed`, `hit-speed`, `hit-chance`, `crit-chance`, `crit-multiplier` and `hit-dps` each have a provenance graph. Expand `average-damage` to see the base (source damage times the skill's multiplier, plus added damage times effectiveness), the summed increases, each more multiplier, and the enemy step (resistance and penetration, or armour for physical, then the enemy's damage taken).
+- `average-damage` is the average hit times hit chance, so `hit-dps` is `average-damage` times the rate. The rate is capped at one action per server tick.
+- The default enemy is PoB's Guardian or Pinnacle boss. Say which enemy a number is for.
+- One registered difference from PoB: a weapon's attack time is floored to whole milliseconds, as the game does (checked in game by the maintainer). Small attack-rate differences from PoB come from that.
+- Luck, damage taken by projectiles, traps or mines, and repeats are not modelled; a stat that needs them makes the fields `partial` with a reason.
 
 ## Verification (2026-11-17)
 

@@ -10,6 +10,8 @@ sources:
   - https://www.poewiki.net/wiki/Evasion
   - https://www.poewiki.net/wiki/Ailment
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcOffence.lua
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/hit.rs
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/keystones.rs
 verification: engine-checked
 ---
 
@@ -160,7 +162,11 @@ lucky instead = 1 - (1 - 0.376)^2 = 61.1%; x 0.90 = 55.0%; factor 1 + 0.5496 x 1
 
 ## Check with the engine
 
-The Exiled Studio calc result has a crit chance field (already multiplied by hit chance for attacks), a crit multiplier field, a hit chance field and the average damage field, which weighs the crit and non-crit passes. Their provenance graphs show the base, flat additions, summed increases and each more multiplier. Resolute Technique is modelled. Lucky crit chance and bifurcation may show as "not modelled" reasons; then the engine cannot confirm those parts.
+The engine facts below were read from Exiled Studio's source (`crates/loom-calc`, dev branch at `b42e49f`, 2026-11-17; the 0.9 line). The engine follows Path of Building 2.67.2's order of operations and rounding, so a number the engine marks `complete` is PoB's number, apart from registered divergences. It computes 24 fields: `strength`, `dexterity`, `intelligence`, `life`, `mana`, `life-unreserved`, `mana-unreserved`, `energy-shield`, `armour`, `evasion`, `resistance.fire`, `resistance.cold`, `resistance.lightning`, `resistance.chaos`, `block-chance`, `spell-block-chance`, `spell-suppression-chance`, `average-damage`, `speed`, `hit-speed`, `hit-chance`, `crit-chance`, `crit-multiplier` and `hit-dps`. The hit fields exist only when the main skill is a self-cast spell hit or a main-hand attack: not channelled, triggered, a totem, trap, mine, minion or brand skill, not a skill with a cooldown, and not dual wielding. For any other main skill they are `not-computed`.
+
+- `crit-chance` is `min((base + added) x increased x more, 100)`, then **times hit chance** for attacks, exactly the second accuracy check described above. `crit-multiplier` is its own field. `average-damage` weighs the non-crit and crit passes.
+- Resolute Technique and Elemental Overload are modelled (keystones). Power charges enter `crit-chance` as a named per-charge effect.
+- Lucky crit chance and bifurcation are not modelled. A build with them shows `partial` fields with a reason; say the engine cannot confirm those parts.
 
 ## Verification (2026-11-17)
 

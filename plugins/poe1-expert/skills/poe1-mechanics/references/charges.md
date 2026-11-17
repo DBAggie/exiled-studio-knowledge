@@ -13,6 +13,8 @@ sources:
   - https://www.poewiki.net/wiki/Charge
   - https://www.poewiki.net/wiki/Challenger_Charge
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Data/Misc.lua
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/charges.rs
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/stacks.rs
 verification: engine-checked
 ---
 
@@ -110,10 +112,13 @@ These start with a maximum of 0 and do nothing unless a source grants them. Each
 
 ## Check with the engine
 
-- `loom_calc::poe1::charges`: the count for each type comes from the `use<Kind>Charges` and `override<Kind>Charges` config inputs, the maximum, and the minimum. The calc breakdown shows each per-charge effect with its source.
-- Crit chance and speed fields show the power and frenzy contributions as named effects.
-- Endurance charge effects reach damage taken, which is not a slice field yet; say so when asked for a number.
-- Absorption, affliction, and brutal conversions and "at maximum" flags are unmapped stats in the engine and show as reasons.
+The engine facts below were read from Exiled Studio's source (`crates/loom-calc`, dev branch at `b42e49f`, 2026-11-17; the 0.9 line). The engine follows Path of Building 2.67.2's order of operations and rounding, so a number the engine marks `complete` is PoB's number, apart from registered divergences. It computes 24 fields: `strength`, `dexterity`, `intelligence`, `life`, `mana`, `life-unreserved`, `mana-unreserved`, `energy-shield`, `armour`, `evasion`, `resistance.fire`, `resistance.cold`, `resistance.lightning`, `resistance.chaos`, `block-chance`, `spell-block-chance`, `spell-suppression-chance`, `average-damage`, `speed`, `hit-speed`, `hit-chance`, `crit-chance`, `crit-multiplier` and `hit-dps`. The hit fields exist only when the main skill is a self-cast spell hit or a main-hand attack: not channelled, triggered, a totem, trap, mine, minion or brand skill, not a skill with a cooldown, and not dual wielding. For any other main skill they are `not-computed`.
+
+- `loom_calc::poe1::charges`: the count per type is PoB's rule, `max(use ? (override or maximum) : 0, min(maximum, minimum))`, from the `use<Kind>Charges` and `override<Kind>Charges` config inputs. A minimum gives charges even with the `use` input off.
+- Power charges show in `crit-chance`; frenzy charges in `speed` (increased attack and cast speed) and as a more multiplier in `average-damage`. Each is a named per-charge effect with its source.
+- Endurance charges' own effects (physical and elemental damage reduction) reach no computed field: the engine has no damage-taken field for the player. Say so when asked for a number.
+- Rage and Inspiration charges are counted as stacks for modifiers that read them.
+- "At maximum charges" flags and conversions to absorption, affliction or brutal charges are not mapped; they show as an `unmapped-stat` reason.
 
 ## Verification (2026-11-17)
 

@@ -12,6 +12,8 @@ sources:
   - https://www.poewiki.net/wiki/Mine
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Data/Misc.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcSetup.lua
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/hit.rs
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/skill.rs
 verification: unverified
 ---
 
@@ -150,11 +152,11 @@ PoE2 has totems and traps with different rules; do not apply this there.
 
 ## Check with the engine
 
-- Totem damage: the skill breakdown shows totem-only lines as named sources
-  when the main skill is used by a totem. Totem life and resistance fields may
-  not exist in the engine; say so if absent.
-- Trap and mine throw rate, cooldown and mine reservation: if the engine shows
-  no rate field for the skill, use these rules and PoB.
+The engine facts below were read from Exiled Studio's source (`crates/loom-calc`, dev branch at `b42e49f`, 2026-11-17; the 0.9 line). The engine follows Path of Building 2.67.2's order of operations and rounding, so a number the engine marks `complete` is PoB's number, apart from registered divergences. It computes 24 fields: `strength`, `dexterity`, `intelligence`, `life`, `mana`, `life-unreserved`, `mana-unreserved`, `energy-shield`, `armour`, `evasion`, `resistance.fire`, `resistance.cold`, `resistance.lightning`, `resistance.chaos`, `block-chance`, `spell-block-chance`, `spell-suppression-chance`, `average-damage`, `speed`, `hit-speed`, `hit-chance`, `crit-chance`, `crit-multiplier` and `hit-dps`. The hit fields exist only when the main skill is a self-cast spell hit or a main-hand attack: not channelled, triggered, a totem, trap, mine, minion or brand skill, not a skill with a cooldown, and not dual wielding. For any other main skill they are `not-computed`.
+
+- The engine does not compute skills used by totems, traps or mines, or brands: with such a main skill the hit fields are `not-computed`. There are no totem life, trap or mine fields, and no throw rate, cooldown or mine reservation.
+- Damage taken by the enemy from trap or mine skills is also not modelled.
+- For these builds use the rules here and PoB, and say the engine does not compute them yet.
 
 ## Verification (2026-11-17)
 

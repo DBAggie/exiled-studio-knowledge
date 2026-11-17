@@ -12,6 +12,7 @@ sources:
   - https://www.poewiki.net/wiki/Tincture
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Classes/ItemsTab.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Classes/Item.lua
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/mod.rs
 verification: engine-checked
 ---
 
@@ -102,8 +103,11 @@ Charms do not exist in PoE1. PoE2 differs (charms, flask rules, and recovery all
 
 ## Check with the engine
 
-- Flask fields (recovery per use, recovery per second, duration, charges per use, utility buff values) are not part of the calc slice yet. Answer from the rules here and say so.
-- When a flask buff is active in a build's config, its stats appear in the calc breakdown as their own source, which confirms the buff values the engine applied.
+The engine facts below were read from Exiled Studio's source (`crates/loom-calc`, dev branch at `b42e49f`, 2026-11-17; the 0.9 line). The engine follows Path of Building 2.67.2's order of operations and rounding, so a number the engine marks `complete` is PoB's number, apart from registered divergences. It computes 24 fields: `strength`, `dexterity`, `intelligence`, `life`, `mana`, `life-unreserved`, `mana-unreserved`, `energy-shield`, `armour`, `evasion`, `resistance.fire`, `resistance.cold`, `resistance.lightning`, `resistance.chaos`, `block-chance`, `spell-block-chance`, `spell-suppression-chance`, `average-damage`, `speed`, `hit-speed`, `hit-chance`, `crit-chance`, `crit-multiplier` and `hit-dps`. The hit fields exist only when the main skill is a self-cast spell hit or a main-hand attack: not channelled, triggered, a totem, trap, mine, minion or brand skill, not a skill with a cooldown, and not dual wielding. For any other main skill they are `not-computed`.
+
+- The engine has no flask or tincture fields: no recovery per use, duration, charges or buff values.
+- Do not assume a flask's buff is inside the engine's numbers. Check the field's breakdown for a flask source and the field's reasons before saying a flask is counted.
+- Answer flask questions from the rules here and from PoB's flask tooltip, and say so.
 
 ## Verification (2026-11-17)
 

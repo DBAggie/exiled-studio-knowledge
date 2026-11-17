@@ -13,6 +13,8 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Data/Minions.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcSetup.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcPerform.lua
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/minions.rs
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/hit.rs
 verification: unverified
 ---
 
@@ -159,12 +161,12 @@ minion hit = minion skill base damage
 
 ## Check with the engine
 
-- The engine's minion handling in 3.30 is partial. It covers minion modifiers
-  that also affect you (minion damage and speeds given to you by lines such as
-  Spiritual Aid), which show in your own damage breakdown with the source named.
-- Full minion DPS, life and resistances may not be computed. If the engine has
-  no minion field, say the value comes from PoB or from the rules here, and
-  look up the minion gem's base values through the knowledge tools.
+The engine facts below were read from Exiled Studio's source (`crates/loom-calc`, dev branch at `b42e49f`, 2026-11-17; the 0.9 line). The engine follows Path of Building 2.67.2's order of operations and rounding, so a number the engine marks `complete` is PoB's number, apart from registered divergences. It computes 24 fields: `strength`, `dexterity`, `intelligence`, `life`, `mana`, `life-unreserved`, `mana-unreserved`, `energy-shield`, `armour`, `evasion`, `resistance.fire`, `resistance.cold`, `resistance.lightning`, `resistance.chaos`, `block-chance`, `spell-block-chance`, `spell-suppression-chance`, `average-damage`, `speed`, `hit-speed`, `hit-chance`, `crit-chance`, `crit-multiplier` and `hit-dps`. The hit fields exist only when the main skill is a self-cast spell hit or a main-hand attack: not channelled, triggered, a totem, trap, mine, minion or brand skill, not a skill with a cooldown, and not dual wielding. For any other main skill they are `not-computed`.
+
+- The engine does not compute minions. When the main skill is a minion skill the hit fields are `not-computed`, and there are no minion life, resistance or DPS fields.
+- What it does model (`loom_calc::poe1::minions`): minion modifiers that also affect **you** (Spiritual Aid, Spiritual Command and the like). They show in your own damage and speed breakdowns with the source named.
+- A summoned golem's buff to you is modelled for the golems the engine knows; other minion effects on you show as reasons.
+- For minion numbers, use PoB (it has a minion stats view) and the knowledge tools for the minion gem's base values, and say the engine does not compute them.
 
 ## Verification (2026-11-17)
 

@@ -11,6 +11,8 @@ sources:
   - https://www.poewiki.net/wiki/Trigger
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcTriggers.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Data/Skills/sup_str.lua
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/hit.rs
+  - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/skill.rs
 verification: engine-checked
 ---
 
@@ -166,10 +168,11 @@ Read the source's text: it says which kind it is.
 
 ## Check with the engine
 
-- The engine computes cooldowns rounded to server ticks where it models a
-  skill's rate. Trigger rates for trigger gems may not be computed in 3.30.
-  If the main skill shows no trigger rate field, say the rate comes from these
-  rules and PoB, and look up the gem's cooldown through the knowledge tools.
+The engine facts below were read from Exiled Studio's source (`crates/loom-calc`, dev branch at `b42e49f`, 2026-11-17; the 0.9 line). The engine follows Path of Building 2.67.2's order of operations and rounding, so a number the engine marks `complete` is PoB's number, apart from registered divergences. It computes 24 fields: `strength`, `dexterity`, `intelligence`, `life`, `mana`, `life-unreserved`, `mana-unreserved`, `energy-shield`, `armour`, `evasion`, `resistance.fire`, `resistance.cold`, `resistance.lightning`, `resistance.chaos`, `block-chance`, `spell-block-chance`, `spell-suppression-chance`, `average-damage`, `speed`, `hit-speed`, `hit-chance`, `crit-chance`, `crit-multiplier` and `hit-dps`. The hit fields exist only when the main skill is a self-cast spell hit or a main-hand attack: not channelled, triggered, a totem, trap, mine, minion or brand skill, not a skill with a cooldown, and not dual wielding. For any other main skill they are `not-computed`.
+
+- The engine does not compute triggered skills or skills with a cooldown: with such a main skill the hit fields are `not-computed`. It has no trigger rate or cooldown field.
+- It does cap a modelled skill's rate at one action per server tick (`1 / 0.033` per second), the same tick the cooldown rounding above uses.
+- For trigger rates use the rules here and PoB's trigger breakdown, and look up the gem's cooldown through the knowledge tools.
 
 ## Verification (2026-11-17)
 
