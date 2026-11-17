@@ -5,6 +5,7 @@ as_of: 2026-11-17
 sources:
   - https://www.pathofexile.com/forum/view-thread/4013680
   - https://www.pathofexile.com/forum/view-thread/3985332
+  - https://www.pathofexile.com/forum/view-thread/3377087
   - https://www.pathofexile.com/forum/view-thread/3913392
   - https://www.pathofexile.com/forum/view-thread/3869068
   - https://www.pathofexile.com/forum/view-thread/3787013
@@ -71,8 +72,13 @@ reserved = base reservation
 - Rounding: since 3.14 the game keeps percent reservation to two decimals,
   but the total amount reserved is always a whole number (poewiki). PoB rounds
   flat reservation to a whole number and percent reservation to two decimals
-  at the end. Whether the game rounds the whole-number total up or down is
-  **not confirmed**.
+  at the end. A 2023 player bug report on the official forum shows the
+  two-decimal percent rounded **up** in the tooltip (37.037...% shown as
+  37.04%), which cost that player a fourth aura; no GGG reply. Older forum
+  threads about rounding describe the pre-3.14 whole-percent system and no
+  longer apply. Whether the game rounds the whole-number total up or down is
+  still **not confirmed**. When a build is within a point of fitting its
+  auras, check it in game.
 - **Cost efficiency** is a different stat: it changes skill costs, not
   reservation. 3.29 converted the tree's "reduced cost" lines into cost
   efficiency; they never touched reservation.

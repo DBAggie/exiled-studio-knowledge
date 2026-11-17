@@ -5,6 +5,7 @@ as_of: 2026-11-17
 sources:
   - https://www.pathofexile.com/forum/view-thread/4013680
   - https://www.pathofexile.com/forum/view-thread/4015085
+  - https://devtrackers.gg/pathofexile/p/334688fc-path-of-exile-petrified-blood-mechanics-explained-part-2
   - https://www.pathofexile.com/forum/view-thread/3985332
   - https://www.pathofexile.com/forum/view-thread/3913392
   - https://www.pathofexile.com/forum/view-thread/3869068
@@ -70,13 +71,13 @@ instance duration = instance total / instance rate
 - **Per-instance cap.** Each instance can recover at most 10% of your maximum of that pool by default (the game-data constants PoB reads give 10% for life, mana and ES alike; poewiki agrees for life). "Increased maximum recovery per life leech" raises it. 3.28 added unique effects that raise or double this cap (example: Bloodseeker, Essentia Sanguis).
 - **Total rate cap.** All instances together cannot recover more per second than the maximum leech rate. The defaults are 20% of maximum life per second and 20% of maximum mana per second; ES leech has a lower default cap of **10% of maximum ES per second** (game-data constants in PoB 2.67.2; poewiki gives the same values). "Increased maximum total life recovery per second from leech" raises the cap.
 - Because the rate depends on your maximum, a large pool leeches faster in flat terms. Big hits mostly make instances last longer; they do not make them faster.
-- **Sources disagree on "increased total recovery per second from leech".** PoB 2.67.2 multiplies each instance's rate by it (the formula above, so instances also end sooner). poewiki says it raises the recovery you get without making an instance end sooner. The total per second is the same in both readings; only instance length differs. Not checked in game.
+- **"Increased total recovery per second from leech"** applies to the combined recovery from all your instances, not to each instance, and the total rate cap applies to that combined figure. A GGG developer (Mark_GGG, 2021, relayed on devtrackers) said so, and that an instance's rate and duration are fixed when it is made. poewiki agrees. PoB 2.67.2 instead multiplies each instance's rate by it; the total per second comes out the same, but PoB's instance length is not the game's.
 
 ### When instances end
 
 - An instance ends when it has recovered its total.
 - By default every life leech instance is removed when your life is full. "Overleech" effects (for example "life leech effects are not removed when unreserved life is filled") keep the instances running, so they keep you topped up through incoming damage.
-- Whether instances keep running after the enemy dies is **not confirmed**: neither the patch notes nor poewiki's leech page state it, and PoB does not model it.
+- **After the enemy dies**: very likely the instance keeps running, but this is **not confirmed** by a direct statement or a test. The same developer post describes an instance as only a rate and a duration held by you, ending when the duration runs out or your unreserved life is full; the target's death is not one of the ways it ends. The patch notes and poewiki do not state it, and PoB does not model it.
 
 ### Instant leech
 
@@ -149,4 +150,4 @@ recharge rate  = base rate x maximum ES x (1 + increased ES recharge rate) x (1 
 
 ## Verification (2026-11-17)
 
-Checked against the official 3.26.0 to 3.30.x notes (3.30.x read in full), poewiki's leech and recoup pages, and the pinned Path of Building 2.67.2 (game-data constants in `Data/Misc.lua`; leech in `CalcOffence.lua`; recoup in `CalcDefence.lua`). Still `unverified`: whether leech keeps running after the target dies is not confirmed by any source.
+Checked against the official 3.26.0 to 3.30.x notes (3.30.x read in full), poewiki's leech and recoup pages, and the pinned Path of Building 2.67.2 (game-data constants in `Data/Misc.lua`; leech in `CalcOffence.lua`; recoup in `CalcDefence.lua`). A second pass the same day looked at older sources (a 2021 Mark_GGG post relayed on devtrackers): it settles the "total recovery per second" reading and makes leech after the target's death very likely. Still `unverified`: no source states outright that leech keeps running after the target dies; it waits for an in-game test.
