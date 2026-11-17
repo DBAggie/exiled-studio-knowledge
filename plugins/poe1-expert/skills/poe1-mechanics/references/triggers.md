@@ -13,7 +13,7 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Data/Skills/sup_str.lua
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/hit.rs
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/skill.rs
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Triggers
@@ -177,3 +177,5 @@ The engine facts below were read from Exiled Studio's source (`crates/loom-calc`
 ## Verification (2026-11-17)
 
 `engine-checked` here means: the cooldown and server-tick rounding, the rotation model and the CwDT threshold were checked against the pinned Path of Building 2.67.2 (`Modules/CalcTriggers.lua`; gem text in `Data/Skills/sup_str.lua`) and the official 3.26.0 to 3.30.x notes; poewiki's trigger page was used for costs and for which triggers are independent. Not checked in game.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

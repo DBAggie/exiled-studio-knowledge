@@ -11,7 +11,7 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcDefence.lua
   - repo:DBAggie/exiled-studio/schemas/mcp-tools.v1.json
   - https://poe.ninja/poe1/builds/covens
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Defensive thresholds by content tier
@@ -136,3 +136,5 @@ Game facts checked against the official 3.27.0, 3.28.0 and 3.30.0 notes and Path
 Numbers, from the maintainer on 2026-11-17: the chaos resistance and elemental resistance figures are approved as written; the level bands for each content tier; life about 400 to 500 per act as the campaign aim; max hit is build dependent; suppression and block targets apply only to builds that use those layers; hardcore takes conservative numbers; ES builds trade life for ES; two utility flasks is the usual early-maps count. The maintainer also decided that life and ES targets follow what players actually have by level, so the old draft targets (3,500 to 4,500, 5,000 to 6,000, 6,000 or more, 7,000 to 10,000) were replaced by the observed ranges in the table, read by hand from the poe.ninja builds page (100 characters each at levels 70, 75, 80, 85, 90, 93, 95 and 97; the ES figures come from 8 to 23 characters per level, so they are rough).
 
 `engine-checked` here means the game facts were checked as above and every number is either the maintainer's or an observation with its date and source. The max hit figures remain commonly cited values with no source.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

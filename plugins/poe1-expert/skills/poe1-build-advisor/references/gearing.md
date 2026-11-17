@@ -7,7 +7,7 @@ sources:
   - https://www.pathofexile.com/forum/view-thread/4013680
   - https://www.pathofexile.com/forum/view-thread/3913392
   - repo:DBAggie/exiled-studio/schemas/mcp-tools.v1.json
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Gearing progression and upgrade order
@@ -105,3 +105,5 @@ Rules:
 ## Verification (2026-11-17)
 
 `engine-checked` here means: the folded-in game facts (the 3.28.0 Greater support rule and Intelligence ES; the 3.30.0 scarab removal and Threads, cluster jewel speed mods as one family, Orb of Chance and Item Tier changes) were checked against the official notes, and the tool names and the `expect` argument of `preview_item_edit` against Exiled Studio's `schemas/mcp-tools.v1.json`. The upgrade order itself is community advice, not a game rule.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

@@ -16,7 +16,7 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Data/Misc.lua
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/phases.rs
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/charges.rs
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Defences (PoE1 3.30)
@@ -184,3 +184,5 @@ The engine facts below were read from Exiled Studio's source (`crates/loom-calc`
 ## Verification (2026-11-17)
 
 `engine-checked` here means: the armour and hit chance formulas (`CalcDefence.lua`), the caps (90% physical damage reduction, 95% evade, 75% default and 90% hard block and resistance caps, -200% resistance floor, 40% suppression; `Modules/Data.lua`), the -30%/-60% campaign penalty, fortification and endurance charges (game-data constants in `Data/Misc.lua`) were checked against the pinned Path of Building 2.67.2 and the official 3.25.0 to 3.30.x notes. poewiki was used for the crit second check and for chaos damage and energy shield. Not checked in game.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

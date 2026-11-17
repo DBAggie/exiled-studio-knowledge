@@ -17,7 +17,7 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcDefence.lua
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/mod.rs
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/phases.rs
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Recovery in PoE1
@@ -155,3 +155,5 @@ The engine facts below were read from Exiled Studio's source (`crates/loom-calc`
 Checked against the official 3.26.0 to 3.30.x notes (3.30.x read in full), poewiki's leech and recoup pages, and the pinned Path of Building 2.67.2 (game-data constants in `Data/Misc.lua`; leech in `CalcOffence.lua`; recoup in `CalcDefence.lua`). A second pass the same day looked at older sources (a 2021 Mark_GGG post relayed on devtrackers): it settles the "total recovery per second" reading and makes leech after the target's death very likely. Still `unverified`: no source states outright that leech keeps running after the target dies; it waits for an in-game test.
 
 Fourth pass, 2026-11-17: the maintainer confirmed that leech continues after the enemy dies, which closes the last open point. `engine-checked`: every numeric rule was checked against Path of Building 2.67.2 and the official notes. Exiled Studio's engine has no recovery fields to check against.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

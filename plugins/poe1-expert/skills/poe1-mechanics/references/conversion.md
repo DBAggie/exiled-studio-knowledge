@@ -11,7 +11,7 @@ sources:
   - https://www.poewiki.net/wiki/Damage_conversion
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcOffence.lua
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/hit.rs
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Damage conversion and "gained as extra" (PoE1)
@@ -145,3 +145,5 @@ The engine facts below were read from Exiled Studio's source (`crates/loom-calc`
 ## Verification (2026-11-17)
 
 `engine-checked` here means: the order, the 100% scaling with skill conversion first, and "gained as extra" were checked against the pinned Path of Building 2.67.2 (`CalcOffence.lua`, the conversion table and `calcDamage`) and against the official 3.26.0 to 3.30.x notes; poewiki's conversion page agrees with PoB on every point. The worked example was recomputed. Not checked in game.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

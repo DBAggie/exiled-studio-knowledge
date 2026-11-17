@@ -10,7 +10,7 @@ sources:
   - repo:DBAggie/exiled-studio/schemas/mcp-tools.v1.json
   - repo:DBAggie/exiled-studio/schemas/calc-result.v1.schema.json
   - repo:DBAggie/exiled-studio/docs/parity/divergence-register.json
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Reading a calculation breakdown
@@ -136,3 +136,5 @@ Rules:
 ## Verification (2026-11-17)
 
 `engine-checked` here means: the tool names against Exiled Studio's `schemas/mcp-tools.v1.json`; the five field states (`complete`, `partial`, `unsupported`, `indeterminate`, `not-computed`) and the example field names against `schemas/calc-result.v1.schema.json`; the attack-time flooring against `docs/parity/divergence-register.json` (dev branch, 2026-11-17); the formulas against Path of Building 2.67.2.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.
