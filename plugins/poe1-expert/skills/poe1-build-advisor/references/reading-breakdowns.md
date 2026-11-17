@@ -1,16 +1,21 @@
 ---
 game: poe1
 patch: 3.30.0
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
   - https://www.pathofexile.com/forum/view-thread/3913392
-  - https://poedb.tw/us/Resistance
-verification: unverified
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcOffence.lua
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcDefence.lua
+  - repo:DBAggie/exiled-studio/schemas/mcp-tools.v1.json
+  - repo:DBAggie/exiled-studio/schemas/calc-result.v1.schema.json
+  - repo:DBAggie/exiled-studio/docs/parity/divergence-register.json
+verification: engine-checked
 ---
 
 # Reading a calculation breakdown
 
-How to read a damage or defence breakdown in Exiled Studio or Path of Building (PoB), and how to explain one to a player. The formulas are long-standing PoE1 rules; none was changed in the 3.26 to 3.30 notes reviewed for this file, but each patch can change a constant. Not re-confirmed line by line for 3.30.
+How to read a damage or defence breakdown in Exiled Studio or Path of Building (PoB), and how to explain one to a player. The formulas are long-standing PoE1 rules; they were checked against Path of Building 2.67.2 on 2026-11-17, and no official 3.26 to 3.30 note changes them. The mechanics references (`poe1-mechanics`) hold the detail.
 
 PoE2 differs (for example its accuracy and armour rules); do not apply this there.
 
@@ -44,6 +49,7 @@ average hit = non-crit hit x (1 - crit chance) + crit hit x crit chance
 crit hit    = non-crit hit x crit multiplier
 ```
 - Crit chance caps at 100%. Base crit comes from the gem (spells) or weapon (attacks).
+- For attacks, a crit must pass the accuracy check a second time, so the shown crit chance is already multiplied by hit chance.
 - A breakdown shows base crit, increased crit, and the final chance. Check the final.
 
 ## Rate and DPS
@@ -86,7 +92,7 @@ Capped at 90%. Bigger hits get less reduction.
   - `partial`: the value is computed, but some inputs are not modelled. The breakdown names what is missing. Treat the number as a floor or a rough value and say so.
   - `unsupported`: the app has no calculation for this. There is no value. Never read it as zero.
   - `indeterminate`: the value cannot be settled (for example a choice the build does not make). There is no single value.
-  - Not computed: the field has no value. Never read it as zero.
+  - `not-computed`: the field has no value. Never read it as zero.
 - `get_breakdown` returns the field and the graph of nodes it depends on. Each contribution names its source: an item line, a passive, a gem, the config, a custom modifier.
 - Unread item lines (`list_warnings`) never count. If a line is missing, the field is lower than the game shows.
 
@@ -116,7 +122,7 @@ When the Exiled Studio app MCP is reachable:
 Rules:
 - When the app is reachable, every number is checked with `get_breakdown` or `preview_item_edit` first.
 - When it is not, label each number an estimate and say how to check it.
-- A field in state `unsupported`, `indeterminate`, or not computed is never read as zero.
+- A field in state `unsupported`, `indeterminate`, or `not-computed` is never read as zero.
 
 ## Common mistakes
 - Multiplying "increased" modifiers together instead of adding them.
@@ -126,3 +132,7 @@ Rules:
 - Quoting DPS without saying which enemy it was against.
 - Reading `partial` as `complete`, or `unsupported` as zero.
 - Treating a PoB and Exiled Studio difference as a bug without checking the divergence register and warnings.
+
+## Verification (2026-11-17)
+
+`engine-checked` here means: the tool names against Exiled Studio's `schemas/mcp-tools.v1.json`; the five field states (`complete`, `partial`, `unsupported`, `indeterminate`, `not-computed`) and the example field names against `schemas/calc-result.v1.schema.json`; the attack-time flooring against `docs/parity/divergence-register.json` (dev branch, 2026-11-17); the formulas against Path of Building 2.67.2.
