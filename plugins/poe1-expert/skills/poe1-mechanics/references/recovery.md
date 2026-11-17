@@ -17,7 +17,7 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcDefence.lua
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/mod.rs
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/phases.rs
-verification: unverified
+verification: engine-checked
 ---
 
 # Recovery in PoE1
@@ -79,7 +79,7 @@ instance duration = instance total / instance rate
 
 - An instance ends when it has recovered its total.
 - By default every life leech instance is removed when your life is full. "Overleech" effects (for example "life leech effects are not removed when unreserved life is filled") keep the instances running, so they keep you topped up through incoming damage.
-- **After the enemy dies**: very likely the instance keeps running, but this is **not confirmed** by a direct statement or a test. The same developer post describes an instance as only a rate and a duration held by you, ending when the duration runs out or your unreserved life is full; the target's death is not one of the ways it ends. The patch notes and poewiki do not state it, and PoB does not model it.
+- **After the enemy dies**, the leech instance keeps running: it goes on recovering your life, mana or energy shield for the rest of its duration (confirmed by the maintainer, 2026-11-17). This fits the developer description of an instance as a rate and a duration held by you, which ends only when the duration runs out or the pool is full.
 
 ### Instant leech
 
@@ -153,3 +153,5 @@ The engine facts below were read from Exiled Studio's source (`crates/loom-calc`
 ## Verification (2026-11-17)
 
 Checked against the official 3.26.0 to 3.30.x notes (3.30.x read in full), poewiki's leech and recoup pages, and the pinned Path of Building 2.67.2 (game-data constants in `Data/Misc.lua`; leech in `CalcOffence.lua`; recoup in `CalcDefence.lua`). A second pass the same day looked at older sources (a 2021 Mark_GGG post relayed on devtrackers): it settles the "total recovery per second" reading and makes leech after the target's death very likely. Still `unverified`: no source states outright that leech keeps running after the target dies; it waits for an in-game test.
+
+Fourth pass, 2026-11-17: the maintainer confirmed that leech continues after the enemy dies, which closes the last open point. `engine-checked`: every numeric rule was checked against Path of Building 2.67.2 and the official notes. Exiled Studio's engine has no recovery fields to check against.
