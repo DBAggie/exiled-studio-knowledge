@@ -1,13 +1,19 @@
 ---
 game: poe1
 patch: 3.30.0
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
-  - https://poedb.tw/us/Version_3.29.0
-  - https://poedb.tw/us/Version_3.28.0
-  - https://poedb.tw/us/Version_3.27.0
-  - https://poedb.tw/us/Version_3.26.0
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://www.pathofexile.com/forum/view-thread/4015085
+  - https://www.pathofexile.com/forum/view-thread/3985332
+  - https://www.pathofexile.com/forum/view-thread/3913392
+  - https://www.pathofexile.com/forum/view-thread/3869068
+  - https://www.pathofexile.com/forum/view-thread/3787013
+  - https://www.poewiki.net/wiki/Leech
+  - https://www.poewiki.net/wiki/Recoup
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Data/Misc.lua
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcOffence.lua
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcDefence.lua
 verification: unverified
 ---
 
@@ -26,7 +32,7 @@ The split matters because "recovery rate" modifiers act only on recovery over ti
 
 - Regeneration restores a fixed amount or a percentage of the maximum every second, all the time.
 - Players have no base life regeneration. It comes from modifiers, passives, auras, and so on.
-- Players have a base mana regeneration of a small percentage of maximum mana per second (1.75% in recent patches; not confirmed for 3.30).
+- Players have a base mana regeneration of **1.75% of maximum mana per second** (the game-data character constant PoB 2.67.2 reads is 105% per minute). No 3.26 to 3.30 note changes it.
 - ES regeneration also comes only from modifiers. It is separate from ES recharge.
 - Flat regeneration ("Regenerate X Life per second") and percentage regeneration ("Regenerate X% of Life per second") add together before rate modifiers.
 
@@ -61,15 +67,16 @@ instance rate    = base rate (2% of your maximum per second) x (1 + increased le
 instance duration = instance total / instance rate
 ```
 
-- **Per-instance cap.** Each instance can recover at most a percentage of your maximum (10% of maximum life for life leech by default). "Increased maximum recovery per life leech" raises it. 3.28 added unique effects that raise or double this cap (example: Bloodseeker, Essentia Sanguis).
-- **Total rate cap.** All instances together cannot recover more per second than the maximum leech rate. The defaults are 20% of maximum life per second and 20% of maximum mana per second; ES leech has a lower default cap (10% of maximum ES per second; not confirmed for 3.30). "Increased maximum total life recovery per second from leech" raises the cap.
+- **Per-instance cap.** Each instance can recover at most 10% of your maximum of that pool by default (the game-data constants PoB reads give 10% for life, mana and ES alike; poewiki agrees for life). "Increased maximum recovery per life leech" raises it. 3.28 added unique effects that raise or double this cap (example: Bloodseeker, Essentia Sanguis).
+- **Total rate cap.** All instances together cannot recover more per second than the maximum leech rate. The defaults are 20% of maximum life per second and 20% of maximum mana per second; ES leech has a lower default cap of **10% of maximum ES per second** (game-data constants in PoB 2.67.2; poewiki gives the same values). "Increased maximum total life recovery per second from leech" raises the cap.
 - Because the rate depends on your maximum, a large pool leeches faster in flat terms. Big hits mostly make instances last longer; they do not make them faster.
+- **Sources disagree on "increased total recovery per second from leech".** PoB 2.67.2 multiplies each instance's rate by it (the formula above, so instances also end sooner). poewiki says it raises the recovery you get without making an instance end sooner. The total per second is the same in both readings; only instance length differs. Not checked in game.
 
 ### When instances end
 
 - An instance ends when it has recovered its total.
 - By default every life leech instance is removed when your life is full. "Overleech" effects (for example "life leech effects are not removed when unreserved life is filled") keep the instances running, so they keep you topped up through incoming damage.
-- Instances are believed to keep running after the enemy dies (not confirmed for 3.30).
+- Whether instances keep running after the enemy dies is **not confirmed**: neither the patch notes nor poewiki's leech page state it, and PoB does not model it.
 
 ### Instant leech
 
@@ -87,14 +94,15 @@ instance duration = instance total / instance rate
 
 - "X% of damage taken recouped as life" returns that share of the damage you took, spread over 4 seconds by default.
 - Some modifiers make recoup happen over a shorter time (for example over 3 seconds). The total stays the same; it arrives faster.
-- Recoup is believed to apply to all damage taken, hits and damage over time (not confirmed for 3.30).
+- Recoup is based on damage taken from **hits** only, after mitigation (poewiki's recoup page). Damage over time is not recouped unless a modifier says so. Recoup instances are not removed when the pool is full.
+- 3.30.0b Hotfix fixed a bug where "damage taken recouped as life" was not recovering life. The rule did not change.
 - Recoup can target life, mana, or ES depending on the modifier. 3.29 raised abyssal jewel mana recoup; 3.30 gave Shavronne's Wrappings ES recoup; 3.27 added Shadowed Blood (Assassin) with physical damage recouped as life.
-- Whether "increased life recovery rate" speeds recoup: not confirmed for 3.30.
+- "Increased life recovery rate" scales recoup: the same 4-second window recovers more (poewiki; PoB 2.67.2 multiplies the recoup percentage by the recovery rate modifier).
 
 ## Energy shield recharge
 
 - ES recharge starts after a delay of **2 seconds** in which you took no damage.
-- Once it starts, it restores a percentage of maximum ES per second (base about 33% of maximum ES per second; not confirmed for 3.30) until ES is full or you take damage.
+- Once it starts, it restores **33.3% of maximum ES per second** by default (game-data constant: 2000% per minute; PoB uses 0.33) until ES is full or you take damage.
 - Taking damage resets the delay and stops a running recharge. Damage over time also interrupts it.
 
 ```
@@ -115,10 +123,10 @@ recharge rate  = base rate x maximum ES x (1 + increased ES recharge rate) x (1 
 
 ## Recovery rate modifiers
 
-- **"Increased life recovery rate"** speeds every life recovery over time: regeneration, leech, and flask recovery. It does not change instant recovery. It is believed also to raise the leech rate cap (not confirmed for 3.30).
+- **"Increased life recovery rate"** speeds every life recovery over time: regeneration, leech, recoup and flask recovery. It does not change instant recovery. In PoB 2.67.2 it multiplies leech after the leech rate cap is applied, so it raises the most you can actually leech per second; the cap stat itself is unchanged. Not checked in game.
 - **"Increased mana recovery rate"** and **"increased energy shield recovery rate"** do the same for their pools; ES recovery rate also speeds ES recharge.
 - **Pool-specific rates** ("increased life regeneration rate", "increased life leech rate", "increased ES recharge rate") scale only their own source.
-- 3.30 replaced the Pathfinder's Master Surgeon drawback with a life flask recovery rate penalty instead of a penalty to life recovered from flasks. The wording difference is exactly the rate vs amount difference.
+- 3.30.0 replaced the Pathfinder's Master Surgeon drawback with a life flask recovery rate penalty instead of a penalty to life recovered from flasks. The wording difference is exactly the rate vs amount difference.
 
 ## Common mistakes
 
@@ -138,3 +146,7 @@ recharge rate  = base rate x maximum ES x (1 + increased ES recharge rate) x (1 
 - ES recharge: the recharge delay and recharge per second fields.
 - Recoup: the recoup percentages per pool and the recoup duration.
 - Where the engine marks a field `not-computed` or `Partial`, say the answer comes from the rules here, not from the calc.
+
+## Verification (2026-11-17)
+
+Checked against the official 3.26.0 to 3.30.x notes (3.30.x read in full), poewiki's leech and recoup pages, and the pinned Path of Building 2.67.2 (game-data constants in `Data/Misc.lua`; leech in `CalcOffence.lua`; recoup in `CalcDefence.lua`). Still `unverified`: whether leech keeps running after the target dies is not confirmed by any source.
