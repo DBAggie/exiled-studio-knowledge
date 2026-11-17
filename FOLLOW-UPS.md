@@ -31,9 +31,9 @@ Resonators, multimod and the type-guaranteed Harvest reforges were confirmed fro
 poedb was also searched for the five section A points (trap arm time, leech after death, minion replacement, reservation rounding, player ailment threshold). It does not state any of them; they still need the in-game tests.
 
 ## D. Approvals
-- **Meta summary** in `snapshots/covens/2026-11-16.md` (read from the poe.ninja builds page on 2026-11-17, league day 4): approve or correct it (Q11). The snapshot stays `unverified` until then.
-- **Promote to `maintainer-approved`**: only the maintainer does this. 22 references are `engine-checked` and ready for your skim: `damage`, `conversion`, `crit`, `charges`, `flasks`, `triggers`, `defences`, `auras-curses`, `recovery`, `minions`, `totems-traps-mines`, `ailments`; `diagnosis`, `defensive-thresholds`, `gearing`, `reading-breakdowns`, `trade-offs`; `jargon`, `archetypes`, `budget-tiers`, `crafting`, `atlas`.
-- No reference is `unverified` any more; only the economy snapshot is, until the meta summary is approved.
+- **Meta summary** in `snapshots/covens/2026-11-16.md`: approved by the maintainer on 2026-11-17; the snapshot is `maintainer-approved` (PR #39).
+- **Promoted to `maintainer-approved`**: all 22 references, on the maintainer's approval of 2026-11-17 (PR #39, `3.30.0-kb.32`). None was checked in game.
+- Nothing in the pack is `unverified` or `engine-checked` any more.
 
 ## E. Evals
 - **Answer keys**: all 58 are approved: traps, tool discipline and snapshot honesty (PR #36), the 20 mechanics keys (PR #37) and the 8 diagnosis keys (PR #38), the last two suites dictated by the maintainer. Still open: the 8 diagnosis build fixtures (`fixture: TBD by maintainer`).
