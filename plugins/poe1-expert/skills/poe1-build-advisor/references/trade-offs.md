@@ -2,11 +2,13 @@
 game: poe1
 patch: 3.30.0
 league: Covens of Umbra
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
   - https://www.pathofexile.com/forum/view-thread/3913392
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
-verification: unverified
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://www.poewiki.net/wiki/Energy_shield
+  - repo:DBAggie/exiled-studio/schemas/mcp-tools.v1.json
+verification: engine-checked
 ---
 
 # Common trade-offs
@@ -24,7 +26,7 @@ Build choices rarely have one right answer. For each trade-off below: what is tr
 
 ## Life versus energy shield (and hybrid)
 - **Life**: works with most defences, gear is cheap, recovers through leech, regeneration, and flasks.
-- **Energy shield**: recharges on its own after a delay, scales from Intelligence-based gear, pairs with Chaos Inoculation (chaos immunity at the cost of life set to 1).
+- **Energy shield**: recharges on its own after a delay, scales from Intelligence-based gear, pairs with Chaos Inoculation (chaos immunity at the cost of life set to 1). Without it, chaos damage bypasses energy shield by default.
 - **Hybrid**: both pools; needs gear with both, more expensive.
 - **How to decide**:
   - Follow the class and the build's keystones. Do not mix half-heartedly.
@@ -55,7 +57,7 @@ Build choices rarely have one right answer. For each trade-off below: what is tr
 - **High-ceiling builds**: scale with expensive uniques, cluster jewels, or rare craft lines; weak until funded.
 - **How to decide**:
   - Ask the budget and league. SSF and new leagues favour budget builds.
-  - A build that "starts at 50 divines" is not a starter.
+  - A build that "starts at 50 divines" is not a starter (the figure is only an illustration).
   - Prices come from `poe1-economy` with its `as_of` date. Never from memory.
 
 ## Links: which skills get the best links
@@ -90,7 +92,7 @@ When the Exiled Studio app MCP is reachable:
 Rules:
 - When the app is reachable, every number is checked with `get_breakdown` or `preview_item_edit` (or `preview_tree_change`) first.
 - When it is not, label each number an estimate and say how to check it.
-- A field in state `unsupported`, `indeterminate`, or not computed is never read as zero. If one side of the trade-off sits in such a field, say the app cannot measure that side yet.
+- A field in state `unsupported`, `indeterminate`, or `not-computed` is never read as zero. If one side of the trade-off sits in such a field, say the app cannot measure that side yet.
 
 ## Common mistakes
 - Giving one answer without asking about content, budget, and league.
@@ -99,3 +101,7 @@ Rules:
 - Calling a build "better" from one number (DPS) and ignoring defence.
 - Using old Intelligence-to-ES assumptions after 3.28.
 - Quoting prices or meta from memory.
+
+## Verification (2026-11-17)
+
+`engine-checked` here means: the game facts (the 3.28.0 Intelligence ES and Greater support rules, chaos damage and energy shield, tinctures using flask slots) were checked against the official notes and poewiki, and the tool names against Exiled Studio's `schemas/mcp-tools.v1.json`. The crit chance line (about 40% to 50%) is a rule of thumb and is marked so; it waits for the maintainer. The rest is advice, not game rules.
