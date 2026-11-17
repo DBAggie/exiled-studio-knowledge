@@ -36,9 +36,9 @@ poedb was also searched for the five section A points (trap arm time, leech afte
 - No reference is `unverified` any more; only the economy snapshot is, until the meta summary is approved.
 
 ## E. Evals
-- **Answer keys**: 50 of 58 are approved: traps, tool discipline and snapshot honesty (PR #36), and all 20 mechanics keys, dictated by the maintainer (PR #37). The 8 diagnosis keys are still empty; the maintainer dictates those, and each needs a build fixture.
+- **Answer keys**: all 58 are approved: traps, tool discipline and snapshot honesty (PR #36), the 20 mechanics keys (PR #37) and the 8 diagnosis keys (PR #38), the last two suites dictated by the maintainer. Still open: the 8 diagnosis build fixtures (`fixture: TBD by maintainer`).
 - **Diagnosis fixtures**: the 8 diagnosis cases say `"build": "fixture: TBD by maintainer"`.
-- `traps-007` was replaced with a scarab question (PR #36). Still to fix when keying: `diagnosis-008` says "Raider" (renamed in 3.25; confirm before keying). `mechanics-015` now states +1 curse (PR #37).
+- `traps-007` was replaced with a scarab question (PR #36). Still to fix when keying: `diagnosis-008` now says Warden and `diagnosis-001` states its fire resistance unambiguously (PR #38). `mechanics-015` now states +1 curse (PR #37). Points where a dictated answer differed from the verified files, for the maintainer to confirm: chill cap 30% and suppression 40% (keys follow the files); Juggernaut node texts in `diagnosis-007` were not checked, so the key names no node.
 - **Some mechanics drafts were written before batch 1's corrections.** When keying, use the corrected files: attack crits need a second accuracy check (`mechanics-012`), flask effect and duration raise life flask recovery, triggered skills pay their cost (`mechanics-017`), endurance charges give elemental damage reduction (`mechanics-007`).
 - **The eval runner is not built.** Q5 says it runs on the workstation by hand. It needs a decision on how it calls Claude (which client, with and without the plugin) before a session builds it.
 
