@@ -40,13 +40,13 @@ poedb was also searched for the five section A points (trap arm time, leech afte
 - **Diagnosis fixtures**: the 8 diagnosis cases say `"build": "fixture: TBD by maintainer"`.
 - `traps-007` was replaced with a scarab question (PR #36). Still to fix when keying: `diagnosis-008` now says Warden and `diagnosis-001` states its fire resistance unambiguously (PR #38). `mechanics-015` now states +1 curse (PR #37). Points where a dictated answer differed from the verified files, for the maintainer to confirm: chill cap 30% and suppression 40% (keys follow the files); Juggernaut node texts in `diagnosis-007` were not checked, so the key names no node.
 - **Some mechanics drafts were written before batch 1's corrections.** When keying, use the corrected files: attack crits need a second accuracy check (`mechanics-012`), flask effect and duration raise life flask recovery, triggered skills pay their cost (`mechanics-017`), endurance charges give elemental damage reduction (`mechanics-007`).
-- **The eval runner is not built.** Q5 says it runs on the workstation by hand. It needs a decision on how it calls Claude (which client, with and without the plugin) before a session builds it.
+- **Eval runner**: built (`evals/run.py`, PR #40). It calls the `claude` command line with and without the plugin, grades with a separate call, and writes the v1 gate table. Tested with a fake model only; **the first real run on the workstation is still to do** (`python evals/run.py --suite traps` is a small first check). The `tool-discipline` suite needs `--app-mcp-config` and a running app.
 
 ## F. Not started, needs a decision
-- **Patch-note triage** (plan D7, rule 4): the tool that matches new patch notes to mechanics files and opens issues is not built. Useful now: 3.30 hotfixes keep landing (the references were checked up to 3.30.0b Hotfix 4).
-- **Economy refresh cadence**: runs by hand (Q7). The only snapshot is 2026-11-16; league-start prices go stale in a day or two.
-- **Hardcore, SSF and Standard** snapshots: not fetched.
-- **Dev skill `exiled-studio-mcp`** (plan step 7) lives in the `exiled-studio` repo; this session could read that repo but not write to it.
+- **Patch-note triage**: built (`tools/refresh/triage.py`, PR #40). Keyword matching only; no stat IDs. Not yet run on real notes: the references were checked up to 3.30.0b Hotfix 4, so run it on the next hotfix or patch.
+- **Economy refresh cadence**: stays by hand (Q7). `tools/refresh/due.py` says when a league is due (PR #40). The only snapshot is still 2026-11-16: the session cannot fetch one (poe.ninja is not reachable from it, and sessions must not call it). **The maintainer runs the refresh.**
+- **Hardcore and Standard** snapshots: not fetched, for the same reason. One command now does all three: `pwsh tools/refresh/run-economy.ps1 -League Covens, "Hardcore Covens", Standard` (edited in PR #40, not run; check the league ids against what `economy.py` prints). **SSF** has no market, so there is nothing to fetch.
+- **Dev skill `exiled-studio-mcp`**: already done. It was merged into the Exiled Studio repo's `dev` branch as its PR #124 on 2026-11-16 (`.claude/skills/exiled-studio-mcp/SKILL.md`); this list was out of date.
 - **Engine source reviewed (PR #31):** the "Check with the engine" sections of the 12 mechanics files now come from `crates/loom-calc` (dev `b42e49f`). The engine could not be built or run in the session, so nothing was checked by running `calc-run`; a session on the workstation could do that.
 
 ## G. Housekeeping
