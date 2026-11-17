@@ -2,14 +2,14 @@
 game: poe1
 patch: 3.30.0
 league: Covens of Umbra
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://www.pathofexile.com/forum/view-thread/4015683
+  - https://www.pathofexile.com/forum/view-thread/3985332
   - https://www.pathofexile.com/forum/view-thread/3913392
-  - https://poedb.tw/us/Version_3.29.0
-  - https://poedb.tw/us/Version_3.27.0
-  - https://poedb.tw/us/Version_3.26.0
-verification: unverified
+  - https://www.pathofexile.com/forum/view-thread/3787013
+verification: engine-checked
 ---
 
 # Atlas progression and farming
@@ -23,9 +23,10 @@ waystones and towers differ; do not apply this there.
 ## Map tiers
 - Tiers 1 to 5 are white, 6 to 10 yellow, 11 to 16 red.
 - **Tier 17 (Nightmare Maps)**: reworked in 3.28. Each Nightmare Map you complete
-  gives one atlas passive point. They drop once Voidstones allow it. 3.30 moved the
+  gives one atlas passive point (five in total). They drop once Voidstones allow it. 3.30 moved the
   bench meta-craft recipes into them.
-- 3.28: a map item no longer belongs to one fixed area.
+- 3.28: ordinary map items are no longer tied to one area; only special places
+  (unique maps, Shaper Guardian maps, Nightmare Maps and the like) need their own item.
 - 3.30: several maps returned to the atlas and many left.
 
 ## Progression in order
@@ -48,9 +49,16 @@ waystones and towers differ; do not apply this there.
 - **Secondary clusters** (Essence, Harvest, Mercenaries, Ore Deposits, Rogue Exiles,
   Shrines, Strongboxes, Torment and others) were reworked or added.
 - **Tertiary clusters** only raise how often a random mechanic appears.
-- Delve and Heist clusters were removed.
-- Several keystones were removed; Unwavering Vision was reworked; a new keystone,
-  Phantom Anomalies, was added. Its exact effect is not described here; look it up.
+- Delve and Heist clusters were removed. Sulphite and Smuggler's Caches no longer
+  appear in maps at random; a few named maps always have them. Fossils still come only
+  from Delve (3.28), so fossil supply now depends on those maps and on Delve itself.
+  How much supply changed is not known; prices are snapshot content.
+- Six keystones were removed (Crop Rotation, Endless Tide, Lucid Dreams, Meticulous
+  Appraiser, Refiner's Bargain, Synthesised Stability). Unwavering Vision was
+  reworked: one Thread type only, most Threads found turn to gold, and your maps with
+  Threads get two more.
+- New keystone **Phantom Anomalies**: Atlas Anomalies appear when you complete a
+  Shaped Region instead of on map completion, and can come from any quadrant.
 
 Plan the tree around one or two farming targets. Splitting points across many
 mechanics usually earns less.
@@ -65,6 +73,8 @@ mechanics usually earns less.
 - **Frayed Thread** gives a random Thread.
 - Threads drop more with Atlas Drops, from Exarch and Eater altar mods, and Shaped
   Regions give free ones.
+- 3.30.0b Hotfix 3: the most dangerous Thread effects cannot appear in low-level maps
+  (area level 73 or 80 and up, depending on the effect) or when only one Thread is spent.
 
 ## League mechanics as farming targets
 - 3.30: the ten primary mechanics **no longer spawn randomly** in maps. To farm one,
@@ -80,9 +90,16 @@ mechanics usually earns less.
   boss-heavy targets. Whether a target pays this league is snapshot content.
 
 ## Shaped Regions and Astrolabes
-- An Astrolabe makes a Shaped Region in one quadrant, changing many maps at once.
-- 3.28: clearing the region's added content leads to a Memory Vault.
-- 3.30: Shaped Regions come in ten types, each tied to a Thread type.
+- 3.28: clearing a Shaped Region leads to a Memory Vault.
+- 3.30: Shaped Regions were reworked. There are ten types, one per Thread type, and by
+  default the atlas has one of each. A region gives its maps free Threads of its
+  type; each objective you complete adds one more free Thread to the region's other
+  maps. Completing objectives no longer adds bonus mods.
+- 3.30: an Astrolabe adds a Shaped Region of its type at a chosen map, replacing the
+  existing region of that type, with more free Threads. Three Astrolabe types were
+  removed.
+- 3.30: Templar Vaults are Atlas Anomalies now, with a chance to appear after killing
+  a pinnacle eldritch boss.
 
 ## Anomalies and Valdo
 - 3.29: completing Voidstone-affected maps can create Anomalies on the atlas. They
@@ -99,18 +116,23 @@ Juicing means stacking ways to get more loot per map. The levers in 3.30:
 - **Item rarity** (3.30): on monsters and chests it also decides which drop pools can
   roll, so higher rarity gives more valuable currency, not just more of it.
 - **Threads**: more league content per map, up to eight.
-- **Delirium**: makes the map delirious.
+- **Delirium**: Delirium Orbs reforge a rare map with a mod that makes players
+  delirious (5% to 50% per orb, stacking to 100% with the same orb type).
 - **Eldritch altars**: choose good altar mods. 3.30 lowered their rarity bonus.
-- **Fragments**: 3.30: Shaper, Elder and Conqueror fragments no longer add quantity.
+- **Fragments**: 3.30: Shaper, Elder and Conqueror fragments no longer add quantity
+  and are not consumed with a map. Sacrifice and Mortal fragments are gone. Divine
+  Vessels, Allflame Embers and Delirium Orbs are used on the map item itself now.
 - **Kingsmarch**: workers can run maps and ship goods for currency (core since 3.26).
 
 Juicing only pays when the build can clear the content safely. Dying loses the map.
 Start light and add one lever at a time.
 
 ## The Covens of Umbra league (3.30)
-The challenge league adds covenites, Fates that empower area bosses (Grim Fates on
-high-level bosses), and Viscera that strengthen the Wickerman. Its farming value is
-snapshot content. Rules may change with 3.30 hotfixes; check the latest notes.
+The challenge league adds covenites whose rites you disrupt, Fates you pick to empower
+the area's boss (more reward and more danger), and Viscera from those bosses that you
+place on your Wickerman. 3.30.0b Hotfix 3 lets you invoke three copies of one Fate.
+Its farming value is snapshot content. Rules change with hotfixes; check the latest
+notes.
 
 ## Common mistakes
 - Recommending scarabs or "scarab juicing". Scarabs were removed in 3.30.
@@ -120,3 +142,7 @@ snapshot content. Rules may change with 3.30 hotfixes; check the latest notes.
 - Quoting the old atlas tree layout or point total (138).
 - Expecting fragments to add quantity to a map in 3.30.
 - Using PoE2 atlas, waystone or tower rules.
+
+## Verification (2026-11-17)
+
+`engine-checked` here means: every folded-in 3.30 atlas change was checked against the official 3.30.0 notes and hotfixes (tree from the centre, 150 points, Atlas Drops, Threads, item tiers and rarity, the ten mechanics no longer spawning on their own, Shaped Regions, Phantom Anomalies, fragments), and the 3.26 to 3.29 lines against their official notes. "Grim Fates" was not in the notes and was removed. Which targets pay is snapshot content.
