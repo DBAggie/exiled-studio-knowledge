@@ -1,5 +1,7 @@
 # Verification handoff: the 22 draft references
 
+> **Status, 2026-11-17: all three batches and the meta summary are done and merged** (PRs #2 to #25, `3.30.0-kb.23`). What is left for the maintainer is in `FOLLOW-UPS.md`. The text below is kept as the record of how the work was done.
+
 Decided in `REVIEW-QUEUE.md`, Q9 (maintainer, 2026-11-17). This note is the work list for the sessions that move PRs #4 to #25 from `unverified` toward `maintainer-approved`. Read it whole before starting a batch.
 
 ## How a verification session works
