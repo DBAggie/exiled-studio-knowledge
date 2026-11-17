@@ -2,12 +2,15 @@
 game: poe1
 patch: 3.30.0
 league: Covens of Umbra
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
+  - https://www.pathofexile.com/forum/view-thread/4013680
   - https://www.pathofexile.com/forum/view-thread/3913392
-  - https://poedb.tw/us/Resistance
-verification: unverified
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcSetup.lua
+  - https://www.poewiki.net/wiki/Energy_shield
+  - repo:DBAggie/exiled-studio/schemas/mcp-tools.v1.json
+  - repo:DBAggie/exiled-studio/schemas/calc-result.v1.schema.json
+verification: engine-checked
 ---
 
 # Diagnosis checklist
@@ -23,12 +26,12 @@ Use this when a player asks "why do I die" or "why is my damage low". Work top t
 ## "Why do I die": check in this order
 
 ### 1. Elemental resistances
-- Fire, cold and lightning should each be at their maximum (75% by default) for the content. After the campaign the player has a -60% penalty in total (-30% after Act 5 and -30% after Act 10; the rule has held for many patches, not re-checked line by line for 3.30).
+- Fire, cold and lightning should each be at their maximum (75% by default) for the content. After the campaign the player has a -60% penalty in total (-30% after Act 5 and -30% after Act 10; PoB 2.67.2 applies the same penalty, and no 3.26 to 3.30 note changes it).
 - One uncapped resistance is the most common cause of sudden deaths. 60% instead of 75% means taking 40% instead of 25% of the hit: 60% more damage from that element.
 - Check the shown value, not the total before the cap. Over-capping (total above the maximum) is a buffer against curses and map mods that lower resistances.
 
 ### 2. Chaos resistance
-- Negative chaos resistance makes chaos damage hurt more than the hit shows. Many endgame bosses and degens deal chaos.
+- Negative chaos resistance makes chaos damage hurt more than the hit shows. Many endgame bosses and degens deal chaos. Chaos damage also bypasses energy shield by default, so an ES pool does not cover it.
 - Exception: Chaos Inoculation (CI) characters ignore this, since chaos damage cannot reach them that way.
 
 ### 3. Pool size
@@ -52,7 +55,7 @@ Use this when a player asks "why do I die" or "why is my damage low". Work top t
 
 ### 7. Mechanics, not numbers
 - Some deaths are from mechanics the player must dodge (boss slams, ground effects). Ask before buying gear.
-- Map mods: reflect, no regeneration, less recovery, reduced maximum resistances. Corrupted maps in 3.30 can carry up to 9 mods, so read them.
+- Map mods: reflect, no regeneration, less recovery, reduced maximum resistances. Since 3.30.0 a corruption can add 2 explicit mods to a map, up to 9 in total, so read them.
 
 ## "Why is my damage low": check in this order
 
@@ -107,7 +110,7 @@ When the Exiled Studio app MCP is reachable:
 Rules:
 - When the app is reachable, every number is checked with `get_breakdown` or `preview_item_edit` (or `preview_tree_change`) first. Quote the tool, not your own math.
 - When it is not reachable, label each number an estimate and say how to check it (Exiled Studio or Path of Building).
-- A field in state `unsupported`, `indeterminate`, or not computed (no value) is never zero. Say the app does not compute it yet.
+- A field in state `unsupported`, `indeterminate`, or `not-computed` (no value) is never zero. Say the app does not compute it yet.
 - If `list_fields` has no field for a quantity (for example a max hit or an ailment DPS), the app does not report it. Do not invent one.
 
 ## Common mistakes
@@ -118,3 +121,7 @@ Rules:
 - Blaming numbers for a mechanic death (an undodged boss slam).
 - Recommending expensive items when a free respec or flask fix covers it.
 - Assuming Greater and normal versions of a support stack (changed in 3.28).
+
+## Verification (2026-11-17)
+
+`engine-checked` here means: the game facts (campaign penalty, the 3.28.0 Greater support rule, the 3.30.0 Master Alchemist and map corruption changes) were checked against the official notes and Path of Building 2.67.2, and every tool name, field name and field state against Exiled Studio's `schemas/mcp-tools.v1.json` and `schemas/calc-result.v1.schema.json` (dev branch, 2026-11-17). The check order and the cost tiers are advice, not game rules.
