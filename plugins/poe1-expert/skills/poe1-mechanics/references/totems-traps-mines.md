@@ -1,13 +1,16 @@
 ---
 game: poe1
 patch: 3.30.0
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://poedb.tw/us/Version_3.30.0
-  - https://poedb.tw/us/Version_3.29.0
-  - https://poedb.tw/us/Version_3.28.0
-  - https://poedb.tw/us/Version_3.27.0
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://www.pathofexile.com/forum/view-thread/3985332
+  - https://www.pathofexile.com/forum/view-thread/3913392
+  - https://www.pathofexile.com/forum/view-thread/3869068
+  - https://www.poewiki.net/wiki/Trap
+  - https://www.poewiki.net/wiki/Mine
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Data/Misc.lua
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcSetup.lua
 verification: unverified
 ---
 
@@ -77,8 +80,15 @@ PoE2 has totems and traps with different rules; do not apply this there.
   per server tick.
 - Many trap skills have a **cooldown** with several uses. Cooldown recovery
   rate scales it; the result is rounded up to whole server ticks (33 ms).
-- Traps have a duration and a maximum active count. The base count is a game
-  constant; lines raise it. The exact arm time in 3.30 is not confirmed.
+- Traps have a duration and a maximum active count. The base limit is **15
+  traps** (game-data constant in PoB 2.67.2; poewiki agrees); lines raise it.
+  Throwing past the limit destroys the oldest trap.
+- A landed trap arms itself quickly, then triggers on an enemy in its trigger
+  radius or when its duration runs out. The exact arm time is **not
+  confirmed**: poewiki gives no number, the notes do not state one, and PoB
+  does not model it.
+- Traps cannot be damaged while flying, arming or triggering, or for 2
+  seconds after being thrown.
 - Supports like Multiple Traps and Cluster Traps throw more traps per use.
   3.29 raised the extra throw time per projectile from Barrage.
 
@@ -89,18 +99,21 @@ PoE2 has totems and traps with different rules; do not apply this there.
   automatically.
 - Mine damage is your damage. "Mine Damage" lines and mine supports add to it.
 - Mines detonate in sequence, not all at once.
-- Mines can carry aura-like effects while armed. Supports and passives give
-  armed mines effects on nearby enemies (for example hinder or increased damage
-  taken); these are mine effects, not your auras, and aura effect does not
-  scale them unless the line says so. 3.27 changed Pyroclast Mine's armed effect
-  to a fire exposure aura that does not grow with more mines; 3.30's
-  Demolitions Specialist makes landing mines hinder nearby enemies.
+- Almost every mine skill creates an **aura** around each placed mine that
+  affects nearby enemies (not with Blastchain Mine Support). These auras stack
+  per mine up to a limit the skill states, and **aura modifiers do apply** to
+  them, including aura area (poewiki). 3.27 changed Pyroclast Mine's armed
+  effect to a fire exposure aura that does not grow with more mines. 3.30's
+  Demolitions Specialist change (landing mines hinder nearby enemies) is a
+  **Ruthless-only** change.
 - **Throwing speed** scales how fast you lay mines; PoB caps it at one per
   server tick.
-- A mine skill that reserves mana reserves it for each armed mine (PoB
-  multiplies the reservation by the active mine count). Which mines reserve in
-  3.30 is a per-gem fact; check the gem.
-- Mine limit: a base count from game data, raised by lines.
+- **Every placed mine reserves mana** until it is detonated or destroyed, on
+  top of the mana cost of throwing it (poewiki). PoB multiplies the
+  reservation by the active mine count. The amount per mine is a per-gem
+  number; check the gem.
+- Mine limit: **15 mines** by default (game-data constant in PoB 2.67.2;
+  poewiki agrees), raised by lines. Throwing past it destroys the oldest mine.
 
 ## Brands
 
@@ -139,3 +152,7 @@ PoE2 has totems and traps with different rules; do not apply this there.
   not exist in the engine; say so if absent.
 - Trap and mine throw rate, cooldown and mine reservation: if the engine shows
   no rate field for the skill, use these rules and PoB.
+
+## Verification (2026-11-17)
+
+Checked against the official 3.27.0 to 3.30.x notes (3.30.x read in full), poewiki's trap and mine pages, and the pinned Path of Building 2.67.2 (base totem, trap and mine limits in `Data/Misc.lua`, applied in `CalcSetup.lua`). Still `unverified`: the trap arm time is not confirmed by any source.
