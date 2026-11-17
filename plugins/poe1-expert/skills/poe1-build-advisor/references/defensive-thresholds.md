@@ -11,7 +11,7 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcDefence.lua
   - repo:DBAggie/exiled-studio/schemas/mcp-tools.v1.json
   - https://poe.ninja/poe1/builds/covens
-verification: unverified
+verification: engine-checked
 ---
 
 # Defensive thresholds by content tier
@@ -30,57 +30,60 @@ PoE2 differs; do not apply this there.
 - **Which tier is the player in?** Character level is a fair guide (maintainer, 2026-11-17): level 69 to 75 is usually white to yellow maps; pinnacle bosses start around level 80 to 85; above level 88 is usually red maps.
 - **Pools differ by build.** Some builds top out on life and put the rest into energy shield or evasion. An ES build may have much less life and much more ES; compare the pool the build actually uses, and its layers, not life alone.
 
-## What ladder characters actually had (Covens, league day 4)
+## Life and energy shield by character level
 
-Read from the poe.ninja builds page on 2026-11-17 (softcore trade, the first 100 characters shown at each level). These are observations, not targets: it was early in the league, and such characters are still gearing.
+The maintainer's decision (2026-11-17): life and ES targets follow what players actually have, by level. The ranges below are the middle half of ladder characters at each level, read by hand from the poe.ninja builds page on 2026-11-17 (Covens softcore trade, league day 4, the first 100 characters shown at each level). A build inside its range is normal for its level; below it, the pool is a risk to name; above it is comfortable. Pools rise as a league goes on, so re-read these with a newer snapshot.
 
-| Level | Likely content | Life, middle half | Life + ES, median |
+| Level | Likely content | Life builds: life | Life + ES, typical |
 |---|---|---|---|
+| 70 | end of campaign, first maps | 2,100 to 2,800 | about 2,700 |
 | 75 | white to yellow maps | 2,500 to 3,400 | about 3,200 |
-| 85 | pinnacle bosses begin | 3,000 to 4,000 | about 3,900 |
-| 90 | red maps | 3,000 to 4,300 | about 4,200 |
-| 95 | red maps and bosses | 2,900 to 4,800 | about 4,800 |
+| 80 | yellow maps, pinnacle bosses begin | 2,800 to 3,600 | about 3,500 |
+| 85 | pinnacle bosses | 3,000 to 4,000 | about 3,900 |
+| 90 | red maps | 3,200 to 4,400 | about 4,200 |
+| 93 | red maps | 3,300 to 4,200 | about 4,400 |
+| 95 and up | red maps, bosses, ubers | 3,600 to 5,000 | about 4,800 |
 
-The life targets below sit above these figures. Treat the targets as where a build is comfortable and the table as where many players are early in a league. Later in a league, pools are higher.
+**ES builds** (more ES than life) are rare before level 90 (about 1 in 100) and grow to roughly 1 in 5 by level 97. Their ES, middle half: about 2,800 to 5,700 at level 90, and about 3,500 to 7,200 from level 93 up (typically 5,500 to 5,900). Many are Chaos Inoculation with 1 life. So an ES build carries a larger pool than a life build of the same level, with little or no life.
 
 ## Campaign (Acts 1 to 10)
 - **Resistances**: try to cap fire, cold and lightning after the Act 5 penalty (-30%) and again after Act 10 (another -30%, -60% in total). Many players are below cap mid-act; aim to be capped entering Act 6 and entering maps.
 - **Chaos resistance**: anything is fine; negative is normal.
-- **Life**: aim for life to go up by about 400 to 500 per act, give or take (maintainer, 2026-11-17). That is roughly 2,000 to 2,500 by the end of Act 5 and 4,000 to 5,000 by the end of Act 10 for a life build. ES builds may carry less life and more ES.
+- **Life**: keep adding life every act. The maintainer's guide is about 400 to 500 per act, give or take, as the aim; most characters end the campaign around level 70 with 2,100 to 2,800 life, so treat the guide as the upper end. ES builds may carry less life and more ES.
 - **Ailments**: a flask with freeze or bleed removal helps; not required.
 - **Movement**: a movement skill and a quicksilver flask help more than any number.
 
 ## Early maps (white and yellow tiers)
 - **Resistances**: elemental at 75% each. Chaos at least near 0%.
-- **Life**: around 3,500 to 4,500, or the ES equivalent.
-- **Max hit**: no fixed number; it depends on the build and its layers. Scaling the red-map figure down by the life targets gives roughly 5,000 to 7,000 per element as an estimate.
+- **Life**: about 2,500 to 3,400 at level 75 (see the table), or the ES equivalent.
+- **Max hit**: no fixed number; it depends on the build and its layers.
 - **Ailments**: one answer to freeze and one to bleed (flask suffixes are fine).
 - **Layers**: at least one of armour, evasion, block, or spell suppression scaled on purpose. A guard skill if one fits.
 - **Flasks**: very build dependent; a life flask with an instant or bleed-removal suffix and usually two utility flasks.
 
 ## Red maps (tiers 14 to 16, light juice)
 - **Resistances**: elemental 75% each with some over-cap. Chaos 20% to 40% or more.
-- **Life**: around 5,000 to 6,000, or the ES equivalent.
+- **Life**: about 3,200 to 4,400 at level 90 (see the table). ES builds: about 4,000 to 6,000 ES.
 - **Ailments**: freeze immunity or near-total avoidance. Shock and stun answers become important. Bleed and corrupted blood handled.
 - **Spell suppression**: not every build has it. A build that is working toward suppression should aim for 100% chance; below that, every unsuppressed spell hit is a surprise.
 - **Block**: not every build has it. A build that uses block should aim for the default cap on attack block, and some for spell block too.
-- **Max hit**: depends on the build and which layers it has; there is no one number. As a rough guide players aim several thousand per element above their life pool (for example 7,000 to 10,000).
+- **Max hit**: depends on the build and which layers it has; there is no one number. As a rough guide players aim for a max hit a few thousand per element above their pool.
 - **Recovery**: a reliable leech, regeneration, or recoup source.
 - 3.30: a corruption can add 2 explicit mods to a map, up to 9 in total (3.30.0 notes). Map mods that lower maximum resistances or reduce recovery make these lines worse; read the mods.
 - 3.28: Voidstones raise the minimum map tier in their Atlas quadrant (3.28.0 notes). Players reach red maps sooner, often before their defences are ready.
 
 ## Pinnacle bosses (Shaper, Elder, Sirus, Maven, Eater of Worlds, Searing Exarch, and similar)
 - **Resistances**: elemental 75% minimum; many players add maximum resistance (76% to 80%) for elemental-heavy bosses. Chaos 40% to 75% for chaos-heavy fights.
-- **Life**: around 6,000 or more, or the ES equivalent.
-- **Max hit**: build dependent; often cited around 10,000 or more per damage type.
+- **Life**: about 2,800 to 4,000 at levels 80 to 85, where these fights begin, and 3,600 to 5,000 by level 95 (see the table). ES builds: about 5,500 to 7,000 ES at high level.
+- **Max hit**: build dependent. A figure of 10,000 or more per damage type is often cited for these fights; it is well above what a typical pool gives, so it comes from layers, not life alone.
 - **Ailments**: freeze and stun handled; curse effect reduced or cleansed helps.
 - **Recovery**: flasks, leech, or regeneration enough to recover between big hits.
 - 3.30: in Deified areas (a map with a Divine Vessel applied) map bosses get 25% increased damage, 25% increased attack and cast speed and 100% increased toughness; the Cortex bosses now show as pinnacle Atlas bosses (3.30.0 notes). Check the boss in question through the knowledge MCP.
 
 ## Uber pinnacle bosses
 - **Resistances**: capped, often with raised maximums. Chaos often 75% for some fights.
-- **Life**: 7,000 to 10,000 or the ES equivalent is a common bar. Deep-defence builds go much higher.
-- **Max hit**: build dependent; values above 15,000 for the main damage types are commonly cited. Treat as rough; it depends on which boss.
+- **Life**: the top of the level 95 range or above (5,000 or more life, or 7,000 or more ES). Few ladder characters have more this early in a league; deep-defence builds go much higher.
+- **Max hit**: build dependent; values above 15,000 for the main damage types are commonly cited. Treat as rough; it depends on which boss, and it needs layers well beyond the pool.
 - **Ailments**: full freeze, stun, and shock answers.
 - **Damage**: uber fights need enough damage to end phases before the arena fills. A too-defensive build can fail on timers.
 - 3.28: uber fights need 4 fragments instead of 5 (3.28.0 notes). 3.30: Atziri moved to the Temple of Atzoatl; she and Uber Atziri use empowered abilities below 66% life, and the fight can no longer be paused (3.30.0 notes). Specific boss numbers change by patch; nothing beyond these notes was checked.
@@ -130,6 +133,6 @@ Rules:
 
 Game facts checked against the official 3.27.0, 3.28.0 and 3.30.0 notes and Path of Building 2.67.2: the caps, the campaign penalty, the armour formula, spell suppression (40%), the 3.28.0 lines and the 3.30.0 lines. Tool and field names checked against Exiled Studio's `schemas/mcp-tools.v1.json`.
 
-Numbers, from the maintainer on 2026-11-17: the chaos resistance and elemental resistance figures are approved as written; life should rise about 400 to 500 per act; the level bands for each content tier; max hit is build dependent (the figures stay as rough guides, and the early-maps one is a scaled estimate); suppression and block targets apply only to builds that use those layers; hardcore takes conservative numbers; ES builds trade life for ES; two utility flasks is the usual early-maps count. The observed table was read by hand from the poe.ninja builds page.
+Numbers, from the maintainer on 2026-11-17: the chaos resistance and elemental resistance figures are approved as written; the level bands for each content tier; life about 400 to 500 per act as the campaign aim; max hit is build dependent; suppression and block targets apply only to builds that use those layers; hardcore takes conservative numbers; ES builds trade life for ES; two utility flasks is the usual early-maps count. The maintainer also decided that life and ES targets follow what players actually have by level, so the old draft targets (3,500 to 4,500, 5,000 to 6,000, 6,000 or more, 7,000 to 10,000) were replaced by the observed ranges in the table, read by hand from the poe.ninja builds page (100 characters each at levels 70, 75, 80, 85, 90, 93, 95 and 97; the ES figures come from 8 to 23 characters per level, so they are rough).
 
-Still `unverified`: the life targets for early maps, red maps, pinnacle and uber bosses are the original drafts. They sit above what ladder characters had on league day 4, and the maintainer has not yet said whether to keep them or lower them.
+`engine-checked` here means the game facts were checked as above and every number is either the maintainer's or an observation with its date and source. The max hit figures remain commonly cited values with no source.
