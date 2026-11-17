@@ -1,12 +1,15 @@
 ---
 game: poe1
 patch: 3.30.0
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://www.pathofexile.com/forum/view-thread/3985332
   - https://www.pathofexile.com/forum/view-thread/3913392
-  - https://poedb.tw/us/Version_3.29.0
-verification: unverified
+  - https://www.pathofexile.com/forum/view-thread/3869068
+  - https://www.poewiki.net/wiki/Energy_shield
+  - repo:plugins/poe1-expert/skills/poe1-economy/snapshots/covens/2026-11-16.json
+verification: engine-checked
 ---
 
 # PoE1 jargon and abbreviations
@@ -18,14 +21,14 @@ rules. Do not apply the PoE1 meaning there.
 
 ## Defence and survival
 - **EHP**: effective health pool. How much raw damage you can take before dying, after mitigation. Always ask "against which damage type".
-- **ES**: energy shield. A second pool on top of life that recharges after a delay without damage.
+- **ES**: energy shield. A second pool on top of life that recharges after a delay without damage. Chaos damage bypasses it by default.
 - **CI**: Chaos Inoculation. Keystone: life fixed at 1, immune to chaos damage. The build then lives on ES.
 - **LL / low life**: running with life reserved down to "low life" on purpose, usually to turn on low-life bonuses. Usually paired with ES.
 - **MoM**: Mind over Matter. Keystone that takes part of the damage from mana before life. **PoE2 differs**; do not apply this there.
 - **Eldritch Battery (EB)**: keystone that turns ES into extra mana for costs.
 - **RT**: Resolute Technique. Keystone: hits never miss, but you can't crit.
 - **Max res / overcap**: resist above the cap (75% by default). Overcap only matters when something lowers your resists.
-- **Spell supp / supp**: spell suppression. A chance to take less damage from spells.
+- **Spell supp / supp**: spell suppression. A chance to take less damage from spell hits (40% less by default since 3.27).
 - **Block / spell block**: chance to block attacks and spells, two separate stats.
 - **Phys taken as**: modifiers that move part of incoming physical damage to an elemental type, so resists apply to it.
 - **Flasks up / flask uptime**: how much of the time your flasks are active. Often matters more than raw numbers.
@@ -63,10 +66,12 @@ rules. Do not apply the PoE1 meaning there.
 ## Currency and trade
 - **c / chaos**: Chaos Orb. The small trade unit. **PoE2 differs**; do not apply its PoE1 effect there.
 - **div / d**: Divine Orb. The main trade unit for valuable items in current PoE1.
-- **ex**: Exalted Orb. Once the top currency; now a mid-value orb that adds one mod. Exalts became more common in 3.28. **PoE2 differs**; there the Exalted Orb is the main trade unit.
+- **ex**: Exalted Orb. Once the top currency; now a low-value orb that adds one mod (well under one chaos in the first Covens snapshot; see `poe1-economy`). **PoE2 differs**; there the Exalted Orb is the main trade unit.
 - **mirror / mirror tier**: Mirror of Kalandra, the rarest orb; "mirror tier" means an item close to perfect.
 - **Alch, alt, aug, regal, scour, annul**: the basic crafting orbs by short name.
 - **Binding**: Orb of Binding. Can no longer be obtained in 3.30; existing ones still work.
+- **Chance orb**: Orb of Chance. Much rarer since 3.30 and no longer sold by vendors, but far more likely to make a unique.
+- **Awakened gems**: stronger versions of support gems. Since 3.28 only Awakened Empower, Enlighten and Enhance can be obtained; the others were replaced by Greater and other Exceptional supports.
 - **Currency Exchange**: the in-game exchange for currency, with a gold fee.
 - **Gold**: a second currency, used for fees and Kingsmarch workers.
 - **Bulk**: buying or selling many of one item at once, often at a discount.
@@ -92,13 +97,15 @@ rules. Do not apply the PoE1 meaning there.
 - **Voidstones (stones)**: endgame items that raise map tiers on the atlas. "Four stoned" means all four done.
 - **Juice / juicing**: stacking map modifiers, rarity, pack size and extra content to get more loot per map.
 - **Threads**: the 3.30 map-device consumables that replaced scarabs and add league content.
-- **Scarabs**: the pre-3.30 map consumables. Removed in 3.30; existing ones were converted to Threads.
+- **Scarabs**: the pre-3.30 map consumables. Removed in 3.30; existing ones were converted to Threads or Frayed Threads.
+- **Vials, Sacrifice and Mortal fragments**: Atziri and Incursion items. 3.30 moved Atziri into the Temple of Atzoatl: vials no longer drop, Mortal fragments became Royal Visages, and Sacrifice fragments do nothing now.
+- **Fragmented / Skittering Delirium Orb**: old names. 3.30 removed the first and renamed the second to Threaded Delirium Orb.
 - **Atlas Drops**: the 3.30 replacement for item quantity on map mods. It raises map and Thread drops.
 - **Rarity / IIR**: increased item rarity. In 3.30 it also picks which drop pools a monster can roll.
 - **Pack size**: more monsters per pack, more loot by count.
 - **Sustain**: getting back as many maps as you spend.
 - **Alch and go**: run maps with a cheap roll and no extra investment.
-- **Rippy mods**: map mods that make a build die, such as reflect or no regen. Reflect became thorns in 3.29.
+- **Rippy mods**: map mods that make a build die, such as reflect or no regen. Since 3.29 the reflect map mods give rare monsters physical or elemental **Thorns** instead.
 - **Blasting / blaster**: mapping very fast for clear, not bosses.
 - **Pinnacle / uber**: the hardest bosses and their harder versions.
 - **Carry / boss carry**: paying another player to kill a boss for you.
@@ -107,7 +114,11 @@ rules. Do not apply the PoE1 meaning there.
 ## Common mistakes
 - Treating "T1" as one thing. A T1 mod is the best roll; a T1 map is the worst tier; a 3.30 item tier is a drop grade.
 - Saying "ex" means the top currency. In PoE1 it is the divine; in PoE2 the exalt.
-- Talking about scarabs, sextants or binding orbs as current. Scarabs left in 3.30; Bindings no longer drop.
+- Talking about scarabs, sextants, binding orbs or most Awakened gems as current. Scarabs left in 3.30; Bindings no longer drop; most Awakened gems left in 3.28.
 - Assuming a league mechanic name means it still spawns in maps by itself. In 3.30 primary mechanics need Threads.
 - Mixing PoE2 terms (waystones, spirit, the PoE2 exalt) into PoE1 answers.
 - Quoting a DPS or EHP number without the config behind it.
+
+## Verification (2026-11-17)
+
+`engine-checked` here means: every term that names removed or renamed content was checked against the official 3.27.0 to 3.30.0 notes (scarabs, Threads, Atlas Drops, item tiers, Orbs of Binding and Chance, Awakened gems, Nightmare Maps, Thorns, Foulborn, Atziri's fragments, Delirium orbs), and the exalt's standing against the first Covens economy snapshot. The claim that 3.28 made exalts more common was not in the notes and was removed. Definitions of slang are ours.
