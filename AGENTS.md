@@ -28,6 +28,7 @@ evals/                              suites/<suite>.jsonl, check_cases.py
 tools/validate/                     validate.py and its tests
 tools/refresh/                      economy refresh, patch-note triage
 REVIEW-QUEUE.md                     decisions waiting on the maintainer, one at a time
+VERIFICATION-HANDOFF.md             work list for verifying the draft references (Q9)
 ```
 
 ## Commands
