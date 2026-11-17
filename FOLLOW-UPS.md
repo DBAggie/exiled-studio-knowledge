@@ -1,6 +1,6 @@
 # Follow-ups for the maintainer (2026-11-17)
 
-Left by the autonomous session that verified and merged PRs #2 to #25. Everything here needs the maintainer: a check in game, a number only the maintainer gives, or a decision. Go through them top to bottom; each stands alone. `main` is at `3.30.0-kb.30`.
+Left by the autonomous session that verified and merged PRs #2 to #25. Everything here needs the maintainer: a check in game, a number only the maintainer gives, or a decision. Go through them top to bottom; each stands alone. `main` is at `3.30.0-kb.31`.
 
 ## What was done
 - **Batch 1, mechanics (#4 to #6, #12 to #20):** verified and merged. all 12 files `engine-checked` after later passes (section A).
@@ -20,7 +20,7 @@ Not checked in game, but stated with their source in the files:
 Community sources the maintainer added on 2026-11-17: poedb and Craft of Exile (used for `crafting.md`), Mobalytics and PoE Vault guides (no mechanics explainers for these points; useful for the community and build-advisor files, with ideas credited and no text copied).
 
 ## B. Numbers only the maintainer gives (build advisor)
-- **`defensive-thresholds.md`** (PR #34): the maintainer's answers are in (resistances approved, life per act, level bands, max hit build dependent, suppression and block only where used). One thing left before it leaves `unverified`: keep or lower the life targets for early maps (3,500 to 4,500), red maps (5,000 to 6,000), pinnacle (6,000+) and uber bosses (7,000 to 10,000)? Ladder characters on league day 4 had about 3,200 at level 75, 4,200 at 90 and 4,800 at 95 (life plus ES, median).
+- **`defensive-thresholds.md`** (PRs #34, #35): done. Life and ES targets now follow observed pools by level (the maintainer's decision), and the file is `engine-checked`. The 10,000 and 15,000 max hit figures for bosses are still commonly cited values with no source. The observed table is from league day 4; re-read it later in the league.
 - **`gearing.md` line 60**: "a support is often worth 20% to 40% more damage".
 - **`trade-offs.md` line 42**: "below about 40% to 50% crit chance, crit multiplier gives little".
 - **`budget-tiers.md`**: what each tier ("a few divines", "tens", "hundreds") buys.
@@ -32,8 +32,8 @@ poedb was also searched for the five section A points (trap arm time, leech afte
 
 ## D. Approvals
 - **Meta summary** in `snapshots/covens/2026-11-16.md` (read from the poe.ninja builds page on 2026-11-17, league day 4): approve or correct it (Q11). The snapshot stays `unverified` until then.
-- **Promote to `maintainer-approved`**: only the maintainer does this. 21 references are `engine-checked` and ready for your skim: `damage`, `conversion`, `crit`, `charges`, `flasks`, `triggers`, `defences`, `auras-curses`, `recovery`, `minions`, `totems-traps-mines`, `ailments`; `diagnosis`, `gearing`, `reading-breakdowns`, `trade-offs`; `jargon`, `archetypes`, `budget-tiers`, `crafting`, `atlas`.
-- **Merged while still `unverified`** (1 file): `defensive-thresholds.md`. Each says in its Verification section what is open. Say if you would rather these had waited.
+- **Promote to `maintainer-approved`**: only the maintainer does this. 22 references are `engine-checked` and ready for your skim: `damage`, `conversion`, `crit`, `charges`, `flasks`, `triggers`, `defences`, `auras-curses`, `recovery`, `minions`, `totems-traps-mines`, `ailments`; `diagnosis`, `defensive-thresholds`, `gearing`, `reading-breakdowns`, `trade-offs`; `jargon`, `archetypes`, `budget-tiers`, `crafting`, `atlas`.
+- No reference is `unverified` any more; only the economy snapshot is, until the meta summary is approved. Each says in its Verification section what is open. Say if you would rather these had waited.
 
 ## E. Evals
 - **Answer keys**: all 58 cases have `key: null`. The maintainer writes or approves them (plan D8).
