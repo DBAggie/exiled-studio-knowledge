@@ -1,14 +1,17 @@
 ---
 game: poe1
 patch: 3.30.0
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://poedb.tw/us/Version_3.30.0
-  - https://poedb.tw/us/Version_3.29.0
-  - https://poedb.tw/us/Version_3.28.0
-  - https://poedb.tw/us/Version_3.27.0
-  - https://poedb.tw/us/Version_3.26.0
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://www.pathofexile.com/forum/view-thread/3985332
+  - https://www.pathofexile.com/forum/view-thread/3913392
+  - https://www.pathofexile.com/forum/view-thread/3869068
+  - https://www.pathofexile.com/forum/view-thread/3787013
+  - https://www.poewiki.net/wiki/Minion
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Data/Minions.lua
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcSetup.lua
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcPerform.lua
 verification: unverified
 ---
 
@@ -66,13 +69,21 @@ minion lines count for you; they never make your lines count for minions.
 - Minion resistances are their own. They start from the minion type's base
   values and rise with "Minions have +X% to ... Resistances". Your resistances
   do not apply. The default maximum resistance is 75%, the same rule as yours,
-  raised only by lines that name minions. Whether every minion type starts at 0%
-  in 3.30 is not confirmed; look it up per minion.
-- Minions do not take the act resistance penalties that the player takes.
-  Not confirmed for 3.30.
+  raised only by lines that name minions.
+- Minion base resistances are **not** all 0%. In the game data PoB 2.67.2
+  reads, most player minion types start at 40% elemental and 20% chaos
+  resistance, some start at 0%, and a few higher. Look the minion up.
+- Minions do not take the campaign (act) resistance penalty: PoB 2.67.2 applies
+  the -30%/-60% penalty to the player only and gives minions just their base
+  values. No 3.26 to 3.30 note changes this. Not checked in game.
+- Do not confuse minions with **Mercenaries**: 3.30.0 gave hired Mercenaries
+  their own area-level resistance penalty (-30% in level 46 to 67 areas, -60%
+  in level 68+ areas and hideouts). That line names Mercenaries only.
 - Minion armour, evasion, block and other defences also need minion lines.
 - 3.29: Spectre life was lowered across the board. Companionship no longer gives
   more life to a sole minion; it gives it less damage taken.
+- 3.30: Transfusion Support now gives a nearby minion a power, frenzy or
+  endurance charge per 400 life spent on upfront costs (it used to give souls).
 
 ## Minion damage scaling
 
@@ -110,7 +121,9 @@ minion hit = minion skill base damage
 - Limits are per skill type, not shared. Zombies, spectres and skeletons each
   have their own cap.
 - When you summon past the cap, the oldest minion of that type is usually
-  replaced. Not confirmed for every minion skill in 3.30.
+  replaced. **Not confirmed** for every minion skill: the patch notes and
+  poewiki's minion page do not state it, and PoB does not model it. (poewiki
+  does state the oldest-first rule for traps, mines and totems, not minions.)
 - Some minions have a duration (skeletons, clones, temporary minions) and die
   when it ends. Permanent minions persist between areas unless they die.
 - 3.27: a Spectre that dies turns into an untargetable orb that cannot act, and
@@ -148,3 +161,7 @@ minion hit = minion skill base damage
 - Full minion DPS, life and resistances may not be computed. If the engine has
   no minion field, say the value comes from PoB or from the rules here, and
   look up the minion gem's base values through the knowledge tools.
+
+## Verification (2026-11-17)
+
+Checked against the official 3.26.0 to 3.30.x notes (3.30.x read in full), poewiki's minion page, and the pinned Path of Building 2.67.2 (minion base resistances in `Data/Minions.lua`; the player-only campaign penalty in `CalcSetup.lua` and `CalcPerform.lua`). Still `unverified`: replacing the oldest minion when summoning past the cap is not confirmed for every minion skill.
