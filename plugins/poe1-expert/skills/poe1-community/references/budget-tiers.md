@@ -1,11 +1,12 @@
 ---
 game: poe1
 patch: 3.30.0
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
+  - https://www.pathofexile.com/forum/view-thread/4013680
   - https://www.pathofexile.com/forum/view-thread/3913392
-verification: unverified
+  - repo:plugins/poe1-expert/skills/poe1-economy/snapshots/covens/2026-11-16.json
+verification: engine-checked
 ---
 
 # Budget tiers
@@ -21,8 +22,8 @@ league and `as_of` when you put a price on a tier.
   in divines.
 - **Mirror**: the top. "Mirror tier" means near-perfect gear, priced in mirrors or
   hundreds of divines.
-- Exalted Orbs are a mid-value orb in PoE1 now, not the budget unit. 3.28 made them
-  more common.
+- Exalted Orbs are a low-value orb in PoE1 now, not the budget unit (the first Covens
+  snapshot has one well under a chaos).
 
 ## The tiers players use
 
@@ -38,8 +39,8 @@ with decent life or ES, and a solid weapon if the build needs one. Enough for ye
 and early red maps.
 
 ### Tens of divines (red maps, early pinnacle bosses)
-Good rares in every slot, cluster or other key jewels, awakened or high-level gems for
-the main links, better flasks with good mods, and the first real defence layers
+Good rares in every slot, cluster or other key jewels, high-level or Exceptional gems
+for the main links (most Awakened supports can no longer be obtained since 3.28), better flasks with good mods, and the first real defence layers
 (suppression, block, max res, a strong defensive aura set-up). Enough for T16 and
 the easier pinnacle bosses with a well-made build.
 
@@ -86,9 +87,16 @@ Rough order for most builds. Always check the specific build.
   unique hunting costs more.
 - **Orbs of Binding** no longer drop. Plan links with jewellers, fusings and the bench.
 - **Vendor recipes**: two rares with the same name give a Chaos Orb; three give an
-  Exalted Orb. This helps a zero-budget start.
-- **Bench locks** (keeping prefixes or suffixes) now cost Divine Orbs, which makes
-  some crafts a mid-budget step, not a league-start one. See `crafting.md`.
+  Exalted Orb. A full rare set with an item below level 60 now gives Orbs of Alchemy.
+  This helps a zero-budget start.
+- **Scarabs are gone.** Map investment is Threads now; budgets that counted scarab
+  costs or scarab income need redoing (`atlas.md`).
+- **Sacrifice and Mortal fragments** are gone as an income source (Atziri moved into
+  the Temple of Atzoatl).
+- **Bench locks** (keeping prefixes or suffixes) now cost several Divine Orbs plus a
+  second currency that depends on the item type; the new one- and two-mod locks cost
+  one or two divines. That makes metacrafting a mid-budget step, not a league-start
+  one. See `crafting.md`.
 
 ## Mode notes
 - **SSF**: there is no budget, only what you find and craft. Plan by what drops and
@@ -101,3 +109,7 @@ Rough order for most builds. Always check the specific build.
 - Calling a build "budget" when it needs one chase unique.
 - Buying for the next tier before the current tier's content is on farm.
 - Giving PoE2 budget advice; PoE2's top trade unit is the exalted orb, not the divine.
+
+## Verification (2026-11-17)
+
+`engine-checked` here means: the items and rules 3.30 removed or changed were checked against the official 3.30.0 notes (item tiers, Orbs of Chance and Binding, vendor recipes, bench lock costs, scarabs, Atziri's fragments) and 3.28.0 notes (Awakened supports), and cross-checked with the first Covens economy snapshot (2026-11-16: no scarab overview, Threads in its place, only Awakened Empower/Enlighten/Enhance listed, the exalt well under a chaos). No prices are stated here. What each tier buys is a community rule of thumb.
