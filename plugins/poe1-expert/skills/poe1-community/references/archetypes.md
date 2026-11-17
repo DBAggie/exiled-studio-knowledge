@@ -1,11 +1,13 @@
 ---
 game: poe1
 patch: 3.30.0
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://poedb.tw/us/Version_3.29.0
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
-verification: unverified
+  - https://www.pathofexile.com/forum/view-thread/3985332
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://www.pathofexile.com/forum/view-thread/3913392
+  - https://www.pathofexile.com/forum/view-thread/3869068
+verification: engine-checked
 ---
 
 # Build archetypes and league starters
@@ -23,8 +25,9 @@ Every build is one choice on each axis. Name both when you describe a build.
 ### Self-cast spells
 You press the button and the spell goes off. Scales with cast speed, spell damage,
 gem levels and crit or elemental damage. Easy to level with and easy to gear early.
-Third-party summaries report balance changes to self-cast in 3.29; not confirmed
-from the official notes here.
+3.29.0 retuned most spells (official notes): higher base damage with more growth per
+gem level, faster but costlier lightning spells, cheaper fire spells with more added
+damage effectiveness, and Unleash made stronger. Pre-3.29 spell numbers are out of date.
 
 ### Attacks
 Melee or ranged skills that use weapon damage. The weapon is the biggest damage
@@ -37,19 +40,21 @@ block don't stop them; ailments from hits still need the hit to land. Scales wit
 cheap to start, because many DoT layers come from the tree and gems, not gear.
 
 ### Minions
-Your summons deal the damage. Gear and tree scale the minions, not you, so your own
+Your summons deal the damage. Since 3.27 minion attacks always hit, and since 3.29
+non-Spectre minions no longer pause while attacking. Gear and tree scale the minions, not you, so your own
 gear can go to defence. Good for players who want safety. Weak points: minion AI,
 minions dying in hard content, and fewer ways to scale on cheap gear late.
 
 ### Totems, traps, mines
 The skill is placed and hits on its own. You stay out of danger. Totem, trap and
-mine supports change the skill's damage and speed. Third-party summaries report
-3.29 nerfs to totem and mine supports (not confirmed here); check current gem data
-before recommending one.
+mine supports change the skill's damage and speed. 3.29.0 raised the
+less-damage penalty on Spell Totem, Ballista Totem, Blastchain Mine and High-Impact
+Mine and raised the two mine supports' cost multiplier (official notes); check current
+gem data before recommending one.
 
 ### Triggers
 A support casts spells for you when something happens: on crit (CoC), while
-channelling (CwC), when hit (CwDT), or by a meta gem or item. Damage is capped by the
+channelling (CwC), when hit (CwDT), or through a unique item. Damage is capped by the
 trigger's cooldown and rate, so cast-speed scaling stops working. Often strong but
 gear-heavy and fiddly; rarely a league starter.
 
@@ -60,7 +65,7 @@ Life plus armour, evasion, block or suppression. The default. Forgiving, cheap, 
 the best choice for a starter. Most uniques and rares are made for it.
 
 ### ES-based
-Energy shield as the main pool. High pools on endgame gear, but ES needs a recovery
+Energy shield as the main pool. Chaos damage bypasses ES unless the build is CI. High pools on endgame gear, but ES needs a recovery
 plan (regen, leech, recharge). Bad at league start because ES gear is costly.
 
 ### CI (Chaos Inoculation)
@@ -122,3 +127,7 @@ and almost no currency. The tests:
   its skill, supports, ascendancy and key uniques.
 - Treating "minion build" as automatically safe. Minions die, and the player can too.
 - Giving PoE2 archetype advice. PoE2 has different skills, supports and defences.
+
+## Verification (2026-11-17)
+
+`engine-checked` here means: the two 3.29 claims that came from third-party summaries (self-cast changes, totem and mine support nerfs) are now confirmed from the official 3.29.0 notes; the minion and energy shield lines agree with the mechanics references; "meta gem" (a PoE2 term) was removed from the triggers section. The archetype descriptions and the league-starter tests are community advice, not game rules.
