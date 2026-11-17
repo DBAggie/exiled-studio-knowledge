@@ -36,9 +36,9 @@ poedb was also searched for the five section A points (trap arm time, leech afte
 - No reference is `unverified` any more; only the economy snapshot is, until the meta summary is approved.
 
 ## E. Evals
-- **Answer keys**: 30 of 58 are approved (traps, tool discipline, snapshot honesty; PR #36). The 20 mechanics and 8 diagnosis keys are still empty; the maintainer dictates those.
+- **Answer keys**: 50 of 58 are approved: traps, tool discipline and snapshot honesty (PR #36), and all 20 mechanics keys, dictated by the maintainer (PR #37). The 8 diagnosis keys are still empty; the maintainer dictates those, and each needs a build fixture.
 - **Diagnosis fixtures**: the 8 diagnosis cases say `"build": "fixture: TBD by maintainer"`.
-- `traps-007` was replaced with a scarab question (PR #36). Still to fix when keying: `diagnosis-008` says "Raider" (renamed in 3.25; confirm before keying) and `mechanics-015` needs a +1 curse stated in the prompt.
+- `traps-007` was replaced with a scarab question (PR #36). Still to fix when keying: `diagnosis-008` says "Raider" (renamed in 3.25; confirm before keying). `mechanics-015` now states +1 curse (PR #37).
 - **Some mechanics drafts were written before batch 1's corrections.** When keying, use the corrected files: attack crits need a second accuracy check (`mechanics-012`), flask effect and duration raise life flask recovery, triggered skills pay their cost (`mechanics-017`), endurance charges give elemental damage reduction (`mechanics-007`).
 - **The eval runner is not built.** Q5 says it runs on the workstation by hand. It needs a decision on how it calls Claude (which client, with and without the plugin) before a session builds it.
 
