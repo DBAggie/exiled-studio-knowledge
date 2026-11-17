@@ -1,6 +1,6 @@
 # Follow-ups for the maintainer (2026-11-17)
 
-Left by the autonomous session that verified and merged PRs #2 to #25. Everything here needs the maintainer: a check in game, a number only the maintainer gives, or a decision. Go through them top to bottom; each stands alone. `main` is at `3.30.0-kb.25`.
+Left by the autonomous session that verified and merged PRs #2 to #25. Everything here needs the maintainer: a check in game, a number only the maintainer gives, or a decision. Go through them top to bottom; each stands alone. `main` is at `3.30.0-kb.26`.
 
 ## What was done
 - **Batch 1, mechanics (#4 to #6, #12 to #20):** verified and merged. 7 files `engine-checked`, 5 `unverified` (one open point each, section A).
@@ -21,8 +21,16 @@ Each test is written out on its PR. Report the result and a session sets the fil
 | `totems-traps-mines.md` | The trap arm time | PR #17 |
 | `ailments.md` | Does a player's ailment threshold include energy shield? | PR #19 |
 
+Second pass with older sources allowed (PR #30): none of the five closed, but the tests are now narrower.
+- Leech after death: very likely yes (a GGG developer described an instance as a rate and a duration that ends only on expiry or full life). One quick test confirms it.
+- Minions: oldest-first is confirmed for Summon Skeletons (poewiki). Test zombies and spectres.
+- Reservation: the two-decimal percent rounds up (player report). Only the whole-number total's direction is open.
+- Trap arm time: no number in any source, old or new.
+- Player ailment threshold and energy shield: every source found is about PoE2.
+
+Community sources the maintainer added on 2026-11-17: poedb and Craft of Exile (used for `crafting.md`), Mobalytics and PoE Vault guides (no mechanics explainers for these points; useful for the community and build-advisor files, with ideas credited and no text copied).
+
 Also not checked in game, but stated with their source in the files:
-- `recovery.md`: PoB and poewiki disagree on whether "increased total recovery per second from leech" shortens leech instances. Both readings are in the file.
 - `ailments.md`: PoB takes non-damaging ailment effect from the hit **after** enemy mitigation; poewiki does not say.
 - `crit.md`: the 3.6.0 cap removal was confirmed from poewiki's version history, not from the 3.6.0 forum post.
 
