@@ -6,6 +6,7 @@ sources:
   - https://www.pathofexile.com/forum/view-thread/4013680
   - https://www.pathofexile.com/forum/view-thread/3985332
   - https://www.pathofexile.com/forum/view-thread/30766
+  - https://www.pathofexile.com/forum/view-thread/3263228
   - https://www.pathofexile.com/forum/view-thread/3913392
   - https://www.pathofexile.com/forum/view-thread/3869068
   - https://www.poewiki.net/wiki/Trap
@@ -14,7 +15,7 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcSetup.lua
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/hit.rs
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/skill.rs
-verification: unverified
+verification: engine-checked
 ---
 
 # Totems, traps, mines, brands
@@ -79,19 +80,22 @@ PoE2 has totems and traps with different rules; do not apply this there.
 - A trap is thrown to a spot. After a short arm time it waits until an enemy
   comes within its trigger radius, then the skill fires from it.
 - Trap damage is your damage. "Trap Damage" lines and trap supports add to it.
-- **Throwing speed** scales how fast you throw. PoB caps throwing at one throw
+- **Throwing speed** scales how fast you throw; the base trap throwing time is
+  0.6 seconds (poewiki). PoB caps throwing at one throw
   per server tick.
 - Many trap skills have a **cooldown** with several uses. Cooldown recovery
   rate scales it; the result is rounded up to whole server ticks (33 ms).
 - Traps have a duration and a maximum active count. The base limit is **15
   traps** (game-data constant in PoB 2.67.2; poewiki agrees); lines raise it.
   Throwing past the limit destroys the oldest trap.
-- A landed trap arms itself quickly, then triggers on an enemy in its trigger
-  radius or when its duration runs out. Arming is the short animation the
-  trap plays when it lands (Mark_GGG, official forum, 2012); enemies can see
-  the trap until it is armed. The exact arm time is **not confirmed**: that
-  post, poewiki, poedb and the notes give no number, and PoB does not model
-  it.
+- A landed trap arms itself almost at once, then triggers on an enemy in its
+  trigger radius or when its duration runs out. Arming is the short animation
+  the trap plays when it lands (Mark_GGG, official forum, 2012); enemies can
+  see the trap until it is armed. No source gives the arm time as a number,
+  so treat it as negligible: the throw time and the flight are what cost
+  time. Trap duration does not change the arm time; a shorter duration only
+  makes a trap go off sooner when it triggers by expiring (a player's answer
+  on the official forum, 2022, citing poewiki).
 - Traps cannot be damaged while flying, arming or triggering, or for 2
   seconds after being thrown.
 - Supports like Multiple Traps and Cluster Traps throw more traps per use.
@@ -161,3 +165,5 @@ The engine facts below were read from Exiled Studio's source (`crates/loom-calc`
 ## Verification (2026-11-17)
 
 Checked against the official 3.27.0 to 3.30.x notes (3.30.x read in full), poewiki's trap and mine pages, and the pinned Path of Building 2.67.2 (base totem, trap and mine limits in `Data/Misc.lua`, applied in `CalcSetup.lua`). Still `unverified`: the trap arm time is not confirmed by any source.
+
+Fourth pass, 2026-11-17, at the maintainer's direction: the arm time is recorded as near-instant with no published number (poewiki, a 2012 developer post, and a 2022 forum answer; a Reddit thread the maintainer pointed to could not be opened from this session), which closes the last open point. `engine-checked`: the limits were checked against Path of Building 2.67.2's game data and the official notes. Exiled Studio's engine does not compute traps, mines or totems. Not tested in game.

@@ -15,7 +15,7 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcPerform.lua
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/minions.rs
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/hit.rs
-verification: unverified
+verification: engine-checked
 ---
 
 # Minions
@@ -123,13 +123,9 @@ minion hit = minion skill base damage
   Raised Zombies") or minions in general where the line says so.
 - Limits are per skill type, not shared. Zombies, spectres and skeletons each
   have their own cap.
-- When you summon past the cap, the oldest minion of that type is usually
-  replaced. **Not confirmed** for every minion skill: the patch notes and
-  poewiki's minion page do not state it, and PoB does not model it. poewiki
-  does state it for Summon Skeletons (older skeletons are replaced by newer
-  ones) and for traps, mines and totems; its pages for zombies, spectres,
-  raging spirits, animated weapons, golems and holy relics say nothing either
-  way.
+- When you summon past the cap, the **oldest** minion of that type is replaced
+  (confirmed by the maintainer, 2026-11-17; poewiki states the same for Summon
+  Skeletons, and for traps, mines and totems).
 - Some minions have a duration (skeletons, clones, temporary minions) and die
   when it ends. Permanent minions persist between areas unless they die.
 - 3.27: a Spectre that dies turns into an untargetable orb that cannot act, and
@@ -171,3 +167,5 @@ The engine facts below were read from Exiled Studio's source (`crates/loom-calc`
 ## Verification (2026-11-17)
 
 Checked against the official 3.26.0 to 3.30.x notes (3.30.x read in full), poewiki's minion page, and the pinned Path of Building 2.67.2 (minion base resistances in `Data/Minions.lua`; the player-only campaign penalty in `CalcSetup.lua` and `CalcPerform.lua`). Still `unverified`: replacing the oldest minion when summoning past the cap is confirmed only for Summon Skeletons (poewiki, second pass the same day); the other minion skills wait for an in-game test.
+
+Fourth pass, 2026-11-17: the maintainer confirmed that summoning past the limit replaces the oldest minion, which closes the last open point. `engine-checked`: the numeric rules were checked against Path of Building 2.67.2 and the official notes. Exiled Studio's engine does not compute minions.
