@@ -1,13 +1,15 @@
 ---
 game: poe1
 patch: 3.30.0
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://www.pathofexile.com/forum/view-thread/3985332
   - https://www.pathofexile.com/forum/view-thread/3913392
-  - https://poedb.tw/us/Version_3.29.0
-  - https://poedb.tw/us/Version_3.27.0
-  - https://poedb.tw/us/Version_3.26.0
+  - https://www.pathofexile.com/forum/view-thread/3869068
+  - https://www.pathofexile.com/forum/view-thread/3787013
+  - https://www.pathofexile.com/forum/view-thread/4016174
+  - repo:plugins/poe1-expert/skills/poe1-economy/snapshots/covens/2026-11-16.json
 verification: unverified
 ---
 
@@ -50,11 +52,17 @@ Confirmed in 3.30. The default league-start crafting tool.
 Fossils in a resonator reroll a rare with weights pushed toward some mod groups and
 away from others, or with special effects.
 - 3.28: fossils come only from Delve.
-- 3.30: Delve's atlas passive clusters were removed. Delve itself still exists (its
-  area mods were changed), but fossil supply may be lower. Not confirmed how much.
+- 3.28: fossils are found far more often behind fractured walls and off the main
+  paths in Delve.
+- 3.29: Fractured Fossils fracture a random mod and cannot be used on fractured or
+  influenced items.
+- 3.30: Delve's atlas passive clusters were removed, and Sulphite no longer appears
+  in maps at random (a few named maps always have it, and its veins give more). Delve
+  itself still exists. How this changes fossil supply is **not confirmed**; the first
+  Covens snapshot does list fossils as traded.
 
-Fossils still exist in 3.30. Resonators are not named in the 3.28 to 3.30 notes we read;
-assumed unchanged, not confirmed.
+Fossils still exist in 3.30. Resonators are not named in the 3.26 to 3.30 notes;
+assumed unchanged, **not confirmed**.
 
 ## Harvest (Horticrafting)
 Lifeforce from Harvest buys crafts at the Horticrafting station. The best-known are
@@ -62,18 +70,22 @@ Lifeforce from Harvest buys crafts at the Horticrafting station. The best-known 
 so on), and similar targeted crafts.
 - 3.27: reforges that guarantee a mod type respect "cannot roll" meta-crafts.
 - 3.29: the white-socket reforge was removed.
-- 3.30: Harvest in maps reworked around Sacred Flora and Sacred Fauna; lifeforce
-  drops changed; costs changed for crafts on resistance and damage-type mods; the
-  divination card craft got cheaper.
+- 3.30: Harvest is no longer a separate plot: Sacred Flora spawn in the map and
+  release Sacred Fauna when used. Lifeforce drops in bigger stacks (about the same
+  total). Crafts that change one resistance mod or one damage-type mod into another
+  now cost two lifeforce types; the divination card craft changed cost; the craft that
+  swapped Sacrifice or Mortal fragments was removed.
 
-Horticrafting is confirmed in 3.30. The exact list of reforge crafts in 3.30 is not
-confirmed line by line.
+Horticrafting is confirmed in 3.30. The notes change no reforge craft besides those,
+but the full list of reforge crafts in 3.30 is **not confirmed** line by line.
 
 ## Crafting bench
 Unlocked recipes add one crafted mod, change sockets and links, or apply meta-crafts.
-- 3.26: recipes are found as recipe objects in atlas maps.
+- 3.26: veiled-mod recipes moved from unveiling to recipe objects near bosses in
+  atlas maps.
 - 3.28: options that cost Exalted Orbs now mostly cost a fixed number of exalts.
-- 3.29: a bench is in every town from Act 2; socket-colour options changed.
+- 3.29: a bench is in every town from Act 2; socket-colour options changed; two new
+  options reroll one or three random mods on a rare.
 - 3.30: a white-sockets option; new options that lock one or two prefixes or suffixes,
   paid in Divine Orbs plus other currency by item type. Meta-craft recipes now come
   from Nightmare Maps instead of unique maps.
@@ -88,10 +100,18 @@ The classic moves:
   exalt slam.
 - **Multimod**, to add more than one crafted mod.
 
-3.30 changes: the new lock options cost divines. "Cannot roll attack/caster" no
-longer stops removal orbs like the Orb of Annulment from removing those mods. It is
-not confirmed whether the older lock and multimod crafts sit alongside the new ones;
-check the bench data before planning a craft.
+3.30 changes (official notes):
+- Four **new** options lock one or two prefixes, or one or two suffixes.
+- The **old** "prefixes cannot be changed" and "suffixes cannot be changed" options
+  are still there, next to the new ones. Their cost changed and now depends on the
+  item type (weapons, armour and quivers, jewellery). The notes give each cost; look
+  it up, do not quote it from memory.
+- "Cannot roll attack/caster" no longer stops removal orbs like the Orb of Annulment
+  from removing those mods.
+- 3.30.0b Hotfix 4: a Veiled Chaos Orb can be used on an item with a veiled mod if
+  that mod is not protected by fracturing or a meta-craft.
+- Multimod is not mentioned in the 3.26 to 3.30 notes; assumed unchanged, **not
+  confirmed**. Check the bench data before planning a craft.
 
 ## Recombinators
 Combine two items of the same kind into one, keeping some mods from each.
@@ -108,19 +128,29 @@ and upgraded with eldritch currency, rerolled with eldritch chaos and balanced w
 the Orb of Conflict.
 - Eldritch altars in maps are confirmed in 3.30 (their rarity bonus was lowered, and
   their mods now drop Threads).
-- The eldritch currency and implicits themselves are not mentioned in the 3.30 notes
-  we read. Assumed still in the game; **not confirmed for 3.30**.
+- The eldritch currency is confirmed in 3.30: the first Covens snapshot (2026-11-16)
+  lists Eldritch Ichors and Embers, the Eldritch Chaos Orb, Eldritch Exalted Orb,
+  Eldritch Orb of Annulment and Orb of Conflict as traded in the league. The 3.30.0
+  notes also fix a bug with eldritch implicit mods, so the implicits are in the game.
 
 ## Other methods worth naming
 - **Fracturing Orb**: locks one mod. Part of the core drop pool since 3.28.
-- **Foulborn orbs** (3.27): upgrade magic or rare items toward higher-level mods. Not
-  confirmed for 3.30.
-- **Beastcrafting**: Einhar's recipes. In 3.30 the binding recipe gives Orbs of Regret.
+- **Foulborn orbs** (3.27): a Foulborn Orb of Augmentation, Regal Orb and Exalted Orb
+  that add a mod with higher-level mods more likely. Confirmed in 3.30: all three are
+  traded in the first Covens snapshot.
+- **Beastcrafting**: Einhar's recipes. 3.30: yellow beasts are no longer captured or
+  needed; flask-mod recipes need any red beast; the binding recipe gives Orbs of Regret.
 - **Eternal Orb and imprints**: undo a craft step by restoring a saved copy. 3.30:
   imprinting and mirroring no longer count as modifying the item, so they can't be
   used on items with the "can be modified while corrupted" implicit.
-- **Influence and awakener crafts**: not mentioned in the 3.30 notes we read; not
-  confirmed for 3.30.
+- **Influence and awakener crafts**: confirmed in 3.30. The first Covens snapshot
+  lists the Shaper, Elder and four Conqueror Exalted Orbs and the Awakener's Orb as
+  traded, and the 3.30.0 notes mention Conqueror's Exalted Orbs dropping from
+  Conqueror bosses. The notes change none of their rules.
+- **Gwennen** (Expedition) no longer gambles items in 3.30; she offers a paid
+  coin-flip between two crafting outcomes on one of your rares.
+- **Double corruption** (3.30): the Temple's Altar of Corruption and Lapidary Lens now
+  corrupt an item or gem a second time ("Twice Corrupted"), with a chance to destroy it.
 - **Socket colours** (3.29): sockets are white by default with a small chance of
   colour; any gem fits any socket; matching colour gives extra quality. Chromatic
   orbs force one socket to have colour.
@@ -140,3 +170,7 @@ the Orb of Conflict.
 - Assuming "cannot roll caster/attack" still protects mods from annulment in 3.30.
 - Quoting bench costs or mod weights from memory. Look them up.
 - Using PoE2 crafting rules (no bench, different essences, omens with other effects).
+
+## Verification (2026-11-17)
+
+Checked against the official 3.26.0 to 3.30.x notes and the first Covens economy snapshot (2026-11-16), which shows which crafting currencies are traded in the league. Confirmed: eldritch currency and implicits, Foulborn orbs, influence and awakener currency, the old locks next to the new ones, the Harvest rework. No bench costs are stated (the notes give exact figures; look them up). Still `unverified`: resonators, multimod, the full Harvest reforge list and fossil supply are not confirmed by the notes.
