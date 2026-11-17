@@ -10,7 +10,10 @@ sources:
   - https://www.pathofexile.com/forum/view-thread/3787013
   - https://www.pathofexile.com/forum/view-thread/4016174
   - repo:plugins/poe1-expert/skills/poe1-economy/snapshots/covens/2026-11-16.json
-verification: unverified
+  - https://poedb.tw/us/Crafting_Bench
+  - https://poedb.tw/us/Horticrafting
+  - https://poedb.tw/us/Resonator
+verification: engine-checked
 ---
 
 # Crafting methods
@@ -58,11 +61,13 @@ away from others, or with special effects.
   influenced items.
 - 3.30: Delve's atlas passive clusters were removed, and Sulphite no longer appears
   in maps at random (a few named maps always have it, and its veins give more). Delve
-  itself still exists. How this changes fossil supply is **not confirmed**; the first
-  Covens snapshot does list fossils as traded.
+  itself still exists. How much this changes fossil supply is not a rule but a market
+  fact: it is snapshot content (`poe1-economy`), and the first Covens snapshot does
+  list fossils as traded.
 
-Fossils still exist in 3.30. Resonators are not named in the 3.26 to 3.30 notes;
-assumed unchanged, **not confirmed**.
+Fossils and resonators both exist in 3.30. The notes do not name resonators, but
+poedb's current game data (which already carries the 3.30 bench options) lists the
+four Chaotic Resonators, one per socket count.
 
 ## Harvest (Horticrafting)
 Lifeforce from Harvest buys crafts at the Horticrafting station. The best-known are
@@ -76,8 +81,13 @@ so on), and similar targeted crafts.
   now cost two lifeforce types; the divination card craft changed cost; the craft that
   swapped Sacrifice or Mortal fragments was removed.
 
-Horticrafting is confirmed in 3.30. The notes change no reforge craft besides those,
-but the full list of reforge crafts in 3.30 is **not confirmed** line by line.
+Horticrafting is confirmed in 3.30. The type-guaranteed reforges are still there:
+poedb's current Horticrafting list has them (fire, cold, lightning, physical, life,
+defence, chaos, attack, caster, speed, critical and more), plus the "more likely" and
+"less likely to keep the same mod types" reforges and an influence reforge. It has no
+white-socket craft and no Sacrifice or Mortal fragment craft, as the 3.29 and 3.30
+notes say. The list and its lifeforce costs are data; look them up, do not quote them
+from memory.
 
 ## Crafting bench
 Unlocked recipes add one crafted mod, change sockets and links, or apply meta-crafts.
@@ -110,8 +120,10 @@ The classic moves:
   from removing those mods.
 - 3.30.0b Hotfix 4: a Veiled Chaos Orb can be used on an item with a veiled mod if
   that mod is not protected by fracturing or a meta-craft.
-- Multimod is not mentioned in the 3.26 to 3.30 notes; assumed unchanged, **not
-  confirmed**. Check the bench data before planning a craft.
+- **Multimod is still on the bench** ("can have up to 3 crafted modifiers"), next to
+  the old and new locks and the two "cannot roll" crafts. The notes do not mention it;
+  poedb's current bench list has it. Costs are data; check the bench data before
+  planning a craft.
 
 ## Recombinators
 Combine two items of the same kind into one, keeping some mods from each.
@@ -173,4 +185,6 @@ the Orb of Conflict.
 
 ## Verification (2026-11-17)
 
-Checked against the official 3.26.0 to 3.30.x notes and the first Covens economy snapshot (2026-11-16), which shows which crafting currencies are traded in the league. Confirmed: eldritch currency and implicits, Foulborn orbs, influence and awakener currency, the old locks next to the new ones, the Harvest rework. No bench costs are stated (the notes give exact figures; look them up). Still `unverified`: resonators, multimod, the full Harvest reforge list and fossil supply are not confirmed by the notes.
+Checked against the official 3.26.0 to 3.30.x notes and the first Covens economy snapshot (2026-11-16), which shows which crafting currencies are traded in the league. Confirmed: eldritch currency and implicits, Foulborn orbs, influence and awakener currency, the old locks next to the new ones, the Harvest rework. No bench costs are stated (the notes give exact figures; look them up).
+
+Second pass the same day, at the maintainer's direction, with poedb's game data opened in the maintainer's browser: resonators (the Resonator page), multimod (the Crafting Bench page) and the type-guaranteed Harvest reforges (the Horticrafting page) are confirmed. poedb's data is current for 3.30: its bench list has the 3.30 white-sockets option and the new one- and two-mod locks. Craft of Exile was also opened, but its main site still shows 3.29 as the current patch, so it was not used. `engine-checked` here means checked against the official notes, the economy snapshot and poedb's game data; there is no engine for crafting. Fossil supply is a market question, left to snapshots. Not checked in game.
