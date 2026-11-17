@@ -2,11 +2,12 @@
 game: poe1
 patch: 3.30.0
 league: Covens of Umbra
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
+  - https://www.pathofexile.com/forum/view-thread/4013680
   - https://www.pathofexile.com/forum/view-thread/3913392
-verification: unverified
+  - repo:DBAggie/exiled-studio/schemas/mcp-tools.v1.json
+verification: engine-checked
 ---
 
 # Gearing progression and upgrade order
@@ -57,14 +58,14 @@ Go back to step 1 every time a new item changes the resistance totals. Swapping 
 - **Jewels**: life percent plus damage, or resistances when gear is short.
 
 ## Links: 5L and 6L
-- A support in the main skill's link is often worth 20% to 40% more damage. Going from 5 to 6 links is one of the largest single damage steps.
+- A support in the main skill's link is often worth 20% to 40% more damage (a rule of thumb; the real value is the support's own numbers). Going from 5 to 6 links is one of the largest single damage steps.
 - Before buying a 6-link, check the 5-link has the right supports. A wrong support in a 6-link is a waste.
 - 3.28: a Greater support and its normal version do not work together; the Greater wins (3.28.0 notes).
 
 ## Jewels and cluster jewels
 - Regular jewels: cheap life and resistances, or damage, in tree sockets. Good value early.
 - Cluster jewels: large, medium, and small types in outer sockets; they add notables and small passives. Good when the right notables exist for the build, but expensive to roll and path to. Build guides usually name the notables.
-- 3.30: cluster jewel modifiers that grant attack or cast speed are now one mod family, so one item cannot roll several of them (3.30.0 notes).
+- 3.30: cluster jewel modifiers whose small passives also grant attack speed and/or cast speed are now one mod family, so one jewel cannot roll several of them (3.30.0 notes; before, only a Refracting Fog could do it).
 
 ## Upgrade decisions
 - Measure each upgrade, do not guess. Compare the item's effect on DPS and defences in Exiled Studio or PoB before buying.
@@ -73,7 +74,8 @@ Go back to step 1 every time a new item changes the resistance totals. Swapping 
 
 ## League and economy notes
 - Prices and availability come from `poe1-economy` with its `as_of` date and league. Never quote prices from memory.
-- 3.30: scarabs were removed and replaced with Threads (3.30.0 notes). Some older farming plans that paid for gear no longer apply.
+- 3.30: scarabs were removed and replaced with Threads, and ten league mechanics no longer spawn in maps on their own (3.30.0 notes). Older farming plans that paid for gear no longer apply as written.
+- 3.30: Orbs of Chance are much rarer and no longer sold by vendors, Orbs of Binding no longer drop, and rare and magic items can now drop with an Item Tier that raises their modifier tiers (3.30.0 notes). Old vendor and currency habits may not hold.
 
 ## Tools to call
 
@@ -90,7 +92,7 @@ When the Exiled Studio app MCP is reachable:
 Rules:
 - When the app is reachable, every number is checked with `get_breakdown` or `preview_item_edit` first.
 - When it is not, label each number an estimate and say how to check it.
-- A field in state `unsupported`, `indeterminate`, or not computed is never read as zero. If an upgrade's effect sits in such a field, say the app cannot show it yet.
+- A field in state `unsupported`, `indeterminate`, or `not-computed` is never read as zero. If an upgrade's effect sits in such a field, say the app cannot show it yet.
 
 ## Common mistakes
 - Buying damage while resistances are uncapped.
@@ -99,3 +101,7 @@ Rules:
 - Ignoring flasks, which are the cheapest defence upgrade.
 - Listing specific mod values or unique stats from memory instead of the knowledge MCP.
 - Recommending cluster jewels to a low-budget build that has no use for their notables.
+
+## Verification (2026-11-17)
+
+`engine-checked` here means: the folded-in game facts (the 3.28.0 Greater support rule and Intelligence ES; the 3.30.0 scarab removal and Threads, cluster jewel speed mods as one family, Orb of Chance and Item Tier changes) were checked against the official notes, and the tool names and the `expect` argument of `preview_item_edit` against Exiled Studio's `schemas/mcp-tools.v1.json`. The upgrade order itself is community advice, not a game rule.
