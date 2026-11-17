@@ -11,7 +11,7 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcOffence.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcDefence.lua
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/hit.rs
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Damage: how hit damage is built and combined (PoE1)
@@ -181,3 +181,5 @@ The engine facts below were read from Exiled Studio's source (`crates/loom-calc`
 ## Verification (2026-11-17)
 
 `engine-checked` here means: checked against the pinned Path of Building 2.67.2 (`CalcOffence.lua` for effectiveness, conversion order, the crit factor and the crit-times-hit-chance step; `CalcDefence.lua` for the hit chance formula, which PoB rounds to a whole percent) and against the official 3.25.0, 3.29.0 and 3.30.x patch notes. Nothing in 3.30.0 or its hotfixes changes these rules. Not checked in game.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

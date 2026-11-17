@@ -18,7 +18,7 @@ sources:
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/gems.rs
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/skill_modifiers.rs
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/exposure.rs
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Auras, heralds, blessings, curses, reservation
@@ -203,3 +203,5 @@ The engine facts below were read from Exiled Studio's source (`crates/loom-calc`
 ## Verification (2026-11-17)
 
 Checked against the official 3.25.0 to 3.30.x notes (3.30.x read in full), poewiki's curse, reservation and Divine Blessing pages, the pinned Path of Building 2.67.2 (curse effect and doom in `CalcPerform.lua`; boss settings in `ConfigOptions.lua`; reservation rounding in `CalcPerform.lua`, `doActorLifeManaReservation`), and Exiled Studio's engine source (`gems.rs`, `skill_modifiers.rs`, `exposure.rs`). `engine-checked` since the third pass the same day: the last open point, which way the reserved total rounds, is settled by PoB and the engine (up), which the maintainer accepts as evidence of the game's rule, and a player report agrees. Not tested in game.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

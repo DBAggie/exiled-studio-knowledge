@@ -15,7 +15,7 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcPerform.lua
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/minions.rs
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/hit.rs
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Minions
@@ -169,3 +169,5 @@ The engine facts below were read from Exiled Studio's source (`crates/loom-calc`
 Checked against the official 3.26.0 to 3.30.x notes (3.30.x read in full), poewiki's minion page, and the pinned Path of Building 2.67.2 (minion base resistances in `Data/Minions.lua`; the player-only campaign penalty in `CalcSetup.lua` and `CalcPerform.lua`). Still `unverified`: replacing the oldest minion when summoning past the cap is confirmed only for Summon Skeletons (poewiki, second pass the same day); the other minion skills wait for an in-game test.
 
 Fourth pass, 2026-11-17: the maintainer confirmed that summoning past the limit replaces the oldest minion, which closes the last open point. `engine-checked`: the numeric rules were checked against Path of Building 2.67.2 and the official notes. Exiled Studio's engine does not compute minions.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

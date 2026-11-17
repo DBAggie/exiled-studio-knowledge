@@ -6,7 +6,7 @@ sources:
   - https://www.pathofexile.com/forum/view-thread/4013680
   - https://www.pathofexile.com/forum/view-thread/3913392
   - repo:plugins/poe1-expert/skills/poe1-economy/snapshots/covens/2026-11-16.json
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Budget tiers
@@ -113,3 +113,5 @@ Rough order for most builds. Always check the specific build.
 ## Verification (2026-11-17)
 
 `engine-checked` here means: the items and rules 3.30 removed or changed were checked against the official 3.30.0 notes (item tiers, Orbs of Chance and Binding, vendor recipes, bench lock costs, scarabs, Atziri's fragments) and 3.28.0 notes (Awakened supports), and cross-checked with the first Covens economy snapshot (2026-11-16: no scarab overview, Threads in its place, only Awakened Empower/Enlighten/Enhance listed, the exalt well under a chaos). No prices are stated here. What each tier buys is a community rule of thumb.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

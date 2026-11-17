@@ -13,7 +13,7 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Classes/ItemsTab.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Classes/Item.lua
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/mod.rs
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Flasks and tinctures in PoE1
@@ -112,3 +112,5 @@ The engine facts below were read from Exiled Studio's source (`crates/loom-calc`
 ## Verification (2026-11-17)
 
 `engine-checked` here means: the recovery formula was checked against the pinned Path of Building 2.67.2 flask tooltip (`Classes/ItemsTab.lua`, `Classes/Item.lua`), and the tincture and Pathfinder points against the official 3.25.0 and 3.30.x notes; poewiki's flask and tincture pages agree. Flask fields are still not in the Exiled Studio engine. Not checked in game.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

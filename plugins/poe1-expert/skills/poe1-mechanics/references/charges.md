@@ -15,7 +15,7 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Data/Misc.lua
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/charges.rs
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/stacks.rs
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Charges in PoE1
@@ -123,3 +123,5 @@ The engine facts below were read from Exiled Studio's source (`crates/loom-calc`
 ## Verification (2026-11-17)
 
 `engine-checked` here means: the per-charge values, the default maximum of 3, the endurance charge's elemental damage reduction and the rage constants were checked against the game-data constants in the pinned Path of Building 2.67.2 (`Data/Misc.lua`) and the official 3.25.0 to 3.30.x notes; the charge list was checked against poewiki's charge pages. Not checked in game.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

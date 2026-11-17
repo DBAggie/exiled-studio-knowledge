@@ -10,7 +10,7 @@ sources:
   - https://www.poewiki.net/wiki/Energy_shield
   - repo:DBAggie/exiled-studio/schemas/mcp-tools.v1.json
   - repo:DBAggie/exiled-studio/schemas/calc-result.v1.schema.json
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Diagnosis checklist
@@ -125,3 +125,5 @@ Rules:
 ## Verification (2026-11-17)
 
 `engine-checked` here means: the game facts (campaign penalty, the 3.28.0 Greater support rule, the 3.30.0 Master Alchemist and map corruption changes) were checked against the official notes and Path of Building 2.67.2, and every tool name, field name and field state against Exiled Studio's `schemas/mcp-tools.v1.json` and `schemas/calc-result.v1.schema.json` (dev branch, 2026-11-17). The check order and the cost tiers are advice, not game rules.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

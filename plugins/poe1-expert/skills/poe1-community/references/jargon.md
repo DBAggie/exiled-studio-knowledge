@@ -9,7 +9,7 @@ sources:
   - https://www.pathofexile.com/forum/view-thread/3869068
   - https://www.poewiki.net/wiki/Energy_shield
   - repo:plugins/poe1-expert/skills/poe1-economy/snapshots/covens/2026-11-16.json
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # PoE1 jargon and abbreviations
@@ -122,3 +122,5 @@ rules. Do not apply the PoE1 meaning there.
 ## Verification (2026-11-17)
 
 `engine-checked` here means: every term that names removed or renamed content was checked against the official 3.27.0 to 3.30.0 notes (scarabs, Threads, Atlas Drops, item tiers, Orbs of Binding and Chance, Awakened gems, Nightmare Maps, Thorns, Foulborn, Atziri's fragments, Delirium orbs), and the exalt's standing against the first Covens economy snapshot. The claim that 3.28 made exalts more common was not in the notes and was removed. Definitions of slang are ours.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

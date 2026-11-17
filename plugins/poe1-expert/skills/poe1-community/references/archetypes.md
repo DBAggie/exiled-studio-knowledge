@@ -7,7 +7,7 @@ sources:
   - https://www.pathofexile.com/forum/view-thread/4013680
   - https://www.pathofexile.com/forum/view-thread/3913392
   - https://www.pathofexile.com/forum/view-thread/3869068
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Build archetypes and league starters
@@ -131,3 +131,5 @@ and almost no currency. The tests:
 ## Verification (2026-11-17)
 
 `engine-checked` here means: the two 3.29 claims that came from third-party summaries (self-cast changes, totem and mine support nerfs) are now confirmed from the official 3.29.0 notes; the minion and energy shield lines agree with the mechanics references; "meta gem" (a PoE2 term) was removed from the triggers section. The archetype descriptions and the league-starter tests are community advice, not game rules.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

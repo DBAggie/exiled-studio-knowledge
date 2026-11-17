@@ -8,7 +8,7 @@ sources:
   - https://www.pathofexile.com/forum/view-thread/4013680
   - https://www.poewiki.net/wiki/Energy_shield
   - repo:DBAggie/exiled-studio/schemas/mcp-tools.v1.json
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Common trade-offs
@@ -105,3 +105,5 @@ Rules:
 ## Verification (2026-11-17)
 
 `engine-checked` here means: the game facts (the 3.28.0 Intelligence ES and Greater support rules, chaos damage and energy shield, tinctures using flask slots) were checked against the official notes and poewiki, and the tool names against Exiled Studio's `schemas/mcp-tools.v1.json`. The crit chance line (about 40% to 50%) is a rule of thumb and is marked so; it waits for the maintainer. The rest is advice, not game rules.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

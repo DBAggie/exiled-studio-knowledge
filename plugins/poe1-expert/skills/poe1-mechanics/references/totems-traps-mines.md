@@ -15,7 +15,7 @@ sources:
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcSetup.lua
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/hit.rs
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/skill.rs
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Totems, traps, mines, brands
@@ -167,3 +167,5 @@ The engine facts below were read from Exiled Studio's source (`crates/loom-calc`
 Checked against the official 3.27.0 to 3.30.x notes (3.30.x read in full), poewiki's trap and mine pages, and the pinned Path of Building 2.67.2 (base totem, trap and mine limits in `Data/Misc.lua`, applied in `CalcSetup.lua`). Still `unverified`: the trap arm time is not confirmed by any source.
 
 Fourth pass, 2026-11-17, at the maintainer's direction: the arm time is recorded as near-instant with no published number (poewiki, a 2012 developer post, and a 2022 forum answer; a Reddit thread the maintainer pointed to could not be opened from this session), which closes the last open point. `engine-checked`: the limits were checked against Path of Building 2.67.2's game data and the official notes. Exiled Studio's engine does not compute traps, mines or totems. Not tested in game.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

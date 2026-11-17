@@ -14,7 +14,7 @@ sources:
   - https://poedb.tw/us/Horticrafting
   - https://poedb.tw/us/Resonator
   - https://www.craftofexile.com/
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Crafting methods
@@ -189,3 +189,5 @@ the Orb of Conflict.
 Checked against the official 3.26.0 to 3.30.x notes and the first Covens economy snapshot (2026-11-16), which shows which crafting currencies are traded in the league. Confirmed: eldritch currency and implicits, Foulborn orbs, influence and awakener currency, the old locks next to the new ones, the Harvest rework. No bench costs are stated (the notes give exact figures; look them up).
 
 Second pass the same day, at the maintainer's direction, with poedb's game data opened in the maintainer's browser: resonators (the Resonator page), multimod (the Crafting Bench page) and the type-guaranteed Harvest reforges (the Horticrafting page) are confirmed. poedb's data is current for 3.30: its bench list has the 3.30 white-sockets option and the new one- and two-mod locks. Craft of Exile (its data is for 3.29; the maintainer judged general crafting little changed since) agrees: its method list still has currency, fossil, harvest, essence, catalyst, beastcrafting, eldritch and bench crafting, and its metamods are multimod, the two full locks and the two "cannot roll" crafts. It does not yet have the 3.30 one- and two-mod locks; for anything 3.30 added, the official notes and poedb win. `engine-checked` here means checked against the official notes, the economy snapshot and poedb's game data; there is no engine for crafting. Fossil supply is a market question, left to snapshots. Not checked in game.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.

@@ -9,7 +9,7 @@ sources:
   - https://www.pathofexile.com/forum/view-thread/3985332
   - https://www.pathofexile.com/forum/view-thread/3913392
   - https://www.pathofexile.com/forum/view-thread/3787013
-verification: engine-checked
+verification: maintainer-approved
 ---
 
 # Atlas progression and farming
@@ -146,3 +146,5 @@ notes.
 ## Verification (2026-11-17)
 
 `engine-checked` here means: every folded-in 3.30 atlas change was checked against the official 3.30.0 notes and hotfixes (tree from the centre, 150 points, Atlas Drops, Threads, item tiers and rarity, the ten mechanics no longer spawning on their own, Shaped Regions, Phantom Anomalies, fragments), and the 3.26 to 3.29 lines against their official notes. "Grim Fates" was not in the notes and was removed. Which targets pay is snapshot content.
+
+Approved by the maintainer on 2026-11-17 (given in chat, recorded by the session). The checks named above are what was done before approval; nothing here was checked in game unless a line says so.
