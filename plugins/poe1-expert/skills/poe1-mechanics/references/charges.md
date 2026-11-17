@@ -1,15 +1,19 @@
 ---
 game: poe1
 patch: 3.30.0
-as_of: 2026-11-15
+as_of: 2026-11-17
 sources:
   - https://maxroll.gg/poe/resources/charges
   - https://www.pathofexile.com/forum/view-thread/3924293
-  - https://patchbot.io/games/path-of-exile/articles/2188-content-update-3300-path-of-exile-covens-of-umbra
-  - https://poedb.tw/us/Version_3.29.0
-  - https://poedb.tw/us/Version_3.28.0
-  - https://poedb.tw/us/Version_3.26.0
-verification: unverified
+  - https://www.pathofexile.com/forum/view-thread/3531661
+  - https://www.pathofexile.com/forum/view-thread/3787013
+  - https://www.pathofexile.com/forum/view-thread/3913392
+  - https://www.pathofexile.com/forum/view-thread/3985332
+  - https://www.pathofexile.com/forum/view-thread/4013680
+  - https://www.poewiki.net/wiki/Charge
+  - https://www.poewiki.net/wiki/Challenger_Charge
+  - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Data/Misc.lua
+verification: engine-checked
 ---
 
 # Charges in PoE1
@@ -24,11 +28,11 @@ Each charge gives its effect once per charge held. The per-charge values below a
 |---|---|
 | Power | 50% increased critical strike chance |
 | Frenzy | 4% increased attack speed, 4% increased cast speed, 4% **more** damage |
-| Endurance | 4% additional physical damage reduction, plus an elemental defence (see below) |
+| Endurance | 4% additional physical damage reduction and 4% additional elemental damage reduction |
 
 - The frenzy damage bonus is a "more" multiplier, so it multiplies with everything else; the speed bonuses are "increased" and add to other increased speed.
 - The power charge bonus is "increased" crit chance, so it adds to other increased crit chance before multiplying the base.
-- **Endurance elemental part.** Older patches gave +4% to all elemental resistances per endurance charge. Path of Building's current model (v2.67.2) treats it as elemental damage reduction per charge. Which form 3.30 uses is not confirmed; check before quoting.
+- **Endurance elemental part.** Since **3.25.0**, each endurance charge on players and minions gives 4% additional **elemental damage reduction**, not +4% to all elemental resistances (official 3.25.0 notes, Player Balance). Guides from before 3.25 still say +4% resistances; they are out of date. No later note changes it, and PoB 2.67.2's game data and poewiki agree. Monsters still get resistances from endurance charges (see below). `defences.md` says the same.
 
 ### Maximum, minimum, and duration
 
@@ -57,7 +61,7 @@ effect = per-charge value x count
 - Some skills consume charges for a bonus (Discharge, Holy Hammers of Spirals in 3.29, Tectonic Slam). A consumed charge is gone until you gain it again.
 - "Per charge" modifiers on items and passives ("X% increased cast speed per power charge") scale with the current count, not the maximum.
 - "While at maximum [type] charges" conditions check that the count equals the current maximum.
-- 3.28's Transfusion Support gives a minion charges from life spent on upfront costs.
+- 3.30.0 changed Transfusion Support: a minion near you gains a power, frenzy or endurance charge for every 400 life you spend on upfront costs with supported spells (it used to give a soul per 200 life), and it no longer supports instant spells.
 
 ## Other charge types
 
@@ -65,18 +69,19 @@ These start with a maximum of 0 and do nothing unless a source grants them. Each
 
 | Type | Granted by (example) | Status for 3.30 |
 |---|---|---|
-| Absorption | Graven's Secret (replaces power charges) | not confirmed for 3.30 |
-| Affliction | Olesya's Delight (replaces frenzy charges) | not confirmed for 3.30 |
-| Brutal | Arn's Anguish (replaces endurance charges) | not confirmed for 3.30 |
-| Challenger | a Gladiator notable | not confirmed for 3.30 |
-| Blitz | the Berserker's Blitz notable | its passive was replaced in 3.26; probably no player source |
+| Absorption | Graven's Secret, a Maven belt (replaces power charges) | current |
+| Affliction | Olesya's Delight, a Maven belt (replaces frenzy charges) | current |
+| Brutal | Arn's Anguish, a Maven belt (replaces endurance charges) | current |
+| Brine | Tidebreaker (3.29.0: a chance to gain brine instead of endurance charges) | current |
+| Challenger | was the Gladiator's Arena Challenger | gone: the notable was reworked in 3.25 and the charges can no longer be gained |
+| Blitz | was the Berserker's Blitz notable | gone: 3.26.0 replaced Blitz with Gore Dancer; no player source left |
 | Fanatic | Instruments of Zeal (Inquisitor) | still exists; 3.29 lowered its maximum |
 | Siphoning | Disintegrator | still exists; 3.29 raised its per-charge reduction |
-| Spirit | Lightpoacher, Hale Negator | not confirmed for 3.30 |
-| Divinity | Garb of the Ephemeral | not confirmed for 3.30 |
-| Void | Voidfletcher | not confirmed for 3.30 |
+| Spirit | Lightpoacher, Hale Negator | current |
+| Divine | Garb of the Ephemeral (reaching the maximum gives Divinity) | current |
+| Void | Voidfletcher (3.29.0 moved it to another quiver base) | current |
 | Blood | Reap of Butchery (new in 3.29) | new, see the gem |
-| Inspiration | Inspiration Support | not confirmed for 3.30 |
+| Inspiration | Inspiration Support | current |
 
 - **Replacement charges.** Absorption, affliction, and brutal charges are gained instead of a core type. The source converts the gain, so "gain a power charge" gives an absorption charge, and per-power-charge modifiers no longer see a charge.
 - **Inspiration** comes from a support gem and is not a core charge; it builds from skill use and is spent automatically. Check the gem for its current rules.
@@ -84,12 +89,13 @@ These start with a maximum of 0 and do nothing unless a source grants them. Each
 ## Rage
 
 - Rage is a separate charge-like resource, not a charge. It builds from attacks or hits, is capped by a maximum, and decays when you stop gaining it.
-- Its bonuses, maximum, and decay depend on the patch and the source; look them up. 3.26 added rage regenerated from life regeneration (Kaom's Spirit), and 3.29 moved some rage costs to "rage cost efficiency" (Hateforge).
+- Since the **3.25.0** rework: each rage gives 1% **more** attack damage (scaled by "rage effect"), and rage no longer gives attack or movement speed by itself. The base maximum is 30. If you have not been hit or gained rage for 2 seconds, you lose 10 rage per second. Rage on hit has a shared limit of once per 0.5 seconds. (Official 3.25.0 notes; PoB 2.67.2's game data has the same 30 maximum and 2-second delay.)
+- Sources and extra effects change often; look them up. 3.26 added rage regenerated from life regeneration (Kaom's Spirit), and 3.29 moved some rage costs to "rage cost efficiency" (Hateforge).
 - Rage carries through combat-area transitions since 3.28.0e.
 
 ## Monsters and minions
 
-- Monsters with charges get much larger per-charge effects than players. Do not apply player values to monsters.
+- Monsters with charges get much larger per-charge effects than players (for example, endurance charges give monsters elemental resistances and more physical damage reduction). Do not apply player values to monsters.
 - Minions can have charges of their own but do not share the player's.
 
 ## Common mistakes
@@ -108,3 +114,7 @@ These start with a maximum of 0 and do nothing unless a source grants them. Each
 - Crit chance and speed fields show the power and frenzy contributions as named effects.
 - Endurance charge effects reach damage taken, which is not a slice field yet; say so when asked for a number.
 - Absorption, affliction, and brutal conversions and "at maximum" flags are unmapped stats in the engine and show as reasons.
+
+## Verification (2026-11-17)
+
+`engine-checked` here means: the per-charge values, the default maximum of 3, the endurance charge's elemental damage reduction and the rage constants were checked against the game-data constants in the pinned Path of Building 2.67.2 (`Data/Misc.lua`) and the official 3.25.0 to 3.30.x notes; the charge list was checked against poewiki's charge pages. Not checked in game.
