@@ -4,7 +4,7 @@ Left by the autonomous session that verified and merged PRs #2 to #25. Everythin
 
 ## What was done
 - **Batch 1, mechanics (#4 to #6, #12 to #20):** verified and merged. all 12 files `engine-checked` after later passes (section A).
-- **Batch 2, build advisor (#7 to #11):** verified and merged. 4 files `engine-checked`; `defensive-thresholds.md` stays `unverified` (section B).
+- **Batch 2, build advisor (#7 to #11):** verified and merged. all 5 files `engine-checked` after later passes (section B).
 - **Batch 3, community (#21 to #25, #28):** verified and merged. All 5 files `engine-checked` (section C).
 - **Economy (#2):** merged with the meta summary (section D).
 - **Eval questions (#3):** merged as drafts, keys empty (section E).
@@ -33,7 +33,7 @@ poedb was also searched for the five section A points (trap arm time, leech afte
 ## D. Approvals
 - **Meta summary** in `snapshots/covens/2026-11-16.md` (read from the poe.ninja builds page on 2026-11-17, league day 4): approve or correct it (Q11). The snapshot stays `unverified` until then.
 - **Promote to `maintainer-approved`**: only the maintainer does this. 22 references are `engine-checked` and ready for your skim: `damage`, `conversion`, `crit`, `charges`, `flasks`, `triggers`, `defences`, `auras-curses`, `recovery`, `minions`, `totems-traps-mines`, `ailments`; `diagnosis`, `defensive-thresholds`, `gearing`, `reading-breakdowns`, `trade-offs`; `jargon`, `archetypes`, `budget-tiers`, `crafting`, `atlas`.
-- No reference is `unverified` any more; only the economy snapshot is, until the meta summary is approved. Each says in its Verification section what is open. Say if you would rather these had waited.
+- No reference is `unverified` any more; only the economy snapshot is, until the meta summary is approved.
 
 ## E. Evals
 - **Answer keys**: all 58 cases have `key: null`. The maintainer writes or approves them (plan D8).
