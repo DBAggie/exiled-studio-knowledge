@@ -8,12 +8,13 @@ sources:
   - https://www.pathofexile.com/forum/view-thread/3913392
   - https://www.pathofexile.com/forum/view-thread/3869068
   - https://www.poewiki.net/wiki/Ailment
+  - https://www.poewiki.net/wiki/Chaos_Inoculation
   - https://www.poewiki.net/wiki/Critical_strike
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/Data.lua
   - https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/v2.67.2/src/Modules/CalcOffence.lua
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/damage_taken.rs
   - repo:DBAggie/exiled-studio/crates/loom-calc/src/poe1/exposure.rs
-verification: unverified
+verification: engine-checked
 ---
 
 # Ailments (PoE1 3.30)
@@ -104,7 +105,7 @@ Non-damaging ailments scale with how big the hit is compared to the target's **a
 
 - For most monsters the threshold equals their maximum life.
 - Many bosses have a threshold lower than their life, so ailments land better on them than their life suggests. Some also have reduced ailment effect on them. Look this up per boss.
-- For players, the threshold is maximum life unless a modifier says otherwise. Whether energy shield counts is **not confirmed**: the notes, poewiki's ailment page and PoB (which does not model ailments on the player) do not say.
+- For players, the threshold is based on **maximum life only. Energy shield does not count** (confirmed by the maintainer, 2026-11-17; poewiki's Chaos Inoculation page). For a Chaos Inoculation character it is the life the character would have **without** the keystone, not 1, so life modifiers still protect a CI character against stuns and elemental ailments even though its life pool is 1. (PoE2 differs: there the threshold starts from half of maximum life and some passives add energy shield to it. Do not apply that here.)
 
 In the formulas, `D` is the hit's damage of the ailment's type and `T` is the target's threshold. Unlike damaging ailments, PoB 2.67.2 takes `D` **after** the enemy's mitigation (resistance, penetration and damage taken), from the same effective hit it shows as damage. poewiki only says "the hit's damage". Not checked in game.
 
@@ -172,3 +173,5 @@ The engine facts below were read from Exiled Studio's source (`crates/loom-calc`
 ## Verification (2026-11-17)
 
 Checked against the official 3.27.0 to 3.30.x notes (3.30.x read in full), poewiki's ailment and critical strike pages, and the pinned Path of Building 2.67.2 (see the constants note above). Bleed multipliers for moving and aggravated bleeding are left to the tools on purpose. Still `unverified`: whether a player's ailment threshold includes energy shield is not confirmed by any source.
+
+Later pass, 2026-11-17: the last open point is closed. The maintainer confirmed that energy shield does not count toward a PoE1 player's ailment threshold, and poewiki's Chaos Inoculation page says the threshold is based on maximum life, taken before Chaos Inoculation applies. `engine-checked`: the constants and formulas were checked against Path of Building 2.67.2 and the official notes; Exiled Studio's engine computes no ailment fields. Not tested in game.
