@@ -1,6 +1,6 @@
 # Follow-ups for the maintainer (2026-11-17)
 
-Left by the autonomous session that verified and merged PRs #2 to #25. Everything here needs the maintainer: a check in game, a number only the maintainer gives, or a decision. Go through them top to bottom; each stands alone. `main` is at `3.30.0-kb.24`.
+Left by the autonomous session that verified and merged PRs #2 to #25. Everything here needs the maintainer: a check in game, a number only the maintainer gives, or a decision. Go through them top to bottom; each stands alone. `main` is at `3.30.0-kb.25`.
 
 ## What was done
 - **Batch 1, mechanics (#4 to #6, #12 to #20):** verified and merged. 7 files `engine-checked`, 5 `unverified` (one open point each, section A).
@@ -33,7 +33,7 @@ Also not checked in game, but stated with their source in the files:
 - **`budget-tiers.md`**: what each tier ("a few divines", "tens", "hundreds") buys.
 
 ## C. Crafting points (closed 2026-11-17, PR #28)
-Resonators, multimod and the type-guaranteed Harvest reforges were confirmed from poedb's current game data (the maintainer pointed to it), and `crafting.md` is now `engine-checked`. Fossil supply is a market question and is left to economy snapshots. Craft of Exile's main site still showed 3.29 as its current patch, so it was not used.
+Resonators, multimod and the type-guaranteed Harvest reforges were confirmed from poedb's current game data (the maintainer pointed to it), and `crafting.md` is now `engine-checked`. Fossil supply is a market question and is left to economy snapshots. Craft of Exile (3.29 data, accepted by the maintainer for general crafting) agrees and was added as a second source in PR #29.
 
 poedb was also searched for the five section A points (trap arm time, leech after death, minion replacement, reservation rounding, player ailment threshold). It does not state any of them; they still need the in-game tests.
 
