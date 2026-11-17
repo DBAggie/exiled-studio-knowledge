@@ -4,20 +4,6 @@ Decisions the autonomous sessions could not make. **Review one item at a time**,
 
 ## Open
 
-### Q4. Knowledge MCP missing at install
-- **Question:** Keep `.mcp.json` in `poe1-expert` now, while `exiled-studio-knowledge-mcp` does not exist yet?
-- **Why:** Until a release carries the binary (merged into `dev` with DBAggie/Exiled-Studio PR #123, not yet released), every session with the plugin shows one failed MCP server unless `EXILED_STUDIO_KNOWLEDGE_MCP` points at a dev build. The `.mcp.json` arguments match the binary's flags.
-- **Default taken:** kept (the plan's layout), with `EXILED_STUDIO_KNOWLEDGE_MCP` to point at a dev build; the skills say what to do without it.
-- **Choices:** keep / remove until step 6 lands.
-- **Answer:**
-
-### Q5. How CI runs evals
-- **Question:** How should CI call Claude for the fast eval subset (plan D8), and with whose key?
-- **Why:** The runner needs a model call per case, twice (with and without the plugin). That needs an Anthropic API key as a GitHub secret, which costs money per PR.
-- **Default taken:** CI only checks case format; the runner is not built.
-- **Choices:** API key secret, fast subset on PRs, full suite manually / run evals only on the workstation / decide later.
-- **Answer:**
-
 ### Q6. poe.ninja User-Agent contact
 - **Question:** What contact should the refresh job's User-Agent carry?
 - **Why:** poe.ninja asks for a User-Agent that names the app and a contact. Sessions do not put your name, email, or project in requests to outside services without your OK.
@@ -84,3 +70,16 @@ Decisions the autonomous sessions could not make. **Review one item at a time**,
 - **Choices:** 3.30.0 / 3.29.x (then a new data run for 3.30 is needed) / unknown.
 - **Answer (maintainer, 2026-11-16):** 3.30.0. Steam build 26530219 is patch 3.30.0 (Covens of Umbra); the references' `patch: 3.30.0` stands, and ADR-018's patch table gets this row.
 
+### Q4. Knowledge MCP missing at install
+- **Question:** Keep `.mcp.json` in `poe1-expert` now, while `exiled-studio-knowledge-mcp` does not exist yet?
+- **Why:** Until a release carries the binary (merged into `dev` with DBAggie/Exiled-Studio PR #123, not yet released), every session with the plugin shows one failed MCP server unless `EXILED_STUDIO_KNOWLEDGE_MCP` points at a dev build. The `.mcp.json` arguments match the binary's flags.
+- **Default taken:** kept (the plan's layout), with `EXILED_STUDIO_KNOWLEDGE_MCP` to point at a dev build; the skills say what to do without it.
+- **Choices:** keep / remove until step 6 lands.
+- **Answer (maintainer, 2026-11-17):** keep, as the session recommended. The failed server notice lasts only until the next release, which carries the binary (PR #123's squash `2f7ea82` is in neither `v0.9.0` nor `v0.9.0-1`); meanwhile `EXILED_STUDIO_KNOWLEDGE_MCP` points at a dev build. Removing the file now would only mean re-adding it later.
+
+### Q5. How CI runs evals
+- **Question:** How should CI call Claude for the fast eval subset (plan D8), and with whose key?
+- **Why:** The runner needs a model call per case, twice (with and without the plugin). That needs an Anthropic API key as a GitHub secret, which costs money per PR.
+- **Default taken:** CI only checks case format; the runner is not built.
+- **Choices:** API key secret, fast subset on PRs, full suite manually / run evals only on the workstation / decide later.
+- **Answer (maintainer, 2026-11-17):** run evals on the workstation only, as the session recommended. CI keeps the case-format check (`evals/check_cases.py`); no API key secret and no per-PR cost. The runner, when built, is a local script run by hand (with and without the plugin). Revisit CI evals if the repo goes public or at the v1 gate.
