@@ -5,6 +5,7 @@ as_of: 2026-11-17
 sources:
   - https://www.pathofexile.com/forum/view-thread/4013680
   - https://www.pathofexile.com/forum/view-thread/3985332
+  - https://www.pathofexile.com/forum/view-thread/30766
   - https://www.pathofexile.com/forum/view-thread/3913392
   - https://www.pathofexile.com/forum/view-thread/3869068
   - https://www.poewiki.net/wiki/Trap
@@ -84,9 +85,11 @@ PoE2 has totems and traps with different rules; do not apply this there.
   traps** (game-data constant in PoB 2.67.2; poewiki agrees); lines raise it.
   Throwing past the limit destroys the oldest trap.
 - A landed trap arms itself quickly, then triggers on an enemy in its trigger
-  radius or when its duration runs out. The exact arm time is **not
-  confirmed**: poewiki gives no number, the notes do not state one, and PoB
-  does not model it.
+  radius or when its duration runs out. Arming is the short animation the
+  trap plays when it lands (Mark_GGG, official forum, 2012); enemies can see
+  the trap until it is armed. The exact arm time is **not confirmed**: that
+  post, poewiki, poedb and the notes give no number, and PoB does not model
+  it.
 - Traps cannot be damaged while flying, arming or triggering, or for 2
   seconds after being thrown.
 - Supports like Multiple Traps and Cluster Traps throw more traps per use.

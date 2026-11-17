@@ -5,6 +5,7 @@ as_of: 2026-11-17
 sources:
   - https://www.pathofexile.com/forum/view-thread/4013680
   - https://www.pathofexile.com/forum/view-thread/3985332
+  - https://www.poewiki.net/wiki/Summon_Skeletons
   - https://www.pathofexile.com/forum/view-thread/3913392
   - https://www.pathofexile.com/forum/view-thread/3869068
   - https://www.pathofexile.com/forum/view-thread/3787013
@@ -122,8 +123,11 @@ minion hit = minion skill base damage
   have their own cap.
 - When you summon past the cap, the oldest minion of that type is usually
   replaced. **Not confirmed** for every minion skill: the patch notes and
-  poewiki's minion page do not state it, and PoB does not model it. (poewiki
-  does state the oldest-first rule for traps, mines and totems, not minions.)
+  poewiki's minion page do not state it, and PoB does not model it. poewiki
+  does state it for Summon Skeletons (older skeletons are replaced by newer
+  ones) and for traps, mines and totems; its pages for zombies, spectres,
+  raging spirits, animated weapons, golems and holy relics say nothing either
+  way.
 - Some minions have a duration (skeletons, clones, temporary minions) and die
   when it ends. Permanent minions persist between areas unless they die.
 - 3.27: a Spectre that dies turns into an untargetable orb that cannot act, and
@@ -164,4 +168,4 @@ minion hit = minion skill base damage
 
 ## Verification (2026-11-17)
 
-Checked against the official 3.26.0 to 3.30.x notes (3.30.x read in full), poewiki's minion page, and the pinned Path of Building 2.67.2 (minion base resistances in `Data/Minions.lua`; the player-only campaign penalty in `CalcSetup.lua` and `CalcPerform.lua`). Still `unverified`: replacing the oldest minion when summoning past the cap is not confirmed for every minion skill.
+Checked against the official 3.26.0 to 3.30.x notes (3.30.x read in full), poewiki's minion page, and the pinned Path of Building 2.67.2 (minion base resistances in `Data/Minions.lua`; the player-only campaign penalty in `CalcSetup.lua` and `CalcPerform.lua`). Still `unverified`: replacing the oldest minion when summoning past the cap is confirmed only for Summon Skeletons (poewiki, second pass the same day); the other minion skills wait for an in-game test.
